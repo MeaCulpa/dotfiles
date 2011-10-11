@@ -1,0 +1,84 @@
+###############################################################################
+# Aliases for AIX
+# -jyxu- xujinyu@cn.ibm.com
+
+# Command shortcuts
+
+# GNU utils 
+if [[ -a /opt/freeware/bin/ls ]]; then alias ls="/opt/freeware/bin/ls"; fi
+if [[ -a /opt/freeware/bin/grep ]]; then alias grep="/opt/freeware/bin/grep"; fi
+
+# Shortcuts
+alias l="ls -o"
+alias la="ls -al"
+alias ll="ls -l"
+alias ldir="/bin/ls -Al | grep ^d"
+alias dir="/bin/ls -Al | grep ^d"
+alias l="/bin/ls -al"
+alias la="/bin/ls -al"
+alias lr="/bin/ls -ltr"
+alias lt="/bin/ls -lt"
+alias lss="find . -type f -ls | sort -n +6 -r | head -n20"
+alias lsss="find . -type f -ls | sort -n +6 -r | head"
+alias md="mkdir -p"
+alias tf="/usr/bin/tail -f"
+
+# AIX Admin
+alias pci="lsdev -Cspci"
+alias scsi="lsdev -Csscsi"
+alias tok="lsdev -C | grep oke"
+alias eth="lsdev -C | grep Ether"
+alias atm="lsdev -C | grep atm"
+alias isa="lsdev -Csisa"
+alias ssa="lsdev -Ctssa*"
+alias def="lsdev -C | grep Defined"
+alias hdisk="lsdev -C | grep hdisk"
+alias pdisk="lsdev -C | grep pdisk"
+alias lsdisk="lsdev -Cc disk"
+alias rmt="lsdev -C | grep rmt"
+alias fddi="lsdev -C | grep fddi"
+alias era="errpt -a | less"
+alias png="echo;echo 'Pinging twice then stopping...'; ping -c 2 "
+alias mrun="chmod 755 "
+alias net="netstat -in"
+alias io="iostat 5"
+alias pscpu="ps aux | head -1; ps aux | sort -rn +2 | head -10"
+alias psstorage="ps aux | head -1; ps aux | sort -rn +3 | head -10"
+alias pspenalty="ps -eakl | head -1; ps -eakl | sort -rn +5"
+alias pspriority="ps -eakl | sort -n +6 | head -10"
+alias pselaps="ps vx |head -1 ;ps vx | grep -v PID | sort -rn +3 | head -10"
+alias psmem="ps vx | head -1 ;ps vx | grep -v PID | sort -rn +6 | head -10"
+alias pspagein="ps vx | head -1; ps vx | grep -v PID | sort -rn +4 | head -10"
+alias psactive="ps alxw | sort +5 -n | head -10"
+alias pscputimeelapse="ps -e | head -n 1; ps -e | egrep -v 'TIME|0:00' | sort +2b -3 -n -r | head -n 10"
+alias pscputimecurrent="ps -ef | head -n 1; ps -ef | egrep -v 'C|0:00' | sort +3b -4 -n -r | head -n 10"
+alias pscpuapp="ps gu | head -n 1; ps gu | egrep -v 'CPU|kproc' | sort +2b -3 -n -r | head -n 10"
+alias anycore="find / -name core -print"
+
+# AIX Packages
+alias lslpp="ls -aF /usr/lpp"
+alias mdt="cd /usr/lpp/htx/mdt"
+alias mdte="vi /usr/lpp/htx/mdt/md.bu"
+alias reg="cd /usr/lpp/htx/rules/reg"
+alias bin="cd /usr/lpp/htx/bin"
+alias htxx="cd /usr/lpp/htx"
+alias htxe="cd /usr/lpp/htx/etc/scripts"
+
+# Terminal
+alias tl="export TERM=vt320"
+alias t100="export TERM=vt100"
+alias trs="export TERM=rxvt"
+alias cls="tput clear"
+
+# Utils
+alias colonfy="sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit' <<< "
+alias decolonfy="sed 's/://g' <<< "
+
+# Misc
+alias dlsite="wget --random-wait -r -p -e robots=off -U mozilla"
+
+# Access VIOS Commands
+# if [[ -a /usr/ios/cli/.profile ]]; then source /usr/ios/cli/.profile; export CLI_DEBUG=33; fi
+# Usage: viocli [VIOS Commands]
+if [[ -a /usr/ios/cli/.profile ]]; then alias viocli="/usr/ios/cli/ioscli"; export CLI_DEBUG=33; fi
+

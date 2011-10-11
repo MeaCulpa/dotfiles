@@ -1,0 +1,9 @@
+#
+# alias settings for imap mutt
+#
+
+set alias_file=~/.mutt-alias
+source ~/.mutt-alias
+set query_command= "abook --mutt-query '%s'" 
+macro index,pager A "<pipe-message>abook --add-email-quiet<return>" "add the sender address to abook"
+

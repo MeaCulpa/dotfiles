@@ -1,0 +1,153 @@
+###############################################################################
+# .func, MeaCulpa
+#
+
+#------------------------------------------------------------------------------
+# Find the file to edit if in $PATH or in the current dir
+vip () {
+  ITEM=$1
+  [ -z "$ITEM" -o -d "$ITEM" ] && {
+    echo "usage: vip <filename>"
+    return
+  }
+
+  FOUND=$(which $ITEM 2>/dev/null)
+  [ "$FOUND" ] && /usr/bin/vi $FOUND || echo "Unable to locate \"$ITEM\""
+  unset $FOUND
+}
+
+#------------------------------------------------------------------------------
+# Find file
+fit () { find /src /opt /usr /home -name ${1:?"Filename required!"} -ls; }
+
+#------------------------------------------------------------------------------
+# psf: Displays matches found in ps -ef
+#      Excludes self called processes (pid)
+#      Calling with no option runs ps -ef
+psf () {
+  # If no command line items given:
+    [ "$1" ] || /bin/ps -ef | /bin/grep -v $$
+
+  # If one or more command line items:
+    for CLI do
+       /bin/ps -ef | /bin/grep $CLI | /bin/grep -v $$
+       shift 1
+    done
+}
+
+#------------------------------------------------------------------------------
+# calc: awk calculator
+calc()  { awk "BEGIN{ print $* }" ; }
+
+#------------------------------------------------------------------------------
+# dlosspkg: Download oss pkg from AIX Linux Toolbox
+dlosspkg () {wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i}
+
+#------------------------------------------------------------------------------
+# findbigger: find FILES BIgger than certain blocks on . 
+findbigger () {find . -xdev -size +"$1" -ls | sort -r -n -k7}
+
+#------------------------------------------------------------------------------
+# dnswp: Search wikipedia through DNS
+dnswp () {dig +short txt "$1".wp.dg.cx}
+
+#------------------------------------------------------------------------------
+# histstat: Command history Stat
+histstat () {history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head}
+
+#------------------------------------------------------------------------------
+# gtranslate: Google Translate, example:
+# gtranslate hello en es
+#
+# language codes: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
+gtranslate(){ curl -s "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1\n/'; }
+
+#------------------------------------------------------------------------------
+# chkgmail: Google Mail Atom parser
+# Usage: chkgmail USER PASS
+# 
+chkgmail() { curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" | awk 'NF>1' |awk -F '</?title>|</?summary>|</?name>' '/title/ {print "\n["substr($2,1,80)"]"};/summary/{print "\033[32m"$2"\033[39m";};/name/{print "\t--"$2}';}
+
+#------------------------------------------------------------------------------
+# immcurl: post to imm.io
+# Usage: immcurl imagefile.name
+# 
+immcurl() { curl -s --form image=@$1 --form submit=OK http://imm.io/store/ | awk -F '\"[:,]\"' '{print $4}'; }
+
+#------------------------------------------------------------------------------
+# mlnetcli: run a mlnet cmd
+# Usage: mlnetcli COMMAND
+# 
+mlnetcli() { echo -e 'auth admin XXXXXXXXX\n$1\nq' | nc localhost 4000; }
+
+#------------------------------------------------------------------------------
+# du dir size stat
+# alt: find -maxdepth 1 -type d -exec du -sh {} \;
+# 
+sdu() { du -ch --max-depth=1 "${@-.}"|sort -h; }
+
+#------------------------------------------------------------------------------
+# dvd chapter play
+mdvd() { mplayer -dvd-device /dev/sr0  dvd://$1-$2; }
+
+#------------------------------------------------------------------------------
+# installed gentoo pkg percentage
+ipkg() { echo $((`eix --only-names -I | wc -l` * 100 / `eix --only-names | wc -l`))%; }
+
+#------------------------------------------------------------------------------
+# installed gentoo pkg percentage
+kacha_upaste() { scrot /tmp/scrop_tmp.png -bcsd 3 -e "echo | upaste -image \$f | xsel -bi; rm \$f"; }
+
+#------------------------------------------------------------------------------
+# BBC Radio
+bbcradio() { local s;echo "Select a station:";select s in 1 1x 2 3 4 5 6 7 "Asian Network an" "Nations & Local lcl";do break;done;s=($s);mplayer -playlist "http://www.bbc.co.uk/radio/listen/live/r"${s[@]: -1}".asx"; }
+
+
+#------------------------------------------------------------------------------
+# Blip.fm radio
+blipfm() { while true; do mplayer `curl -s http://blip.fm/all | sed -e 's#"#\n#g' | grep mp3$ | xargs`; done; }
+
+#------------------------------------------------------------------------------
+# commandlinefu
+# alt: for x in `jot - 0 2400 25`; do curl "http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/$x"  ; done > commandlinefu.txt
+cmdfu() { curl -O http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/[0-2400:25]; }
+
+#------------------------------------------------------------------------------
+# daily proxy
+dailyproxy() { curl -s -f -S http://www.unblockwebsitestoday.com/proxy.htm | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'; }
+
+#------------------------------------------------------------------------------
+# make link from url
+mklink() { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a href="http://\2">\1</a>@'; }
+
+
+#------------------------------------------------------------------------------
+# Get Weather forcast from BBC
+ausweather() {curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+shweather() {curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+
+
+#------------------------------------------------------------------------------
+# ANSI color zebra output
+zebra() {cat $1 | awk '{if (NR%2 == 1)printf("\033[30m\033[47m%s\033[0m\n", $0); else print}';}
+
+#------------------------------------------------------------------------------
+# ANSI color zebra output, longhorn!
+longhorn() {cat $1 | awk '{if (NR%2 == 1)printf("\033[1;37m\033[43m%s\033[0m\n", $0); else printf("\033[33m\033[47m%s\033[0m\n", $0);}';}
+
+#------------------------------------------------------------------------------
+# Current trend topic in twitter
+twittrend() { curl -x 192.168.11.3:8123 -s search.twitter.com | awk -F'</?[^>]+>' '/\/intra\/trend\//{print $2}'; }
+
+#------------------------------------------------------------------------------
+# tail -f with timestamp
+ttailf() {tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}';}
+
+#------------------------------------------------------------------------------
+# awk analizer, try some [-F]s!
+awkanalize() { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: "NR", COL: "NF"\t"$i}}'; }
+
+#------------------------------------------------------------------------------
+# easy ssl encoding/decoding with blowfish
+sslenc() { openssl bf -e -a -salt; }
+ssldec() { openssl bf -d -a -salt; }

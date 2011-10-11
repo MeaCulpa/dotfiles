@@ -1,0 +1,23 @@
+## sidebar settings
+
+# sidebar visible
+set sidebar_visible = no
+
+# sidebar width
+set sidebar_width = 16
+
+# key bindings
+bind index \Cp sidebar-prev
+bind index \Cn sidebar-next
+bind index \Co sidebar-open
+bind pager \Cp sidebar-prev
+bind pager \Cn sidebar-next
+bind pager \Co sidebar-open
+
+# ctrl+b toggles the sidebar
+#macro index \Cb '<enter-command>toggle sidebar_visible<enter>' 
+#macro pager \Cb '<enter-command>toggle sidebar_visible<enter>' 
+
+macro index \Cb ':toggle sidebar_visible^M'
+macro pager \Cb ':toggle sidebar_visible^M'
+

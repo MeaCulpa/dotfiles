@@ -1,0 +1,10 @@
+& plugins\bbLeanBar\bbLeanBar.dll
+plugins\bbSlit\bbSlit.dll
+plugins\bbKeys\bbKeys.dll
+& plugins\bbmemo\BBMemo.dll
+! & plugins\bbsysmeter\bbsysmeter.dll
+plugins\bbosd\BBOSD.dll
+& plugins\bbsysmonplus\BBSysmonPlus.dll
+! & plugins\bbdigitalex\bbdigitalex.dll
+& plugins\bbIconBox\bbIconBox.dll
+& plugins\uberbox\uberbox.dll

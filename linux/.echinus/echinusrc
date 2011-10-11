@@ -1,0 +1,138 @@
+! --------------------------------------------------
+! file:     ~/.echinus/echinusrc
+! author:   jason ryan - http://jasonwryan.com/    
+! vim:fenc=utf-8:nu:ai:si:et:ts=4:sw=4:ft=xdefaults:
+! --------------------------------------------------
+
+Echinus*selected.border: #404040
+Echinus*selected.button: #d3d7cf
+Echinus*selected.bg: #262626
+Echinus*selected.fg: #d3d7cf
+
+Echinus*normal.border: #262626
+Echinus*normal.button: #262626
+Echinus*normal.bg: #262626
+Echinus*normal.fg: #b0b4ac
+
+Echinus*border: 1
+
+Echinus*button.iconify.pixmap: iconify.xbm
+Echinus*button.maximize.pixmap: max.xbm
+Echinus*button.close.pixmap: close.xbm
+
+Echinus*sloppy: 0
+Echinus*decoratetiled: 0
+Echinus*hidebastards: 0
+Echinus*mwfact: 0.55
+Echinus*nmaster: 1
+
+Echinus*font:envy code r:medium:pixelsize=10
+
+Echinus*modkey: W
+
+Echinus*deflayout: t
+
+Echinus*tags.number: 16
+Echinus*tags.name0: Celestia
+Echinus*tags.name1: Bytopia
+Echinus*tags.name2: Elysium
+Echinus*tags.name3: Beastlands
+Echinus*tags.name4: Arborea
+Echinus*tags.name5: Arcadia
+Echinus*tags.name6: Ysgard
+Echinus*tags.name7: Mechanus
+Echinus*tags.name8: Limbo
+Echinus*tags.name9: Acheron
+Echinus*tags.name10: Pandemonium
+Echinus*tags.name11: Baator
+Echinus*tags.name12: Abyss
+Echinus*tags.name13: Gehenna
+Echinus*tags.name14: Carceri
+Echinus*tags.name15: Hades
+
+
+Echinus*tags.layout0: t
+Echinus*tags.layout1: t
+Echinus*tags.layout2: t
+Echinus*tags.layout3: t
+Echinus*tags.layout4: t
+Echinus*tags.layout5: t
+Echinus*tags.layout6: t
+Echinus*tags.layout7: t
+Echinus*tags.layout8: t
+Echinus*tags.layout9: t
+Echinus*tags.layout10: t
+Echinus*tags.layout11: t
+Echinus*tags.layout12: t
+Echinus*tags.layout13: m
+Echinus*tags.layout14: m
+Echinus*tags.layout15: m
+
+Echinus*togglestruts: W + b
+Echinus*togglemonitor: W + grave
+Echinus*focusnext: W + j
+Echinus*focusprev: W+ k
+Echinus*viewprevtag: W + Tab
+Echinus*viewlefttag: W + Left
+Echinus*viewrighttag: W + Right
+Echinus*quit: WS + q
+Echinus*restart: WS + r = echinus
+Echinus*killclient: WS + c
+Echinus*togglefloating: W + space
+Echinus*zoom: W + z
+
+Echinus*view0: W + 1
+Echinus*view1: W + 2
+Echinus*view2: W + 3
+Echinus*view3: W + 4
+Echinus*view4: W + 5
+Echinus*view5: W + 6
+Echinus*view6: W + 7
+Echinus*view7: W + 8
+Echinus*view8: W + 9
+Echinus*view9: W + 0
+
+Echinus*tag0: WS + 1
+Echinus*tag1: WS + 2
+Echinus*tag2: WS + 3
+Echinus*tag3: WS + 4
+Echinus*tag4: WS + 5
+Echinus*tag5: WS + 6
+Echinus*tag6: WS + 7
+Echinus*tag7: WS + 8
+Echinus*tag8: WS + 9
+Echinus*tag9: WS + 0
+
+Echinus*setlayoutm: W + m
+Echinus*setlayoutf: W + f
+Echinus*setlayouti: W + i
+Echinus*setlayoutt: W + t
+Echinus*setlayoutb: W + s
+
+Echinus*moveright: W + d = 5
+Echinus*moveleft: W + a = -5
+Echinus*moveup: W + w = 0 -5
+Echinus*movedown: W + s = 0 5
+Echinus*resizedecx: WS + a = 0 0 -5 0
+Echinus*resizedecy: WS + s = 0 0 0 -5
+Echinus*resizeincx: WS + d = 0 0 5 0
+Echinus*resizeincy: WS + w = 0 0 0 5
+
+Echinus*spawn0: W + Return = urxvtc
+Echinus*spawn1: CA + t = urxvtc
+Echinus*spawn3: CA + p = urxvtc -title scratchpad -geometry 64x10+480+34 
+Echinus*spawn5: Menu = dmenu_run -nb "#1A1A1A" -nf "#696969" -sb "#1A1A1A" -sf "#D3D7Cf"
+Echinus*spawn6: CA + l = slock
+Echinus*spawn7: W + r = dmenu_run -nb "#1A1A1A" -nf "#696969" -sb "#1A1A1A" -sf "#D3D7Cf"
+Echinus*spawn8: WS + b = find ~/wallpaper -type f -print0 | shuf -n1 -z | xargs -0 feh --bg-scale 
+
+Echinus*decmwfact: W + h = -0.05
+Echinus*incmwfact: W + l = +0.05
+Echinus*decnmaster: WS + j = -1
+Echinus*incnmaster: WS + k = +1
+
+Echinus*command: urxvtc
+
+Echinus*rule0: tabbed.* Hades 0 1
+Echinus*rule4: urxvt.scratchpad NULL 1 0
+

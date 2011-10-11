@@ -1,0 +1,11 @@
+account default
+host smtp.gmail.com
+port 587
+from infernoxu@gmail.com
+#see man page for more auth options
+auth login
+user infernoxu@gmail.com
+password XXXXXXXXX
+#If your SMTP Server supports TLS encryption, uncomment the next line
+tls
+

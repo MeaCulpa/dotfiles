@@ -1,0 +1,20 @@
+#
+# basic settings for imap mutt
+#
+
+set mbox_type=Maildir
+set implicit_autoview
+set pager_context=1
+set pager_index_lines=6                 #show a mini-index in pager
+set menu_scroll
+set pgp_verify_sig=no                   #dont show pgp in pager
+set status_on_top                       #put status line at top
+set sort=threads                        #sort by message threads in index
+set delete=yes                          #delete without prompting
+set include=yes                         #quote msg in reply
+set fast_reply=yes                      #no prompting on reply
+set beep=no                             #no noise
+set markers=no                          #no + on wrapped lines
+set confirmappend=no                    #no prompt for save to =keep
+set to_chars=" +TCF"                    #no L for mail_list
+set mailcap_path=~/mailcap

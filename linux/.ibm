@@ -1,0 +1,17 @@
+#!/usr/bin/zsh
+###############################################################################
+# AIX TL HMC Tasks
+## Info
+#aixtl-p6-status() { ssh sanx7000 "lssyscfg -r lpar -m Server-9117-MMA-SN101F090_JY -F --header | cut -d',' -f1,4" | sort; }
+aixtl-p6-status() { ssh sanx7000 "lssyscfg -r lpar -m Server-9117-MMA-SN101F090_JY -F --header" | awk -F',' 'BEGIN {OFS="\t"}{print$1,$2,$3,$4,$6,$20 | "sort -n -k2"}' ;}
+## Start
+aixtl-p6-vios1-start() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o on -n vios1 -f vios1" ; }
+aixtl-p6-vios2-start() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o on -n vios2 -f vios2" ; }
+aixtl-p6-vioc1-start() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o on -n vioc1 -f vioc1" ; }
+aixtl-p6-vioc2-start() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o on -n vioc2 -f vioc2" ; }
+## Shutdown
+aixtl-p6-vios1-shutdown() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o shutdown --immed -n vios1" ; }
+aixtl-p6-vios2-shutdown() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o shutdown --immed -n vios2" ; }
+aixtl-p6-vioc1-shutdown() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o shutdown --immed -n vioc1" ; }
+aixtl-p6-vioc2-shutdown() { ssh sanx7000 "chsysstate -r lpar -m Server-9117-MMA-SN101F090_JY -o shutdown --immed -n vioc2" ; }
+

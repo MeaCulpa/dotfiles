@@ -1,0 +1,137 @@
+##########################################################################
+# .screenrc, jyxu
+# Settings
+shell -${SHELL}
+defscrollback 1024
+startup_message off
+
+# Infos
+#hardstatus on
+#hardstatus alwayslastline
+#caption always "${USER} %{= kc}%H %{= .g}%D %d.%m.%Y %0c"
+#caption always "%{= Bw}%-w%{= kW}%n %t%{= Bw}%+w%{= BW}%? @%u%?%? [%h]%?%-= - %LD %d %LM - %c"
+#caption always "%?%F%{= Kk}%:%{=u kR}%?  %h %-024=%{+b} %C%a %D %d %M %Y%{= db}  - %LD %d %LM - %c"
+#hardstatus alwayslastline "%{= kR} %-Lw%{=b Kk} %n%f %t %{-}%+Lw %=%{= dd}"
+
+
+
+# don't use the hardstatus line for system messages, use reverse video instead
+# (we'll be using it for the list of tab windows - see hardstatus alwayslastline
+# below)
+hardstatus off
+
+# use the caption line for the computer name, load, hstatus (as set by zsh), & time
+# the caption line gets repeated for each window being displayed (using :split),
+# so we'll use color cues to differentiate the caption of the current, active
+# window, and the others.
+#    always                  - display the caption continuously.  Since
+#                              hardstatus is 'alwayslastline', it will be on the
+#                              next to last line.
+#    "%?%F"                  - if (leading '%?') this region has focus ('%F') 
+#                              (e.g. it's the only region being displayed, or,
+#                              if in split-screen mode, it's the currently active
+#                              region)
+#      "%{= Kk}"               - set the colorscheme to blac[k] on grey (bright blac[K]),
+#                                with no other effects (standout, underline, etc.)
+#    "%:"                    - otherwise ('%:' between a pair of '%?'s)
+#      "%{=u kR}"              - set the colorscheme to [R]ed on blac[k], and
+#                                underline it, but no other effects (bold, standout, etc.) 
+#    "%?"                    - end if (trailing '%?')
+#    "  %h "                 - print two spaces, tthne the [h]ardstatus of the
+#                              current tab window (as set by zsh - see zshrc) and
+#                              then another space.
+#    "%-024="                - either pad (with spaces) or truncate the previous
+#                              text so that the rest of the caption string starts
+#                              24 characters ('024') from the right ('-') edge of
+#                              the caption line.
+#                              NOTE: omitting the '0' before the '24' would pad
+#                              or truncate the text so it would be 24% from the
+#                              right.
+#    "%{+b}                  - add ('+') [b]old to the current text effects, but
+#                              don't change the current colors.
+#    " %C:%s%a %D %d %M %Y"  - print the [C]urrent time, a colon, the [s]econds,
+#                              whether it's [a]m or pm, the [D]ay name, the [d]ay
+#                              of the month, the [M]onth, and the [Y]ear.
+#                              (this takes up 24 characters, so the previous
+#                              pad/truncate command makes sure the clock doesn't
+#                              get pushed off of the caption line)
+#    "%{= dd}"               - revert to the [d]efault background and [d]efault
+#                              foreground colors, respectively, with no ('= ')
+#                              other effects.
+#  other things that might be useful later are
+#    " %H"                   - print a space, then the [H]ostname.
+#    "(%{.K}%l%{-}):"        - print a '(', then change the text color to grey
+#                              (aka bright blac[K]), and print the current system
+#                              [l]oad.  Then revert to the previous colorscheme
+#                              ('%{-}') and print a close ')' and a colon.
+#                              NOTE: the load is only updated when some other
+#                              portion of the caption string needs to be changed
+#                              (like the seconds in the clock, or if there were a
+#                              backtick command)
+#    "%0`"                   - put the output of a backtick command in the line
+#    "%-024<"                - don't pad, just truncate if the string is past 24
+#                              characters from the right edge
+#    "%-="                   - pad (with spaces) the previous text text so that
+#                              the rest of the caption string is justified
+#                              against the right edge of the screen.
+#                              NOTE: doesn't appear to truncate previous text.
+caption always           "%?%F%{= Kk}%:%{=u kR}%?  %h %-024=%{+b} %C%a %D %d %M %Y%{= db}"
+# use the hardstatus line for the window list
+#    alwayslastline      - always display the hardstatus as the last line of the
+#                          terminal
+#    "%{= kR} %-Lw"      - change to a blac[k] background with bright [R]ed text,
+#                          and print all the tab [w]indow numbers and titles in
+#                          the [L]ong format (ie with flags) upto ('-') the
+#                          current tab window
+#    "%{=b Kk} %n%f %t " - change to grey (bright blac[K]) background with
+#                          [b]old blac[k] text, with no other effects, and print
+#                          the [n]umber of the current tab window, any [f]lags it
+#                          might have, and the [t]itle of the current tab window
+#                          (as set by zsh - see zshrc).
+#                          NOTE: the color match with the caption line makes it
+#                          appear as if a 'tab' is dropping down from the caption
+#                          line, highlighting the number & title of the current
+#                          tab window.  Nifty, ain't it)
+#    "%{-}%+Lw "         - revert to the previous color scheme (red on black)
+#                          and print all the tab [w]indow numbers and titles in
+#                          the [L]ong format (ie with flags) after ('+') the
+#                          current tab window.
+#    "%=%{= dd}"         - pad all the way to the right (since there is no text
+#                          that follows this) and revert to the [d]efault
+#                          background and [d]efault foreground colors, with no
+#                          ('= ') other effects.
+hardstatus alwayslastline "%{= kR} %-Lw%{=b Kk} %n%f %t %{-}%+Lw %=%{= dd}"
+
+
+
+### these are taken from http://www.strcat.de
+#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wk}%n*%f %t%?(%u)%?%?%{yk}%+Lw%? %=%t %c"
+#hardstatus alwayslastline "%{rk}[Time:%c] %{gb} %w %{= dd}"
+#hardstatus alwayslastline "%{= kG} %w %{= dd} %=%t %{rk}[Time:%c]"
+#hardstatus alwayslastline "%{kr}[Time: %c:%s]%{gk} %{+b } %w %{= dd} %=%t"
+#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
+#hardstatus alwayslastline "%{kr}[%H@$LOGNAME]%{wk} %?%-Lw%?%{gk}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
+#hardstatus alwayslastline "%{kr}[%M %d :: %c]%{wk} %?%-Lw%?%{gk}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
+#hardstatus alwayslastline "%{= kY}%c%{dd} %{= kc}windows: %?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
+#hardstatus alwayslastline "%{= kR}[%M %d :: %c]%{dd} %{= kc}%?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
+#hardstatus alwayslastline "%{kr}[Time: %c:%s]%{wk} %?%-Lw%?%{gk}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
+#hardstatus alwayslastline "%{bw}%1`%= %{+b ky}| %c:%s |%{+b rw} ip: %2` | vpn: %3`"
+#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
+#hardstatus alwayslastline "%{kr}[Time: %c:%s]%{gk} %{+b } %w %{= dd} %=%t"
+#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
+#hardstatus alwayslastline "\033[m\033[42;30m %m%d \033[m \033[42;30m%c\033[m\033[42;30m %w \033[m"
+#hardstatus alwayslastline " %m%d \033[42;30m%c\033[m \033[42;30m %w \033[m"
+#hardstatus alwayslastline " %m%d %c \033[42;30m %w \033[m"
+#hardstatus alwayslastline " [%{b}fnord%{d}] | %n [%{r}%t%{d}] %W | %m/%d/%Y | %c"
+#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
+#hardstatus alwayslastline "%?%F%{.R.}%?%3n %t%? [%h]%?"
+
+# Using this in AIX screen 3.9
+#hardstatus alwayslastline "%{= kc}${USER} %{= kR}#% %{= kB}${HOSTNAME} %{= .g}%D %d.%m.%Y %0c" 
+
+# Bindings
+bind = resize =
+bind + resize +1
+bind - resize -1
+bind _ resize max
+

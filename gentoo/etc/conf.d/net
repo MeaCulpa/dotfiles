@@ -1,0 +1,7 @@
+# Sabayon Linux static network configuration tool
+config_eth0="192.168.11.3 netmask 255.255.255.0"
+routes_eth0="default via 192.168.11.1"
+dns_servers_eth0="192.168.11.1 8.8.8.8 8.8.4.4 198.153.192.1 198.153.194.1"
+#dns_domain_eth0="localdomain"
+#nis_domain_eth0="localdomain"
+

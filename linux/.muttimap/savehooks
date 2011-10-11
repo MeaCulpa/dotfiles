@@ -1,0 +1,6 @@
+#
+# save-hooks for imap mutt
+#
+
+save-hook .* =+/keep                    #default path to (s)ave mail is =keep
+

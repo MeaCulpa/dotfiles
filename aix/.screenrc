@@ -1,0 +1,19 @@
+##########################################################################
+# -jyxu- xujinyu@cn.ibm.com
+
+# Settings
+shell -${SHELL}
+defscrollback 1024
+startup_message off
+
+# Caption and status bar, this can be very, very gorgous...
+hardstatus on
+hardstatus alwayslastline "%{= kc}${USER} %{= kR}#% %{= kB}${HOSTNAME} %{= .g}%D %d.%m.%Y %0c"
+#caption always "%{= kc}${USER} %{= kR}#% %{= kB}${HOSTNAME} %{= .g}%D %d.%m.%Y %0c"
+
+# Bindings
+bind = resize =
+bind + resize +1
+bind - resize -1
+bind _ resize max
+

@@ -1,0 +1,87 @@
+#
+# mutt gmail imap settings
+#
+
+## main gmail defaults
+set imap_user = "infernoxu@gmail.com"
+set imap_pass = "XXXXXXX"
+set smtp_url = "smtp://infernoxu@smtp.gmail.com:587/"
+set smtp_pass = "XXXXXXX"
+set from = "infernoxu@gmail.com"
+set realname = "Mea Culpa"
+set folder = "imaps://imap.gmail.com:993"
+set spoolfile = "+INBOX"
+set record="+[Gmail]/Sent Mail"
+set postponed="+[Gmail]/Drafts"
+
+## all gmails
+mailboxes 'imaps://infernoxu@gmail.com@imap.gmail.com:993/INBOX' \
+          'imaps://methuselar@gmail.com@imap.gmail.com:993/INBOX' \
+		  'imaps://alsedux@gmail.com@imap.gmail.com:993/INBOX' \
+		  'jyxuhsu://alsedux@gmail.com@imap.gmail.com:993/INBOX'
+
+#folder-hook . 'unset imap_user; unset imap_pass; unset tunnel'
+folder-hook imaps://infernoxu@gmail.com@imap.gmail.com:993 ' \
+        set from="infernoxu@gmail.com" \
+		    realname = "Mea Culpa" \
+			imap_user="infernoxu@gmail.com" \
+			imap_pass="XXXXXXX" \
+			smtp_url="smtp://infernoxu@smtp.gmail.com:587" \
+			smtp_pass = "XXXXXXX" \
+			spoolfile = "+INBOX" \
+			record="+[Gmail]/Sent Mail" \
+			postponed="+[Gmail]/Drafts"'
+			
+folder-hook imaps://methuselar@gmail.com@imap.gmail.com:993 ' \
+        set from="methuselar@gmail.com" \
+		    realname = "Methuselar" \
+			imap_user="methuselar@gmail.com" \
+			imap_pass="XXXXXXX" \
+			smtp_url="smtp://methuselar@smtp.gmail.com:587" \
+			smtp_pass = "XXXXXXX" \
+			spoolfile = "+INBOX" \
+			record="+[Gmail]/Sent Mail" \
+			postponed="+[Gmail]/Drafts"'	
+			
+folder-hook imaps://alsedux@gmail.com@imap.gmail.com:993 '\
+        set from="alsedux@gmail.com" \
+		    realname = "Al Sedux" \
+			imap_user="alsedux@gmail.com" \
+			imap_pass="XXXXXXX" \
+			smtp_url="smtp://alsedux@smtp.gmail.com:587" \
+			smtp_pass = "XXXXXXX" \
+			spoolfile = "+INBOX" \
+			record="+[Gmail]/Sent Mail" \
+			postponed="+[Gmail]/Drafts"'
+			
+folder-hook imaps://jyxuhsu@gmail.com@imap.gmail.com:993 '\
+        set from="jyxuhsu@gmail.com" \
+		    realname = "J.Y. Hsu" \
+			imap_user="jyxuhsu@gmail.com" \
+			imap_pass="XXXXXXX" \
+			smtp_url="smtp://jyxuhsu@smtp.gmail.com:587" \
+			smtp_pass = "XXXXXXX" \
+			spoolfile = "+INBOX" \
+			record="+[Gmail]/Sent Mail" \
+			postponed="+[Gmail]/Drafts"'
+			
+
+
+set header_cache="~/.muttimapmail/cache/headers"
+set message_cachedir="~/.muttimapmail/cache/bodies"
+set certificate_file="~/.muttimapmail/certificates"
+set move = no
+set imap_check_subscribed="yes"
+set imap_list_subscribed="yes"
+# check mail every 60 sec
+set mail_check=60
+# update e-mail list immediately
+bind index "^" imap-fetch-mail
+bind index \CF change-folder
+# My Editor
+set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+set sendmail="/usr/bin/msmtp --file $HOME/.msmtprc_gmail"
+# My Sig
+# set sig_dashes=no
+set signature="~/.sig_gmail"
+

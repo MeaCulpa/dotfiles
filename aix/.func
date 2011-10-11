@@ -1,0 +1,211 @@
+###############################################################################
+# Functions for AIX
+# -jyxu- xujinyu@cn.ibm.com
+
+#------------------------------------------------------------------------------
+# Find the file to edit if in $PATH or in the current dir
+vip () {
+  ITEM=$1
+  [ -z "$ITEM" -o -d "$ITEM" ] && {
+    echo "usage: vip <filename>"
+    return
+  }
+
+  FOUND=$(which $ITEM 2>/dev/null)
+  [ "$FOUND" ] && /usr/bin/vi $FOUND || echo "Unable to locate \"$ITEM\""
+  unset $FOUND
+}
+
+#------------------------------------------------------------------------------
+# Find file
+fit () { find /src /opt /usr /home -name ${1:?"Filename required!"} -ls; }
+
+#------------------------------------------------------------------------------
+# psf: Displays matches found in ps -ef
+#      Excludes self called processes (pid)
+#      Calling with no option runs ps -ef
+psf () {
+    #If no command line items given:
+    [ "$1" ] || /bin/ps -ef | /bin/grep -v $$
+
+    #If one or more command line items:
+    for CLI do
+       /bin/ps -ef | /bin/grep $CLI | /bin/grep -v $$
+       shift 1
+    done
+}
+
+#------------------------------------------------------------------------------
+# dlosspkg: Download oss pkg from AIX Toolbox
+dlosspkg () { wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i; }
+
+#------------------------------------------------------------------------------
+# findbigger: find FILES Bigger than certain blocks on . 
+findbigger () { find . -xdev -size +"$1" -ls | sort -r -n -k7; }
+
+#------------------------------------------------------------------------------
+# dnswp: Search wikipedia through DNS
+dnswp () { dig +short txt "$1".wp.dg.cx; }
+
+#------------------------------------------------------------------------------
+# histstat: Command history Stat
+histstat () { history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head; }
+
+#------------------------------------------------------------------------------
+# WWPN colonfy
+colon () { sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
+decolon () { sed 's/://g'; }
+
+#------------------------------------------------------------------------------
+# List HBA
+#lshba () { lsdev -F "name status physloc" | grep fcs | awk '{printf "%s\t%s",$1,$3; system("lscfg -vl "$1"|grep \"Network\" | sed -e \"s:Network Address.............::;\"|tr -d \"\n\""); print "\t"$2}'}
+#lshba () { lsdev -F "name status physloc" | awk '$1 ~ /^fcs.+/ {printf "%s\t%s\t%s\t",$1,$2,$3;tmp = "lscfg -vl "$1; while ((tmp | getline) > 0){FS=".";if (NF==14){printf "%s\t", $NF;for (i=1; i<16; i=i+2){str = sprintf("%s:%s", str, substr($NF, i, 2))};print substr(str, 2);str=""}};close(lscfg);FS=" ";}'; }
+#lshba () { lsdev -F "name status physloc" | awk 'BEGIN {print "name\tstatus\t\tphysloc\t\t\t\tWWPN\t\t\tPart #\tCCIN\tColoned WWPN"}; $1 ~ /^fcs.+/ { printf "%s\t%s\t%s\t",$1,$2,$3; cmd = "lscfg -vl "$1; while ((cmd | getline) > 0){ FS="."; if (NF==18||NF==6){s = s"\t"$NF;}if (NF==14){printf "%s", $NF; for (i=1; i<16; i=i+2){str = sprintf("%s:%s", str, substr($NF, i, 2))}; printf("%s\t%s\n", s, substr(str, 2)); s=str=""} }; close(cmd);FS=" ";}' ; }
+
+lshba () { lsdev -F "name status physloc" | /usr/bin/env awk 'BEGIN {
+    # Header
+    print "name\tstatus\t\tphyslot\t\t\t\tWWPN\t\t\tPart #\tCCIN\tColoned WWPN";
+}
+
+$1 ~ /^fcs.+/ {
+    # Name, Status, Physlot
+    printf "%s\t%s\t%s\t",$1,$2,$3;
+    cmd = "lscfg -vl "$1;
+    while ((cmd | getline) > 0){
+        FS=".";
+        if (NF==18||NF==6){
+            # Part Number, CCIN
+            s = s"\t"$NF;
+        }
+        if (NF==14){
+            # WWPN
+            printf "%s", $NF;
+            # Colonfy
+            for (i=1; i<16; i=i+2){
+                str = sprintf("%s:%s", str, substr($NF, i, 2))
+            };
+            printf("%s\t%s\n", s, substr(str, 2));
+            s=str=""
+        }
+    }
+    close(cmd);
+    FS=" ";
+}
+'; }
+
+
+#------------------------------------------------------------------------------
+# mdt file sorter for io, with powerpath replacements
+# Usage: mdtsort mdt.io
+mdtsort () { awk '
+BEGIN {
+    ;
+}
+
+NF == 1 {
+    # Device
+    # The "default" line.
+    if ($0 == "default:") {
+        dev = "default";
+        power[dev] = "none";
+        type[dev] = "default";
+        seq[dev] = "0";
+        subseq[dev] = "";
+        head[dev] = "default:";
+        next;
+    }
+
+    # Device name, trim "r" and ":".
+    dev = substr($0, 2, length($0)-2);
+
+    # Get powerpath device replacements: rhdisk => rdiskpower.
+    cmd = "powermt display dev="dev" 2>&1"; 
+    cmd | getline s; match(s, "="); 
+    if (RLENGTH == 1) {
+        power[dev] = dev = substr(s,RSTART+RLENGTH);
+    }
+    else {
+        power[dev] = "none";
+    }
+    
+    close(cmd);
+    
+    # Extract device type, name, sequence, subsequence ("hdisk XX :").
+    match (dev, "[0-9]+")
+    type[dev] = substr(dev,1,RSTART-1);
+    seq[dev] = substr(dev,RSTART,RLENGTH);
+    subseq[dev] = substr(dev,RSTART+RLENGTH);
+    
+    # De-trim
+    head[dev] = "r"dev":";
+    
+}
+
+NF > 1 { 
+    # All the parameters, using "|" for a tmp delimiter over newlines.
+    spec[dev] = sprintf("%s|%s", spec[dev], $0); 
+}
+
+END {
+    # Output.
+    for (d in head) print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
+}
+# sort the result, tailor output, and get back delimiter
+' $1 | sort -k 1,1 -k 3,3n -k 4,4n | cut -d" " -f5- | tr '|' '\n'; }
+
+#------------------------------------------------------------------------------
+# calc: in awk
+calc () { awk "BEGIN{ print $* }" ; }
+
+#------------------------------------------------------------------------------
+# List fcscsi device and children
+#lsfcs() {lsdev -Cc adapter | awk '/fcs/ {system("lsdev -C | grep "$3"\n")}' ; }
+lsfcs () { lsdev -Cc adapter | awk '/fcs/ {printf("\n");  system("lsdev -C | grep "$3"")}' | awk '{sub(/^hd/, "\thd")};1'; }
+
+#------------------------------------------------------------------------------
+# lspath watcher
+mlspath () { while true; do clear; echo 'Output of lspath'; echo '-----------------'; lspath | sort +2; sleep ${1:=5}; done; }
+
+#------------------------------------------------------------------------------
+# Get WWPN of fcsX
+wwpn () { lscfg -vpl $1 | grep Address | sed 's/^.*\.//g'; }
+
+#------------------------------------------------------------------------------
+# Coloned WWPN
+cwwpn () { lscfg -vpl $1 | grep Address | sed 's/^.*\.//g' | sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
+
+#------------------------------------------------------------------------------
+# Delete defined disk
+deldefdisk () { lsdev -Cc disk | awk '/Defined/ {system("rmdev -Rdl "$1)}'; }
+
+#------------------------------------------------------------------------------
+# Delete All disk expt. active ones, like rootvg
+#delalldisk() {lsdev -Cc disk | awk '$1 !~ /hdisk0/ {print $1}' | xargs -n 1 rmdev -Rdl; }
+delalldisk () { lspv | awk '!/active/ {system("rmdev -Rdl "$2)}'; }
+
+#------------------------------------------------------------------------------
+# Clear PVID
+pvidclr () { lspv | awk '!/active/ {system("chdev -l "$1" -a pv=clear")}'; }
+
+#------------------------------------------------------------------------------
+# Get Weather forcast from BBC
+ausweather () { wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+shweather () { wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+
+#------------------------------------------------------------------------------
+# Get odm: odmget default hp
+odmget () { scp -r xujinyu@9.3.118.78:/cygdrive/c/pub/jyxu/odm/$1.$2 .; }
+
+#------------------------------------------------------------------------------
+# Put file to 78
+to78 () { scp $1 xujinyu@9.3.118.78:/cygdrive/c/pub/jyxu/buffer/$1; }
+
+#------------------------------------------------------------------------------
+# which hdiskpower is using this hdisk, or vice versa
+disk2power () { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
+power2disk () { powermt display dev=$2 | grep 'hdisk[^p]'; }
+
+# find wwpn in Brocade/Cisco Fabric Switch
+bfind () { ssh brocade "nodefind $1"; }
+cfind () { ssh cisco "show fcns database detail | grep -i -B 3 -A 15 $1"; }
+
