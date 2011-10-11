@@ -18,7 +18,7 @@ set postponed="+[Gmail]/Drafts"
 mailboxes 'imaps://infernoxu@gmail.com@imap.gmail.com:993/INBOX' \
           'imaps://methuselar@gmail.com@imap.gmail.com:993/INBOX' \
 		  'imaps://alsedux@gmail.com@imap.gmail.com:993/INBOX' \
-		  'jyxuhsu://alsedux@gmail.com@imap.gmail.com:993/INBOX'
+		  'jyxuhsu://jyhsu@gmail.com@imap.gmail.com:993/INBOX'
 
 #folder-hook . 'unset imap_user; unset imap_pass; unset tunnel'
 folder-hook imaps://infernoxu@gmail.com@imap.gmail.com:993 ' \
