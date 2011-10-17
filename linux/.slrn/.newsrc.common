@@ -1,0 +1,393 @@
+alt.chinese.computing: 1-11
+alt.chinese.fengshui: 1-29
+alt.chinese.story: 1-21
+alt.chinese.text: 1-26,28-29
+alt.chinese.text.big5: 1-2
+alt.chinese.text.hz: 1-3
+alt.chinese.text.malaysia: 1
+alt.games.adnd: 1-94
+alt.games.adnd.forgotten-realms: 1-12
+alt.games.mame: 1-1189,1191-1192,1194,1196-1199,1201-1204,1206-1208,1210-1213,1215-1218,1220,1223-1225,1227-1232,1234-1240,1242-1255,1257-1258,1260-1267,1269-1271,1273-1277,1279,1281,1283,1285-1295,1297-1300,1302-1303,1305-1309,1312,1314-1315,1319-1323,1325-1333
+alt.mcdonalds: 1-4
+chinese.comp.software: 1
+chinese.newsgroups.announce: 1
+chinese.newsgroups.answers: 1
+chinese.newsgroups.discussion: 1-2
+chinese.newsgroups.newusers:
+chinese.rec.magazines.multiworld:
+chinese.rec.misc: 1
+chinese.rec.sports:
+chinese.talk.misc: 1-3
+chinese.talk.politics: 1-9
+chinese.test: 1-12
+chinese.text.unicode: 1-2
+clari.world.asia.china: 1-79
+clari.world.asia.china.biz: 1-2
+fj.editor.vi:
+git.talk.flame:
+git.unix.solaris:
+gnu.announce: 1-102
+gnu.gcc.announce: 1
+gnu.misc.discuss: 1-312
+linux.debian.user.chinese.big5: 1-26
+linux.gentoo.announce: 1-13
+linux.gentoo.dev: 1-3015
+linux.gentoo.user: 1-8655
+linux.gentoo.weekly-news:
+linux.kernel: 1-97747
+linux.redhat: 1-69
+linux.test:
+uw.linux.gentoo:
+mozilla.feedback.firefox: 1-48
+mozilla.support.firefox: 1-2687
+news.announce.newusers: 1-16
+news.newusers.questions: 1-55
+misc.test: 1-86104
+misc.test.moderated: 1-2
+news.announce.newgroups: 1-48
+news.answers: 1-1376
+alt.comp.google: 1-128
+alt.comp.lang.awk: 1-2
+alt.comp.lang.sed: 1-9
+alt.comp.lang.shell.batch.enhancements: 1-11
+alt.comp.lang.shell.batch.msdos: 1
+alt.comp.lang.shell.batch.winnt: 1
+alt.comp.lang.shell.dcl: 1
+alt.comp.lang.shell.os2: 1-9
+alt.comp.lang.shell.unix.bourne-bash: 1-42
+alt.comp.lang.shell.unix.csh-tcsh: 1
+alt.comp.lang.shell.unix.korn: 1
+alt.comp.linux: 1-219,225,227,229-231
+alt.comp.linux-sucks: 1-28
+alt.comp.linux.isp: 1-2
+alt.comp.linux.xxx: 1-2
+alt.comp.mail.misc: 1-2
+alt.comp.os.linux: 1-105
+alt.culture.china: 1
+alt.fan.countries.china: 1-4,54,72,88,90,93
+alt.lang.awk: 1
+alt.music.green-day: 1
+alt.os.linux: 1-1572,1574-1578,1580-1586,1588-1591,1593-1596,1600-1610,1612-1614,1616-1619,1621,1623-1627,1629,1631-1632,1634,1636-1643,1645-1651,1653-1654,1657-1658,1661,1666,1668-1674,1677-1689,1691-1693,1695-1720,1722-1723,1725-1746,1748,1753-1759,1761-1764,1766-1770,1772-1775,1777-1779,1781,1783,1786,1788-1791,1794-1797,1799-1804,1806-1808
+alt.os.linux.aaaaaarrrrrgggghhhhh: 1
+alt.os.linux.best: 1-2
+alt.os.linux.caldera: 1-3
+alt.os.linux.corel: 1
+alt.os.linux.debian: 1-436
+alt.os.linux.dial-up: 1-12
+alt.os.linux.does-not-work:
+alt.os.linux.gentoo: 1-47,49-50,53
+alt.os.linux.is-a-for-bufoons: 1
+alt.os.linux.is-a-for-geeks:
+alt.os.linux.is-a-for-morons:
+alt.os.linux.is-a-for-nerds:
+alt.os.linux.is-a-for-poofters: 1
+alt.os.linux.is-a-joke: 1-12
+alt.os.linux.is-for-idiots:
+alt.os.linux.is-for-old-pcs:
+alt.os.linux.is-for-pedophiles:
+alt.os.linux.is-for-pinheads:
+alt.os.linux.is-for-ponces: 1
+alt.os.linux.is-for-poofters:
+alt.os.linux.is-for-pussies:
+alt.os.linux.is-for-retards:
+alt.os.linux.is-one-huge-kludge:
+alt.os.linux.is-rooted:
+alt.os.linux.libranet:
+alt.os.linux.lindows:
+alt.os.linux.madrake: 1-2
+alt.os.linux.mandrake: 1-66
+alt.os.linux.mandrake.fr: 1-27
+alt.os.linux.mandriva: 1-4888
+alt.os.linux.mepis: 1-229
+alt.os.linux.mint: 1-836
+alt.os.linux.oops:
+alt.os.linux.pclinuxos: 1-158
+alt.os.linux.projects: 1
+alt.os.linux.redhat: 1-8
+alt.os.linux.slackware: 1-2508
+alt.os.linux.smoothwall: 1
+alt.os.linux.storm: 1
+alt.os.linux.sucks: 1-3
+alt.os.linux.suse: 1-2825
+alt.os.linux.turbolinux:
+alt.os.linux.ubuntu: 1-16435
+alt.rock-n-roll.metal.metallica: 1-25
+alt.unix.geeks: 1-7
+alt.unix.geeks.moderated: 1
+alt.unix.interix:
+alt.unix.wizards: 1-4
+aus.culture.china: 1-147
+bc.unix: 1
+be.comp.os.unix: 1-32
+brasil.unix: 1-34
+ca.unix:
+cn.admin: 1-416
+cn.admin.doc: 1-57
+cn.announce:
+cn.answers:
+cn.bbs.admin: 1-147
+cn.bbs.admin.announce: 1-112
+cn.bbs.admin.installbbs: 1-4391
+cn.bbs.admin.lists: 1
+cn.bbs.admin.lists.tv:
+cn.bbs.admin.lists.weather: 1-856
+cn.bbs.admin.test: 1-433
+cn.bbs.arts.ascii: 1-1008
+cn.bbs.arts.calligraphy: 1-131
+cn.bbs.arts.drama: 1-16
+cn.bbs.arts.movie:
+cn.bbs.arts.photo: 1-6
+cn.bbs.campus.cqupt: 1
+cn.bbs.campus.csu: 1
+cn.bbs.campus.hust: 1-17
+cn.bbs.campus.job: 1-13
+cn.bbs.campus.job.east: 1
+cn.bbs.campus.job.north: 1
+cn.bbs.campus.job.northeast: 1-23
+cn.bbs.campus.job.part-time: 1-2
+cn.bbs.campus.job.south: 1-2
+cn.bbs.campus.job.southeast: 1-2
+cn.bbs.campus.lzu: 1-3740
+cn.bbs.campus.nankai: 1-87
+cn.bbs.campus.neu: 1
+cn.bbs.campus.pku: 1-19
+cn.bbs.campus.sjtu: 1-17
+cn.bbs.campus.study-abroad: 1-10
+cn.bbs.campus.swufe:
+cn.bbs.campus.tju: 1-30
+cn.bbs.campus.tsinghua: 1-2
+cn.bbs.campus.tsinghua.news:
+cn.bbs.campus.whu: 1-3677
+cn.bbs.campus.xidian: 1-3354
+cn.bbs.campus.ysu: 1-6
+cn.bbs.campus.zju: 1-13
+cn.bbs.campus.zsu: 1-11
+cn.bbs.comp.book: 1-10
+cn.bbs.comp.database: 1-615
+cn.bbs.comp.dotnet: 1-389
+cn.bbs.comp.emacs: 1-20471
+cn.bbs.comp.embedded: 1-9
+cn.bbs.comp.flash: 1-2302
+cn.bbs.comp.graphics: 1-6
+cn.bbs.comp.hacker:
+cn.bbs.comp.hardware: 1-45
+cn.bbs.comp.lang: 1-9
+cn.bbs.comp.lang.delphi: 1-8
+cn.bbs.comp.lang.java: 1-282
+cn.bbs.comp.lang.perl: 1-10581
+cn.bbs.comp.lang.python: 1-8569
+cn.bbs.comp.lang.visual-basic: 1-38
+cn.bbs.comp.linux: 1-32,34-72,74-79,81-83,85-88,90-92,94-284
+cn.bbs.comp.ms-windows: 1-5
+cn.bbs.comp.multimedia: 1-11
+cn.bbs.comp.network: 1-10450
+cn.bbs.comp.network.programming: 1-2082
+cn.bbs.comp.network.research: 1-3
+cn.bbs.comp.security: 1-146
+cn.bbs.comp.software: 1-214
+cn.bbs.comp.software-eng: 1
+cn.bbs.comp.unix: 1-8
+cn.bbs.comp.unix.bsd: 1-3397
+cn.bbs.comp.unix.development: 1-7
+cn.bbs.comp.unix.development.kernel: 1-8819
+cn.bbs.comp.virus: 1-4
+cn.bbs.comp.web: 1-417
+cn.bbs.comp.xml: 1-827
+cn.bbs.culture.animation:
+cn.bbs.culture.astrology: 1-6
+cn.bbs.culture.fantasy: 1-139,837-885
+cn.bbs.culture.mystery: 1
+cn.bbs.culture.mythology: 1-8
+cn.bbs.culture.sci-fi: 1
+cn.bbs.emotion.girl: 1-3
+cn.bbs.emotion.love: 1-3
+cn.bbs.game: 1-4
+cn.bbs.game.diablo: 1-3
+cn.bbs.game.music: 1-40
+cn.bbs.game.quake:
+cn.bbs.lang:
+cn.bbs.lang.chinese: 1-261
+cn.bbs.lang.deutsch:
+cn.bbs.lang.english: 1-8
+cn.bbs.lang.foreign: 1-26
+cn.bbs.lang.francais: 1-2
+cn.bbs.lang.japanese: 1-56
+cn.bbs.lit: 1-14
+cn.bbs.lit.couplet:
+cn.bbs.lit.novel.emprise:
+cn.bbs.lit.novel.sanguo:
+cn.bbs.lit.novel.stone-story: 1-2
+cn.bbs.music: 1-5
+cn.bbs.music.classical: 1
+cn.bbs.rec.joke: 1-87
+cn.bbs.rec.mobile: 1
+cn.bbs.rec.riddle: 1
+cn.bbs.rec.travel: 1-7
+cn.bbs.sci.agriculture: 1-4
+cn.bbs.sci.astronomy: 1-17
+cn.bbs.sci.chemistry: 1-302
+cn.bbs.sci.chemistry.quantum:
+cn.bbs.sci.dsp:
+cn.bbs.sci.electronics: 1
+cn.bbs.sci.management: 1
+cn.bbs.sci.math:
+cn.bbs.sci.mechanics: 1-269
+cn.bbs.sci.medicine: 1-13
+cn.bbs.sci.military: 1-2
+cn.bbs.sci.nano: 1-128
+cn.bbs.soc.house: 1-499
+cn.bbs.soc.market: 1-14
+cn.bbs.soc.market.book: 1-2
+cn.bbs.soc.railway: 1-94
+cn.bbs.soc.taiwan: 1-993
+cn.bbs.soc.traffic: 1-8570
+cn.bbs.sport.basketball: 1-2
+cn.bbs.sport.cycling: 1
+cn.bbs.sport.football: 1-2
+cn.bbs.sport.table-tennis: 1-11
+cn.bbs.sport.weiqi: 1-4683
+cn.campus: 1-14
+cn.chat: 1-77
+cn.chat.fallow: 1-46
+cn.chat.feeling: 1-61
+cn.comp: 1-1191,4787-4806
+cn.comp.cad: 1-7
+cn.comp.certification: 1-6
+cn.comp.chinese: 1-96,385-386
+cn.comp.database: 1-10
+cn.comp.database.mysql: 1-16
+cn.comp.database.oracle: 1-8
+cn.comp.database.sybase: 1-8
+cn.comp.games: 1-11
+cn.comp.graphics: 1-631
+cn.comp.graphics.photoshop: 1-263
+cn.comp.hacker: 1-269
+cn.comp.hardware: 1-1211
+cn.comp.hardware.market: 1-3
+cn.comp.internet: 1-164
+cn.comp.irc: 1-2
+cn.comp.lang: 1-14
+cn.comp.lang.asp: 1-3
+cn.comp.lang.c: 1-216
+cn.comp.lang.delphi: 1-6
+cn.comp.lang.java: 1-4
+cn.comp.lang.perl: 1-10
+cn.comp.lang.php: 1-21
+cn.comp.lang.vb: 1-5
+cn.comp.lang.vc: 1-66
+cn.comp.lang.xml: 1-3
+cn.comp.os: 1-55
+cn.comp.os.freebsd: 1-22
+cn.comp.os.linux: 1-12
+cn.comp.os.win2000: 1-10
+cn.comp.os.win9x:
+cn.comp.os.winxp: 1-4
+cn.comp.programm: 1-7
+cn.comp.security: 1-11
+cn.comp.software: 1-5
+cn.comp.software.shareware: 1-36
+cn.comp.www: 1-82
+cn.culture: 1-16
+cn.culture.arts:
+cn.culture.arts.photo: 1-3
+cn.culture.arts.poem: 1
+cn.culture.arts.story:
+cn.culture.arts.story.ghost:
+cn.culture.buddhism:
+cn.edu:
+cn.edu.goabroad: 1-2
+cn.edu.lang:
+cn.edu.lang.english: 1-27
+cn.edu.self: 1
+cn.fan: 1-95
+cn.fan.auto: 1-108
+cn.fan.ham: 1-1390
+cn.finance: 1-169
+cn.finance.account: 1-3
+cn.finance.insurance: 1-3
+cn.finance.stock: 1-6
+cn.help: 1-4
+cn.local: 1-52
+cn.local.bj: 1
+cn.local.gd: 1-83
+cn.local.js: 1
+cn.local.sh: 1-2
+cn.local.zj: 1-2
+cn.misc: 1-631
+cn.misc.forsale:
+cn.misc.help:
+cn.music: 1-46
+cn.music.classical: 1-10
+cn.music.pop: 1-2
+cn.music.rock: 1
+cn.personal.mm: 1-202
+cn.personal.small:
+cn.personal.tobby:
+cn.rec: 1-139
+cn.rec.cartoon: 1-3
+cn.rec.fashion:
+cn.rec.humor: 1-75
+cn.rec.movies:
+cn.rec.riddles:
+cn.rec.tv: 1-2
+cn.sci: 1-1397,5497-5508,5511-5516
+cn.sci.biology: 1-3
+cn.sci.chemistry: 1-3
+cn.sci.chemistry.polymers: 1-2
+cn.sci.math: 1-2
+cn.sci.medicine: 1
+cn.sci.physics: 1-15
+cn.soc: 1-3
+cn.soc.history: 1-5
+cn.sports:
+cn.sports.basketball:
+cn.sports.football:
+cn.talk: 1-89
+cn.talk.friends: 1-3
+cn.telecom: 1-43
+cn.telecom.mobile: 1-14
+cn.test: 1-69
+codewarrior.linux:
+codewarrior.unix: 1
+comp.arch.storage: 1-26
+comp.lang.awk: 1-4972,4974-4975,4980,4982,4984-4990,4992,4994-4996,4998-5000,5002-5004,5006,5008,5011-5012,5014-5018,5020-5021,5023-5024,5026-5027,5029-5030,5033,5035,5037,5040,5042-5044,5048-5050,5052,5055,5057,5059,5062-5063,5065-5067,5069,5072-5073,5076
+comp.lang.python: 1-14614
+comp.mail.mutt: 1-178,180,182,185,187,189-193,195
+comp.mail.sendmail: 1-683
+comp.mobile.ipad: 1-6391
+comp.os.linux.advocacy: 1-19087,83569,83571-83578
+comp.os.linux.alpha: 1-6
+comp.os.linux.announce: 1-44
+comp.os.linux.answers: 1
+comp.os.linux.development.apps: 1-309
+comp.os.linux.development.system: 1-407
+comp.os.linux.embedded: 1-93
+comp.os.linux.hardware: 1-1172,1219,1222,1228
+comp.os.linux.m68k: 1
+comp.os.linux.misc: 1-2957,3264,3266,3270-3271,3273-3275,3300
+comp.os.linux.networking: 1-701
+comp.os.linux.portable: 1-14
+comp.os.linux.powerpc: 1-21
+comp.os.linux.security: 1-45
+comp.os.linux.setup: 1-2162
+comp.os.linux.x: 1-73
+comp.os.linux.xbox: 1
+comp.terminals: 1-31
+comp.text: 1-6
+comp.text.pdf: 1-262
+comp.text.tex: 1-4136
+comp.unix.admin: 1-81,84,86,88
+comp.unix.aix: 1-330,333-335,337,339-340,342-344,346-361,363-364,366,368,370,372-384,386,389-395
+comp.unix.programmer: 1-1843
+comp.unix.shell: 1-2657,2986-2987,2997,2999,3001,3004,3009,3012-3013,3029,3345,3351,3353,16302-16303,16313,16315,16317,16320,16324-16325,16328-16329,16342,16345
+comp.windows.x.apps: 1
+it.fan.musica.rem: 1-280,282-289,291-298
+rec.games.roguelike.nethack: 1-1523
+rec.music.rem: 1-15,17-18,20
+talk.politics.china: 1-2269,3172,3357,5602,7814,9711-9810
+tw.bbs.comp.hardware.storage: 1-269
+tw.bbs.comp.lang.python: 1-642
+tw.bbs.comp.linux: 1-570,2672
+tw.bbs.comp.unix: 1-249
+ucb.class.cs152:
+mozilla.general: 1-2042

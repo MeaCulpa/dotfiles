@@ -31,10 +31,15 @@ posting_host "ucarenya.com"
 
 %%% used server(s)
 %%% {{{
+%server freenews.netfront.net .slrn/.newsrc.netfrount
+%server news.aioe.org .slrn/.newsrc.aioe
+% NNTP
+server freenews.netfront.net .slrn/.newsrc.common
+server news.aioe.org .slrn/.newsrc.common
+% 3rd-Party
 server news.gmane.org .slrn/.newsrc.gmane
-server news.textnews.news.cambrium.nl .slrn/.newsrc.cambrium
+% Chinese
 server news.newsgroup.com.hk .slrn/.newsrc.hk
-server news.cn99.com .slrn/.newsrc.cn99
 server news.newsfan.net .slrn/.jnewsrc.newsfan
 %%% }}}
 
