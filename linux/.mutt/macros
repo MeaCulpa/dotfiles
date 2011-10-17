@@ -11,9 +11,8 @@
 macro index G "!fetchmail -ak -m 'procmail -d %T'\r"
 macro pager G "!fetchmail -ak -m 'procmail -d %T'\r"
 
-#use to edit .muttrc_imap and then source it...no restart necessary
+#use to edit .muttrc and then source it...no restart necessary
 macro generic ,sm ":source $HOME/.muttrc_imap\r"
-#macro generic \ce "!urxvt -e vim $HOME/.muttrc_imap\r"
 
 # Macros for use in the index.
 macro index "\Cx\Cb" "<change-folder>?"                                   # Folder list.
@@ -61,4 +60,9 @@ macro pager "\Cs\Cg" "<pipe-message>spamprobe good<enter>"                # This
 macro generic "\e?" "<shell-escape>less /usr/local/doc/mutt/manual.txt<enter>"
 macro index   "\e?" "<shell-escape>less /usr/local/doc/mutt/manual.txt<enter>"
 macro pager   "\e?" "<shell-escape>less /usr/local/doc/mutt/manual.txt<enter>"
+
+# addressbook
+macro index,pager A "<pipe-message>abook --add-email-quiet<return>" "add the sender address to abook"
+# M mark all as read
+macro index M "T.*\n;WN" "Mark all messages as read"
 

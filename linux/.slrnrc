@@ -1,4 +1,534 @@
-set realname "Mea Culpa"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% slrn config, -meaculpa-
+
+%%% charsets
+%%% {{{
+charset display "utf-8"
+charset outgoing "utf-8"
+charset editor "utf-8"
+charset config "utf-8"
+%%% }}}
+
+%%% who I am
+%%% {{{
+%%% create a date header? usefull if slrnpull is used
+%set generate_date_header 1
+%%% From: header
+% A dirty test for non-latin
+%set realname "Mea Culpa"
+set realname "Mëa Cúlpa"
 set username "infernoxu"
 set hostname "gmail.com"
+set organization "ucarenya.com"
+%set hostname "local.lan"
+%set editor_command "vim '+set tw=72' +%d '%s'"
+set editor_command "vim '+set tw=72' '%s'"
+
+%%% setup message-id: header
+set use_recommended_msg_id  1
+posting_host "ucarenya.com"
+%%% }}}
+
+%%% used server(s)
+%%% {{{
+server news.gmane.org .slrn/.newsrc.gmane
+server news.textnews.news.cambrium.nl .slrn/.newsrc.cambrium
+server news.newsgroup.com.hk .slrn/.newsrc.hk
+server news.cn99.com .slrn/.newsrc.cn99
+server news.newsfan.net .slrn/.jnewsrc.newsfan
+%%% }}}
+
+%%% formats
+%%% {{{
+header_display_format 0 "%F%-5S%G%-5l:[%12r]%t%s"
+header_display_format 1 "%F%G%-5l:[%12r]%t%s"
+header_display_format 2 "%F%-5l:%t%s"
+header_display_format 3 "%F%-5S%-5l:%t%50s %r"
+header_display_format 4 "%F%-5S [%10r]:%t%49s %-19g[%17d]"
+
+group_display_format 0 "  %F%-4u  %n%37g%d"
+group_display_format 1 "  %F%-4u  %n%48g%-8l-%h"
+group_display_format 2 "  %F%-4u [%-5t]  %n"
+
+ignore_quotes "^ ? ?>" "^ ? ?|"
+
+%%% }}}
+
+%%% options
+%%% {{{
+%%% servers are nntp; no local spool, no nothing...
+set server_object nntp
+%set server_object spool
+
+%%% special headers (for different purposes)
+set custom_headers            ""
+set followup_custom_headers   ""
+set reply_custom_headers      ""
+set supersedes_custom_headers ""
+
+%%% if your server is broken (Xref: header) try to set this to non-zero
+set broken_xref 0
+
+%%% check for new groups when checking for new articles?
+set check_new_groups 1
+
+%%% if there are new groups on the server,
+%%% i don't care. unsubscribe them by default
+set unsubscribe_new_groups 1
+
+%%% drop groups from newsrc when server drops them
+set drop_bogus_groups 1
+
+%%% slrn manual:
+%%% If 0, save all groups when writing newsrc file
+%%% if 1, do not save any unsubscribed groups
+%%% if 2, do not save any unread-unsubscribed groups
+set write_newsrc_flags 1
+
+%%% setup local spool (yes, I want it in my ~ dir)
+%set spool_inn_root       "var/spool/slrnpull"
+%set spool_root           "var/spool/slrnpull/news"
+%set spool_nov_root       "var/spool/slrnpull/news"
+
+%%% }}}
+
+%%% files
+%%% {{{
+
+%%% files/directories
+set postpone_directory  "News/postpone"
+set save_posts          "News/posted"
+set save_replies        "News/replies"
+set save_directory      "News/storage"
+set failed_posts_file   "News/failed_posts"
+
+%%% }}}
+
+%%% display options
+%%% {{{
+
+%%% ignore a users sig. if it's the only thing to be displayed when using 'article_page_down'
+set ignore_signature 0
+
+%%% "next group?"
+set query_next_group 0
+
+%%% do not prompt "see next article?"
+set query_next_article 0
+
+%%% when sorting by thread, you may want to break a thread if the Subject: header changes
+%%% this might help when threads grow really big
+set new_subject_breaks_threads 0
+
+%%% don't show the same subject when displaying threads
+set show_thread_subject 0
+
+%%% don't uncollapse threads when entering a group
+set uncollapse_threads 0
+
+%%% if your terminal doesn't get "graphic" characters right, set this to one
+set simulate_graphic_chars 0
+
+%%% when masking spoilers, use this character
+set spoiler_char '-'
+
+%%% how to display spoilers:
+%%%    0    keep the display still, and reveal the current spoiler
+%%%    1    start a new page, and reveal the current spoiler
+%%%    2    keep the display still, and reveal all spoilers
+%%%    3    start new page, and reveal all spoilers
+set spoiler_display_mode 2
+
+%%% as a vi(m) user, i love the tilde (~)
+%set use_tilde 1
+
+%%% when to wrap long lines
+set wrap_flags  3
+set wrap_method 2
+
+
+%%% where to look for *this* _and_ /that/
+%%% and don't rip out characters!
+set emphasized_text_mask 3
+set emphasized_text_mode 3
+
+%%% don't hide verbatim marks (#v+ #v-)
+set hide_verbatim_marks     0
+set hide_verbatim_text      0
+set process_verbatim_marks  1
+
+%%% highlight URIs
+set highlight_urls 1
+
+%%% this is way better than just having a '-> ' in front of the current article
+set display_cursor_bar 1
+
+%%% header weeding
+visible_headers "From:,Reply-To:,Subject:,Newsgroups:,Followup-To:,Message-ID:,Lines:,Date:,User-Agent:,X-Mailer:"
+
+%%% how to recognize quotes (and quoting levels)
+ignore_quotes "^ ? ?[><:=|]"
+
+%%% }}}
+
+%%% general usage
+%%% {{{
+
+%%% read how many articles, if there are a _lot_
+set query_read_group_cutoff 500
+
+%%% confirm_actions:
+%%% 1     confirm marking groups as read or un-read.
+%%% 2     confirm printing an article.
+%%% 4     confirm posts, followups, replies and supersedes.
+%%% 8     confirm leaving a group by following a news: URL.
+%%% 16    confirm quitting slrn.
+set confirm_actions 27
+
+%%% manually set articles as read
+%%% FIXME: maybe this could be assisted by scoring
+set auto_mark_article_as_read 0
+
+%%% flow control
+set use_flow_control 1
+
+%%% }}}
+
+%%% posting options
+%%% {{{
+
+%%% never ever send cc mails
+set cc_followup 0
+
+%%%
+set cc_post_string "[This message has also been posted to %n.]"
+
+%%% don't send articles i didn' touch
+set abort_unmodified_edits 1
+
+%%% sig setting
+set signature ".signature"
+
+%%% {followup,reply}_string
+set followup_string   "%r <%f>:"
+set reply_string      "In %n, you wrote:"
+
+%%% away with sigs from quotes
+set followup_strip_signature 1
+
+%%% the one and only quote_string
+set quote_string "> "
+
+%%% }}}
+
+%%% scoring
+%%% {{{
+
+%%% scorefile
+set scorefile ".slrn/scoring"
+
+%%% PLONK!
+set kill_score -8000
+
+%%% auto read
+set max_low_score 0
+
+%%% flag (aka. highscore)
+set min_high_score 50
+
+%%% }}}
+
+%%% sorting
+%%% {{{
+
+%%% sorting method; 12 means custom sorting, see below
+set sorting_method 12
+
+%%% description: custom_sort_*
+%%% {{{
+%%% if sorting_method is 12, the following values are used
+%%% custom_sort_by_threads: thread articles
+%%% custom_sort_order:
+%%%   If custom sorting is enabled by setting ``sorting_method'' to 12, this
+%%%   variable defines the sort order you want to use. It is a comma-
+%%%   separated list of the following keywords:
+%%%
+%%%     author      Sort alphabetically (A-z) by realname
+%%%     body        Sort articles without body first (true offline mode)
+%%%     date        Sort by date, oldest first
+%%%     highscore   Sort high scoring articles, those without high scores first
+%%%     id          Sort alphabetically (A-z) by Message-ID
+%%%     lines       Sort by number of article lines, lowest number first
+%%%     number      Sort by server number, lowest first
+%%%     score       Sort by score, lower numbers first
+%%%     subject     Sort alphabetically (a-z) by subject, ignoring case
+%%%
+%%%   As you can see, all keywords use an ascending sort order by default.
+%%%   You can however capitalize each keyword to reverse its order (i.e.
+%%%   Highscore would sort high scoring articles first, which is usually
+%%%   what you expect).
+%%%
+%%%   When comparing two articles, slrn steps through this list, starting
+%%%   with the first keyword, until it finds an entry for which the articles
+%%%   differ.
+%%%
+%%%   You may want to use different criteria for sorting initial articles of
+%%%   threads than for ``siblings'' inside of threads. This is possible by
+%%%   using the delimiter '|': The comma-separated list before this
+%%%   delimiter is applied when sorting initial articles in threads; the
+%%%   string after the delimiter specifies the sort order to be used inside
+%%%   threads. For example, if you want to see high scoring and recent
+%%%   threads first, but sort the messages within the thread from oldest to
+%%%   newest, you could set custom_sort_order to Highscore,Date|date. }}}
+set custom_sort_by_threads 1
+set custom_sort_order "date"
+
+%%% }}}
+
+%%% external commands
+%%% {{{
+
+%%% editor
+set mail_editor_command   "vim '+set tw=72' '%s'"
+set post_editor_command   "vim '+set tw=72' '%s'"
+set score_editor_command  "vim '+set tw=72' '%s'"
+
+%%% MIME support -- obsolete
+%set use_mime 1 
+%set mime_charset "utf-8" 
+% If non-zero, call metamail for mime formats that slrn does not handle 
+set use_metamail 1 
+set metamail_command "metamail"
+
+
+
+%%% recode before (1) or after (0/default) editor is called
+set editor_uses_mime_charset 0
+
+%%% mua to use for private messages
+set mail_editor_command "/usr/bin/mutt -H '%s'"
+set mail_editor_is_mua 1
+
+%%% character cell browser
+set non_Xbrowser  "w3m '%s'"
+set Xbrowser      "w3m '%s'"
+
+%%% }}}
+
+%%% string settings (help lines, status lines, formats)
+%%% {{{
+
+%%% help lines
+set art_help_line           "   Press '?' for help"
+set group_help_line         "   Press '?' for help"
+set header_help_line        "   Press '?' for help"
+
+%%% top/article/group/header status line
+set top_status_line         "slrn %v ** Press '?' for help, 'q' to quit. ** Server: %s"
+set art_status_line         "%p%n : [%r] %s %-20g -- %L (%P)"
+set group_status_line       "-%D- [group list] Server: %s %-20g -- %L (%P)"
+set header_status_line      "%p[%u/%t unread] Group: %n%-20g -- %L (%P)"
+
+%%% formats
+header_display_format   0   " %F%C [%-4S] [%-25r] [%D] (%-4l) %t%s"
+group_display_format    0   "   %F %45n %80d [%-6u/%-6t]"
+group_display_format    1   "   %F %45n [%-6u/%-6t] %d"
+group_display_format    2   "   %F [%-6u/%-6t] %-45n       %d"
+
+%%% }}}
+
+%%% colors
+%%% {{{
+
+%%% color by score
+set color_by_score 3
+
+%%% respect unread_subjects color setting
+set highlight_unread_subjects 2
+
+color status              "white"           "blue"            "bold"
+color menu                "white"           "blue"            "bold"
+color selection           "white"           "red"             "bold"
+color subject             "brightred"       "default"
+color unread_subject      "cyan"            "default"
+color article             "lightgray"       "default"
+color author              "yellow"          "default"
+color boldtext            "brightblue"      "default"         "bold"
+color box                 "black"           "white"
+color cursor              "lightgray"       "brightred"
+color date                "lightgray"       "default"
+color description         "cyan"            "default"
+color error               "red"             "default"         "blink"
+color frame               "yellow"          "blue"
+color from_myself         "brightmagenta"   "default"         "bold"
+color group               "lightgray"       "default"
+color grouplens_display   "lightgray"       "default"
+color header_name         "green"           "default"         "bold"
+color header_number       "green"           "default"
+color headers             "brightcyan"      "default"
+color neg_score           "green"           "default"
+color pos_score           "magenta"         "default"
+color high_score          "black"           "yellow"
+color italicstext         "magenta"         "default"         "bold"
+color menu_press          "lightgray"       "yellow"
+color message             "lightgray"       "default"
+color normal              "cyan"            "default"
+color pgpsignature        "lightgray"       "default"
+color quotes              "green"           "default"
+color quotes1             "brown"           "default"
+color quotes2             "cyan"            "default"
+color quotes3             "red"             "default"
+color quotes4             "green"           "default"
+color quotes5             "brown"           "default"
+color quotes6             "cyan"            "default"
+color quotes7             "red"             "default"
+color response_char       "green"           "default"         "bold"
+color signature           "red"             "default"
+color thread_number       "lightgray"       "default"         "bold"
+color tilde               "green"           "default"         "bold"
+color tree                "red"             "default"         "bold"
+color underlinetext       "cyan"            "default"         "underline"
+color url                 "cyan"            "default"         "bold"
+color verbatim            "green"           "default"
+
+%%% }}}
+
+%%% marco setup
+%%% {{{
+%%% interpret "~/.slrn/macros/get-by-mid.sl"
+%%% }}}
+
+%%% keybindings
+%%% {{{
+
+%%% group mode binds
+%%% {{{
+setkey  group       help                          "?"
+setkey  group       add_group                     "a"
+setkey  group       bob                           "<home>"
+setkey  group       eob                           "<end>"
+setkey  group       catchup                       "c"
+setkey  group       evaluate_cmd                  "^x\e"
+setkey  group       group_search_forward          "/"
+setkey  group       group_search_backward         "\\"
+setkey  group       line_down                     "<down>
+setkey  group       line_down                     "j"
+setkey  group       line_up                       "<up>
+setkey  group       line_up                       "k"
+setkey  group       move_group                    "m"
+setkey  group       page_down                     "<pgdown>"
+setkey  group       page_up                       "<pgup>"
+setkey  group       post                          "p"
+setkey  group       post_postponed                "P"
+setkey  group       quit                          "q"
+setkey  group       redraw                        "^L"
+setkey  group       refresh_groups                "g"
+setkey  group       repeat_last_key               "."
+setkey  group       save_newsrc                   "^r"
+setkey  group       select_group                  "<return>"
+setkey  group       subscribe                     "<space>"
+setkey  group       suspend                       "^z"
+setkey  group       toggle_group_formats          "\ea"
+setkey  group       toggle_hidden                 "l"
+setkey  group       toggle_list_all               "L"
+setkey  group       toggle_scoring                "K"
+setkey  group       transpose_groups              "r"
+setkey  group       uncatchup                     "U"
+setkey  group       unsubscribe                   "u"
+%%% }}}
+
+%%% article mode binds
+%%% {{{
+setkey  article     help                          "?"
+setkey  article     hide_article                  "q"
+setkey  article     quit                          "Q"
+setkey  article     article_bob                   "\>"
+setkey  article     article_eob                   "\<"
+setkey  article     article_left                  "<left>"
+setkey  article     article_right                 "<right>"
+setkey  article     article_line_down             "<return>"
+setkey  article     article_line_up               "<backspace>"
+setkey  article     article_page_down             "<space>"
+setkey  article     article_page_up               "-"
+setkey  article     article_search                "/"
+setkey  article     author_search_forward         "a"
+setkey  article     author_search_backward        "A"
+setkey  article     browse_url                    "<f1>"
+setkey  article     cancel                        "\e^c"
+setkey  article     catchup                       "C"
+setkey  article     catchup_all                   "c"
+setkey  article     create_score                  "\ee"
+setkey  article     decode                        "N"
+setkey  article     delete                        "d"
+setkey  article     delete_thread                 "^d"
+setkey  article     enlarge_article_window        "+"
+setkey  article     shrink_article_window         "^+"
+setkey  article     evaluate_cmd                  "^x\e"
+setkey  article     exchange_mark                 "x"
+setkey  article     mark_spot                     "y"
+setkey  article     expunge                       "S"
+setkey  article     fast_quit                     "\eq"
+setkey  article     followup                      "f"
+setkey  article     forward                       "F"
+setkey  article     forward_digest                "g"
+setkey  article     get_children_headers          "^p"
+setkey  article     get_parent_header             "\ep"
+setkey  article     goto_article                  "j"
+setkey  article     goto_last_read                "L"
+setkey  article     header_bob                    "<home>"
+setkey  article     header_eob                    "<end>"
+setkey  article     header_line_down              "<down>"
+setkey  article     header_line_up                "<up>"
+setkey  article     header_page_down              "<pgdown>"
+setkey  article     header_page_up                "<pgup>"
+setkey  article     locate_article                "l"
+setkey  article     next                          "n"
+setkey  article     next_high_score               "!"
+setkey  article     next_same_subject             "="
+setkey  article     pipe                          "|"
+setkey  article     post                          "p"
+setkey  article     post_postponed                "P"
+setkey  article     previous                      "b"
+setkey  article     print                         "^o"
+setkey  article     redraw                        "^l"
+setkey  article     repeat_last_key               "."
+setkey  article     reply                         "r"
+%setkey  article     request                       "M"
+setkey  article     save                          "o"
+setkey  article     show_spoilers                 "\ey"
+setkey  article     skip_quotes                   "T"
+setkey  article     skip_to_next_group            ":"
+setkey  article     skip_to_previous_group        ";"
+setkey  article     subject_search_forward        "s"
+setkey  article     subject_search_backward       "S"
+setkey  article     supersede                     "\e^s"
+setkey  article     suspend                       "^z"
+setkey  article     tag_header                    "#"
+setkey  article     toggle_collapse_threads       "\et"
+setkey  article     toggle_header_formats         "\ea"
+setkey  article     toggle_header_tag             "*"
+setkey  article     toggle_headers                "h"
+setkey  article     toggle_pgpsignature           "_"
+setkey  article     toggle_quotes                 "<tab>"
+setkey  article     toggle_rot13                  "\ex"
+setkey  article     toggle_signature              "\ec"
+setkey  article     toggle_sort                   "\ef"
+setkey  article     toggle_verbatim_marks         "\eb"
+setkey  article     toggle_verbatim_text          "\ev"
+setkey  article     uncatchup                     "\eU"
+setkey  article     uncatchup_all                 "\eu"
+setkey  article     undelete                      "u"
+setkey  article     untag_headers                 "\e#"
+setkey  article     view_scores                   "V"
+setkey  article     wrap_article                  "W"
+setkey  article     zoom_article_window           "z"
+%setkey  article     GetByMid->get_article         "\el"
+%%% }}}
+
+%%% readline mode binds
+%%% {{{
+setkey  readline    bdel                          "<backspace>"
+setkey  readline    bol                           "<home>"
+setkey  readline    eol                           "<end>"
+
 

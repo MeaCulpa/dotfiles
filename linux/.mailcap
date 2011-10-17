@@ -1,0 +1,23 @@
+# # lynx attachment
+# #text/html; lynx -force_html %s; needsterminal
+# # elinks attachment
+# #text/html; elinks -default-mime-type text/html %s; needsterminal;
+#
+# # lynx autoview
+# #text/html; lynx -dump -force_html %s; needsterminal; copiousoutput;
+# # elinks autoview
+# text/html; elinks -dump -dump-charset utf8 -default-mime-type text/html %s; needsterminal; copiousoutput;
+
+text/html; w3m -dump -ppc 9 -I %{charset} -T text/html %s|uniq; copiousoutput
+application/pdf; pdftotext -enc UTF-8 %s /dev/stdout; copiousoutput
+application/octet-stre; antiword %s|uniq; copiousoutput
+application/octet-stream; antiword %s|uniq; copiousoutput
+application/msword; antiword %s|uniq; copiousoutput
+#application/octet-stream; wvHtml --charset=gb2312 %s - |w3m -dump -I gb2312 -T text/html ;copiousoutput
+#application/octet-stre; wvHtml --charset=gb2312 %s - |w3m -dump -I gb2312 -T text/html ;copiousoutput
+#application/msword; wvHtml --charset=gb2312 %s - |w3m -dump -I gb2312 -T text/html ;copiousoutput
+application/pdf; pdftotext '%s' -; copiousoutput; description=PDF Document;nametemplate=%s.pdf
+
+image/*; feh %s ; test=test -n "$DISPLAY"; copiousoutput
+
+

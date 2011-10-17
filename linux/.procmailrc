@@ -1,0 +1,118 @@
+MAILDIR=$HOME/.mail
+DEFAULT=$MAILDIR/inbox/
+LOGFILE=$MAILDIR/log
+
+
+:0fw
+* ! ^Date:
+| formail -a "Date: `date -R`"
+
+:0fw
+* ! ^Content-Type:
+| formail -a "Content-Type: text/plain; charset=utf-8"
+
+:0fw
+* ! ^From:
+| formail -a "From: <`hostname`>"
+
+#:0fw
+#| bogofilter -u -e -p
+
+#:0:
+#* ^X-Bogosity: Spam.*
+#spam/
+
+#:0
+##* ^From:.*(HKAMG|AIST|eNewsletter|TMS|e-News|Body Shop|ESDlife|MTR|Gizmo|CPN)
+##spam/
+#
+##:0 c
+##* ^From: .*(Twitter|Milk|Lancelot)
+##| ~/bin/notify-email.py
+#
+
+:0:
+* ^To: meaculpa@smmail.cn
+meaculpa_smmail/
+
+# LUGs
+:0:
+* ^(From|Cc|To).*shlug
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*szlug
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*gentoo-china
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*fedoraproject.org
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*ITtoolbox
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*it\.toolbox
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*sluug.org
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*python-cn@googlegroups.com
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*gclug@googlegroups.com
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*sqlite.org
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*googlegroups.com
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*AustinLUG
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*zsh
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*ixcraft.com
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*ed-email.techtarget.com
+infernoxu_lists/
+
+#:0:
+#* ^To: infernoxu@gmail.com
+#inbox/
+
+:0:
+* ^From: infernoxu@gmail.com
+self/
+
+:0:
+* ^From: 13816339762@139.com
+self/
+
+:0:
+* ^From: xujinyu@cn.ibm.com
+self/
+
+:0:
+* ^(From|Cc|To).*ibm.com
+infernoxu_ibm/
+

@@ -4,9 +4,9 @@
 
 ## main gmail defaults
 set imap_user = "infernoxu@gmail.com"
-set imap_pass = "XXXXXXX"
+set imap_pass = "XXXXXXXXX"
 set smtp_url = "smtp://infernoxu@smtp.gmail.com:587/"
-set smtp_pass = "XXXXXXX"
+set smtp_pass = "XXXXXXXXX"
 set from = "infernoxu@gmail.com"
 set realname = "Mea Culpa"
 set folder = "imaps://imap.gmail.com:993"
@@ -18,16 +18,16 @@ set postponed="+[Gmail]/Drafts"
 mailboxes 'imaps://infernoxu@gmail.com@imap.gmail.com:993/INBOX' \
           'imaps://methuselar@gmail.com@imap.gmail.com:993/INBOX' \
 		  'imaps://alsedux@gmail.com@imap.gmail.com:993/INBOX' \
-		  'jyxuhsu://jyhsu@gmail.com@imap.gmail.com:993/INBOX'
+		  'imaps://alsedux@gmail.com@imap.gmail.com:993/INBOX'
 
 #folder-hook . 'unset imap_user; unset imap_pass; unset tunnel'
 folder-hook imaps://infernoxu@gmail.com@imap.gmail.com:993 ' \
         set from="infernoxu@gmail.com" \
 		    realname = "Mea Culpa" \
 			imap_user="infernoxu@gmail.com" \
-			imap_pass="XXXXXXX" \
+			imap_pass="XXXXXXXXX" \
 			smtp_url="smtp://infernoxu@smtp.gmail.com:587" \
-			smtp_pass = "XXXXXXX" \
+			smtp_pass = "XXXXXXXXX" \
 			spoolfile = "+INBOX" \
 			record="+[Gmail]/Sent Mail" \
 			postponed="+[Gmail]/Drafts"'
@@ -36,9 +36,9 @@ folder-hook imaps://methuselar@gmail.com@imap.gmail.com:993 ' \
         set from="methuselar@gmail.com" \
 		    realname = "Methuselar" \
 			imap_user="methuselar@gmail.com" \
-			imap_pass="XXXXXXX" \
+			imap_pass="XXXXXXXXX" \
 			smtp_url="smtp://methuselar@smtp.gmail.com:587" \
-			smtp_pass = "XXXXXXX" \
+			smtp_pass = "XXXXXXXXX" \
 			spoolfile = "+INBOX" \
 			record="+[Gmail]/Sent Mail" \
 			postponed="+[Gmail]/Drafts"'	
@@ -47,9 +47,9 @@ folder-hook imaps://alsedux@gmail.com@imap.gmail.com:993 '\
         set from="alsedux@gmail.com" \
 		    realname = "Al Sedux" \
 			imap_user="alsedux@gmail.com" \
-			imap_pass="XXXXXXX" \
+			imap_pass="XXXXXXXXX" \
 			smtp_url="smtp://alsedux@smtp.gmail.com:587" \
-			smtp_pass = "XXXXXXX" \
+			smtp_pass = "XXXXXXXXX" \
 			spoolfile = "+INBOX" \
 			record="+[Gmail]/Sent Mail" \
 			postponed="+[Gmail]/Drafts"'
@@ -58,9 +58,9 @@ folder-hook imaps://jyxuhsu@gmail.com@imap.gmail.com:993 '\
         set from="jyxuhsu@gmail.com" \
 		    realname = "J.Y. Hsu" \
 			imap_user="jyxuhsu@gmail.com" \
-			imap_pass="XXXXXXX" \
+			imap_pass="XXXXXXXXX" \
 			smtp_url="smtp://jyxuhsu@smtp.gmail.com:587" \
-			smtp_pass = "XXXXXXX" \
+			smtp_pass = "XXXXXXXXX" \
 			spoolfile = "+INBOX" \
 			record="+[Gmail]/Sent Mail" \
 			postponed="+[Gmail]/Drafts"'
@@ -84,4 +84,8 @@ set sendmail="/usr/bin/msmtp --file $HOME/.msmtprc_gmail"
 # My Sig
 # set sig_dashes=no
 set signature="~/.sig_gmail"
+
+#use to edit .muttrc and then source it...no restart necessary
+macro generic ,sm ":source $HOME/.muttrc_imap\r"
+
 

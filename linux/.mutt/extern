@@ -1,0 +1,8 @@
+#
+# external utils for mutt
+#
+
+# My Editor
+set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$"'
+
+

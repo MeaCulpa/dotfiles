@@ -17,4 +17,4 @@ set beep=no                             #no noise
 set markers=no                          #no + on wrapped lines
 set confirmappend=no                    #no prompt for save to =keep
 set to_chars=" +TCF"                    #no L for mail_list
-set mailcap_path=~/mailcap
+set mailcap_path=~/.mailcap

@@ -1,0 +1,372 @@
+% vim:ft=slrnsc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% Filename: ~/.slrn/scoring
+% Purpose: Scoring-File for slrn - Newsreader
+% Author: Mea Culpa / infernoxu@gmail.com / ucarenya.com
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% My _main_ rules for scoring (might vary _some_times):
+%
+
+% Start-Scoring :-)
+[*]
+     Score:: 1000
+        From: Mea Culpa
+     Score:: 1000
+        From: Mëa Cúlpa
+     Score:: 1000
+        From: MeaCulpa
+     Score:: 1000
+        From: J.Y. Hsu
+
+% References
+[*]
+     Score:: 600
+        References: ^ *<[^@]*@[^>]*\.infernoxu\.at>
+     Score:: 580
+        References: @[^>]*netz\.infernoxu\.at> *$
+     Score:: 540
+        References: @[^>]*netz\.infernoxu\.at> *<[^<>]*> *$
+     Score:: 500
+        References: @[^>]*netz\.infernoxu\.at> *<[^<>]*> *<[^<>]*> *$
+
+[*]
+  Score: -9000
+    X-Newsreader: Microsoft Outlook*
+
+% People from TU-Graz or VC-Graz - posting in a !tu-Newsgroup
+[gmane.test]
+     Score:: -1000
+        From: @*\.tugraz\.at>
+        From: @*\.tu-graz\.ac\.at>
+        From: @*\.vc-graz\.ac\.at>
+
+[*.announce]
+     Score:: 300
+        Subject: slrn
+        Subject: vim
+        Subject: mutt
+        Subject: GnuPG
+        Subject: editor
+        Subject: security
+        Subject: ssh
+        Subject: browser
+        Subject: mail
+        Subject: LaTeX
+        Subject: kernel
+        Subject: dns
+        Subject: shell
+        Subject: tcp
+        Subject: phoenix
+        Subject: mozilla
+        Subject: fvwm
+        Subject: fluxbox
+        Subject: KDE
+        Subject: oggle
+        Subject: okle
+        Subject: grep
+        Subject: Qt
+        Subject: PHP
+        Subject: SQL
+        Subject: PGP
+        Subject: Note
+        Subject: Audio
+
+% Assigns a score to articles that have less than or equal to 3 lines:
+[~gmane.test]
+   Score: -7
+        ~Lines: 3
+
+% interesting subjects
+[*]
+     Score:: 30
+        Subject: FX?02
+        Subject: Sony VAIO FX*60?
+        Subject: RAID
+        Subject: slrn
+
+     Score: 30 
+        Subject: IPv6
+        ~Newsgroup: gmane.linux.ipv6.usagi.users
+
+     Score: 30 
+        Subject: iptables
+        ~Newsgroup: gmane.comp.security.firewalls.netfilter.*
+
+     Score: 30
+        Subject: mutt
+        ~Subject: muttertag
+        ~Subject: mutter
+        ~Newsgroup: comp.mail.mutt
+        ~Newsgroup: gmane.mail.mutt*
+
+     Score: 30 
+        Subject: Debian
+        ~Newsgroup: gmane.linux.debian.*
+
+     Score: 30
+        Subject: Samba
+        %~Newsgroup: *samba
+        ~Newsgroup: de.comp.os.unix.networking.samba
+        ~Newsgroup: de.alt.sysadmin.recovery
+
+     Score: 30
+        Subject:DVD
+
+     Score: 30
+        Subject: TCP
+        ~Subject: TCPA
+
+     Score:: 30
+        Subject: svn
+        Subject: subversion
+
+     Score: 30
+        Subject: vim
+        ~Newsgroup: de.comp.editoren
+        ~Newsgroup: comp.editors
+        ~Newsgroup: gmane.editors.vim
+
+     Score: 30
+	Subject: SSH
+        ~Newsgroup: comp.security.ssh
+
+     Score: -30
+        Subject: Test *
+        ~Subject: .*Test.*
+        ~Newsgroup: tu-graz.fm.announce
+
+
+[comp.mail.mutt]
+Score: 30
+ 	Subject: S/MIME
+
+[comp.os.linux.*]
+  Score:: =-9000 
+        From: ^ *[^ _]*[ _][^ _]* *$
+        %~From: .+ .+ .+
+        %From: ([A-Z]\.? .*)
+
+[comp.os.linux.development.apps]
+Score: 30
+	Subject: Qt
+
+[comp.os.plan9]
+   Score:: 300
+	From: @plan9\.bell-labs\.com
+
+   Score:: 30
+        Subject: acme
+        Subject: vmware
+
+[linux.*]
+Score: =-9000
+ 	Subject: subscribe
+
+%%%%%%%%% end scoring by newsgroup %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% scoring by errors ;-)
+[*]
+   Score: -5
+        Newsgroups: ,
+        ~Followup-To: ^[^,]*$ 
+
+%   Score: -7
+%        % Filter damned spam like --- you must read this blablabla ---
+%        % Problem is jargon like PPPT, so I do not use it
+%        Subject: \(.\)\1\1
+%        ~Subject: \.\.\.
+
+% Assignes a score of -6 to articles that have more than 300 lines.
+[*]
+   Score: -7
+        Lines: 300
+
+% damaged message-id
+   Score:: -8
+        Message-ID: ^<.+@\[?[0-9]+\.[0-9]+\.[0-9]\.+[0-9]\]?>$
+        Message-ID: ^<.+@[^.]*>$
+        Message-ID: @localhost
+        Message-ID: @default
+        %Message-ID: ^<.+@gmx\.de>$
+        %Message-ID: ^<.+@gmx\.net>$
+        %Message-ID: ^<.+@gmx\.at>$
+        %Message-ID: ^<.+@gmx\.li>$
+        %Message-ID: ^<.+@gmx\.ch>$
+        Message-ID: ^<[^@]*>$
+        %Message-ID: [a-z]{1,9}@[a-z]{1,8}
+   Score: -8
+        Message-ID: @ID*news\.cis\.dfn\.de>$
+        % news.cis.dfn.de -> http://news.cis.dfn.de/de/faq.html#4.4
+        % @ID-1234567.user.dfncis.de = user generated
+        % @ID-1234567.news.dfncis.de = host generated
+        % @news.cis.dfn.de = wrong :-)
+
+[*]
+% argl, i hate this postings!
+     Score: -40
+     %Score: =-40
+        ~References: .
+        Subject: ^Re:
+
+% Pseudos
+[*]
+     Score: -100
+	~From: .+@.+ (.+ +.+)
+	~From: .+ .+ <.+@.+>
+	% V. Name
+	From: ([A-Z]\.? .*)
+	From: ^"?[A-Z]\.? .*
+	% Vorname N.
+	From: (.* +[A-Z]\.?)
+	From: ^.* +[A-Z]\.?"? +[^ ]+@.+$
+        %From: <<
+        %From: no-?spam
+        %%From: no-answer
+        %From: see-sig
+        %From: x.x.x.x.x
+	%From: remove-?this
+	%Newsgroups: ,
+        %Followup-To: ^[^,]*$
+
+% without Realname
+[*]
+     Score: -100
+        ~From: @[-\.a-z0-9]+\.[a-z][a-z]>?$
+        ~From: @[-\.a-z0-9]+\.com>?$
+        ~From: @[-\.a-z0-9]+\.biz>?$
+        ~From: @[-\.a-z0-9]+\.info>?$
+        ~From: @[-\.a-z0-9]+\.gov>?$
+        ~From: @[-\.a-z0-9]+\.org>?$
+        ~From: @[-\.a-z0-9]+\.net>?$
+        ~From: @[-\.a-z0-9]+\.edu>?$
+        ~From: @[-\.a-z0-9]+\.mil>?$
+        ~From: @[-\.a-z0-9]+\.[a-z][a-z] +
+        ~From: @[-\.a-z0-9]+\.com +
+        ~From: @[-\.a-z0-9]+\.biz +
+        ~From: @[-\.a-z0-9]+\.info +
+        ~From: @[-\.a-z0-9]+\.gov +
+        ~From: @[-\.a-z0-9]+\.org +
+        ~From: @[-\.a-z0-9]+\.net +
+        ~From: @[-\.a-z0-9]+\.edu +
+        ~From: @[-\.a-z0-9]+\.mil + 
+        ~From: @[-\.a-z0-9]+\.invalid
+        ~From: @[-\.a-z0-9]+\.name
+	
+     Score:: -100
+        ~From: [ ][^ ]+[ ]
+        From: ^ *[^ _]*[ _][^ _]* *$
+        From: @[^ ]*remove
+        From: @[^ ]*delete
+        From: @[^ ]*nojunk
+        %From: @[^ ]*invalid
+	From: @[^ ]*signature
+	From: remove[^ ]*@
+	From: nojunk[^ ]*@
+	%From: nospam[^ ]*@
+	%to many people with existing mail-adresses like user.nospam@host.com ;-)
+	From: signature[^ ]*@
+	From: anti_spam
+	From: \<example\.net\>
+	From: \<example\.com\>
+	From: \<example\.edu\>
+	From: \<example\.org\>
+	From: \<invalido\.de\>
+	From: \<jemand@microsoft\.com\>
+        ~From: .+ .+ .+
+        From: ([A-Z]\.? .*)
+        From: ^"?[A-Z]\.? .*
+        From: (.* +[A-Z]\.?)
+        From: ^.* +[A-Z]\.?"? +[^ ]+@.+$
+
+% allow ".invalid" if reply-to is not empty
+%[*]
+%     Score: 200
+% 	From: @*[^ ]*\.invalid
+%        ~Reply-To:
+
+% pseudo-entries
+[*]
+     Score:: -300
+        From: Jens Mander
+        From: Max Mustermann
+        From: root@localhost.localdomain
+
+% stupid subjects
+     Score: -500
+        % Mehr als drei »!«
+        Subject: !!!
+        % Ebenso mit »$«
+        Subject: \$\$\$
+        % Ebenso mit »?« (meistens von DAUs)
+        Subject: \?\?\?
+        % Einige Newsreader setzen folgende Floskeln ein, wenn kein Subject
+        % angegeben wird
+        Subject: ^(no subject)$
+        Subject: ^none$
+        Subject: ^Untitled$
+        % Meistens enthält Spam das Schlüsselwort Free im Subject
+        Subject: F[rR][eE][eE]
+        % Andere Schlüsselwörter
+        Subject: [mM][aA][kK][eE].*[mM][oO][nN][eE][yY]
+        Subject: [oO][p]P[pP][oO][rR][tT][uU][nN][iI][tT][yY]
+        Subject: [fF][aA][sS][tT].*[cC][aA][sS][hH]
+        % Alle Subjects, die nicht mindestens einen Kleinbuchstaben enthalten
+        Subject: ^\c[^a-z]*$
+
+% non-plain-text - ARGL!
+     Score: -5000
+        Content-Type: multipart/alternative
+        ~Newsgroup: gmane.*
+
+     Score: -5000
+        Content-Type: multipart/mixed
+        ~Newsgroup: gmane.*
+
+     Score: -5000
+        Content-Type: multipart/signed
+        ~Newsgroup: gmane.*
+
+     Score: -5000
+	Content-Type: text/html
+        ~Newsgroup: gmane.*
+
+% fucking anonymous remailer/newsgates
+[*]
+    Score:: -6000
+        Organization: @nym\.alias\.net
+        Organization: GMS Freedom Project
+        % mail2news-abuse@freedom.gmsociety.org
+
+     Score:: -300
+        Organization: http://groups\.google\.com/ 
+        Organization: http://groups.google.com
+
+     Score: -300
+        Organization: mail2news@dizum\.com
+
+     Score: -300
+        Organization: Posted via Supernews
+
+     Score: -300
+ 	From: @cyberjunkiez\.de>
+
+     Score: -100
+	References: @anonymous\.remailer\.cyberjunkiez\.de>
+
+%[*]
+%Score: 300
+%        User-Agent: Mutt/*
+%        ~Newsgroup: linux.*
+
+% Plonk ;-)
+[*]
+   Score:: -9000
+      % the following domains are responsible for duplicate postings... grml
+      Message-ID: <.*@news\.onlynews\.com> 
+      Message-ID: <.*@news\.1usenet\.com>
+      Message-ID: <.*@news\.teranews\.com>
+
+%%%%%%%%%%%%%%%%%%%% end of manual entries %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%% end of file %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
