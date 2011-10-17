@@ -1,0 +1,36 @@
+# -*- muttrc_imap -*-
+#
+# rc file for mutt
+#
+
+## basic settings ##
+source ~/.mutt/basic
+
+## local mailbox or imap remote?? ##
+#source ~/.mutt/remotedir
+source ~/.mutt/localdir
+
+## alias and addressbook ##
+source ~/.mutt/alias
+## formats ##
+source ~/.mutt/formats
+## save-hook ##
+source ~/.mutt/savehooks
+## mail-lists ##
+source ~/.mutt/maillists
+## bindings ##
+source ~/.mutt/bindings
+## macros ##
+source ~/.mutt/macros
+## color settings ##
+source ~/.mutt/color
+## headers ##
+source ~/.mutt/headers
+## auto-views
+source ~/.mutt/autoview
+## sidebar
+source ~/.mutt/sidebar
+## external utils ##
+source ~/.mutt/extern
+## End of file...
+
