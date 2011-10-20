@@ -76,9 +76,6 @@ infernoxu_lists/
 * ^(From|Cc|To).*sqlite.org
 infernoxu_lists/
 
-:0:
-* ^(From|Cc|To).*googlegroups.com
-infernoxu_lists/
 
 :0:
 * ^(From|Cc|To).*AustinLUG
@@ -93,12 +90,20 @@ infernoxu_lists/
 infernoxu_lists/
 
 :0:
-* ^(From|Cc|To).*ed-email.techtarget.com
+* ^(From|Cc|To).*ixcraft.com
+infernoxu_lists/
+
+:0:
+* ^(From|Cc|To).*bama.ua.edu
 infernoxu_lists/
 
 #:0:
 #* ^To: infernoxu@gmail.com
 #inbox/
+
+:0:
+* ^(From|Cc|To).*googlegroups.com
+infernoxu_lists/
 
 :0:
 * ^From: infernoxu@gmail.com

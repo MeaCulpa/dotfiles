@@ -4,7 +4,7 @@
 
 ## main gmail defaults
 set from = "infernoxu@gmail.com"
-set realname = "Mea Culpa"
+set realname = "Úcarenya"
 set folder=$HOME/.mail
 set spoolfile = "+/inbox"
 set record=+/sent        #sent mail is saved here

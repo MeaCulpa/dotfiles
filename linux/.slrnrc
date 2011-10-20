@@ -16,7 +16,7 @@ charset config "utf-8"
 %%% From: header
 % A dirty test for non-latin
 %set realname "Mea Culpa"
-set realname "Mëa Cúlpa"
+set realname "Úcarenya"
 set username "infernoxu"
 set hostname "gmail.com"
 set organization "ucarenya.com"
