@@ -72,7 +72,7 @@ Echinus*togglestruts: W + b
 Echinus*togglemonitor: W + grave
 Echinus*focusnext: W + j
 Echinus*focusprev: W+ k
-Echinus*viewprevtag: W + Tab
+!Echinus*viewprevtag: W + Tab
 Echinus*viewlefttag: W + Left
 Echinus*viewrighttag: W + Right
 Echinus*quit: WS + q
@@ -90,7 +90,7 @@ Echinus*view5: W + 6
 Echinus*view6: W + 7
 Echinus*view7: W + 8
 Echinus*view8: W + 9
-Echinus*view9: W + 0
+Echinus*view15: W + 0
 
 Echinus*tag0: WS + 1
 Echinus*tag1: WS + 2
@@ -101,7 +101,7 @@ Echinus*tag5: WS + 6
 Echinus*tag6: WS + 7
 Echinus*tag7: WS + 8
 Echinus*tag8: WS + 9
-Echinus*tag9: WS + 0
+Echinus*tag15: WS + 0
 
 Echinus*setlayoutm: W + m
 Echinus*setlayoutf: W + f
@@ -125,6 +125,7 @@ Echinus*spawn5: Menu = dmenu_run -nb "#1A1A1A" -nf "#696969" -sb "#1A1A1A" -sf "
 Echinus*spawn6: CA + l = slock
 Echinus*spawn7: W + r = dmenu_run -nb "#1A1A1A" -nf "#696969" -sb "#1A1A1A" -sf "#D3D7Cf"
 Echinus*spawn8: WS + b = find ~/wallpaper -type f -print0 | shuf -n1 -z | xargs -0 feh --bg-scale 
+Echinus*spawn9: WS + x = find /data/l1/pic/hot/ -type f -print0 | shuf -n1 -z | xargs -0 feh --bg-max
 
 Echinus*decmwfact: W + h = -0.05
 Echinus*incmwfact: W + l = +0.05
