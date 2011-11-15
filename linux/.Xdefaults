@@ -13,13 +13,15 @@ URxvt*shading:		35
 
 URxvt.title:	MeaCulpa's urxvt
 
-#URxvt.font:xft:terminus-font:size=8x8:antialias=True, \
+#URxvt.font:xft:terminus-font:size=10x16:antialias=True, \
+URxvt.font:xft:monaco:size=8x8:antialias=True, \
+xft:youyuan:size=10x16:antialias=True
 #xft:Microsoft YaHei:size=8x16:antialias=False
 
 #URxvt.font:xft:DejaVu Sans Mono:size=8x16: \
 #URxvt.font:xft:DejaVu Sans Mono:size=10x16:antialias=True, \
-URxvt.font:xft:Lucida Console:size=10x16:antialias=True, \
-xft:youyuan:size=10x16:antialias=True
+#URxvt.font:xft:Lucida Console:size=10x16:antialias=True, \
+#xft:youyuan:size=10x16:antialias=True
 #xft:youyuan:size=8x16
 
 #xft:microsoft yahei:pixelsize=16:antialias=False

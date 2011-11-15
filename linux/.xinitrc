@@ -31,12 +31,13 @@ export OOO_FORCE_DESKTOP=gnome
 #exec /usr/bin/ssh-agent -- /usr/bin/gnome-session
 #exec /usr/bin/ssh-agent -- /usr/kde/3.5/bin/startkde
 xset m 1 0
+xset -b
 xmodmap /home/inferno/.Xmodmap
 scim -d
 #fcitx -d
 #ibus-daemon &
-conky
-#pypanel &
+#conky
+pypanel &
 urxvtd -q -f
 #/usr/kde/4.2/bin/startkde
 #/usr/kde/3.5/bin/startkde
@@ -44,8 +45,8 @@ urxvtd -q -f
 
 #exec fluxbox
 #exec xmonad
-awesome
-#exec echinus
+#awesome
+exec echinus
 
 #startxfce4
 #exec icewm
