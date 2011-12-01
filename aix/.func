@@ -36,10 +36,6 @@ psf () {
 }
 
 #------------------------------------------------------------------------------
-# dlosspkg: Download oss pkg from AIX Toolbox
-dlosspkg () { wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i; }
-
-#------------------------------------------------------------------------------
 # findbigger: find FILES Bigger than certain blocks on . 
 findbigger () { find . -xdev -size +"$1" -ls | sort -r -n -k7; }
 
@@ -57,12 +53,9 @@ colon () { sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
 decolon () { sed 's/://g'; }
 
 #------------------------------------------------------------------------------
-# List HBA
-#lshba () { lsdev -F "name status physloc" | grep fcs | awk '{printf "%s\t%s",$1,$3; system("lscfg -vl "$1"|grep \"Network\" | sed -e \"s:Network Address.............::;\"|tr -d \"\n\""); print "\t"$2}'}
-#lshba () { lsdev -F "name status physloc" | awk '$1 ~ /^fcs.+/ {printf "%s\t%s\t%s\t",$1,$2,$3;tmp = "lscfg -vl "$1; while ((tmp | getline) > 0){FS=".";if (NF==14){printf "%s\t", $NF;for (i=1; i<16; i=i+2){str = sprintf("%s:%s", str, substr($NF, i, 2))};print substr(str, 2);str=""}};close(lscfg);FS=" ";}'; }
-#lshba () { lsdev -F "name status physloc" | awk 'BEGIN {print "name\tstatus\t\tphysloc\t\t\t\tWWPN\t\t\tPart #\tCCIN\tColoned WWPN"}; $1 ~ /^fcs.+/ { printf "%s\t%s\t%s\t",$1,$2,$3; cmd = "lscfg -vl "$1; while ((cmd | getline) > 0){ FS="."; if (NF==18||NF==6){s = s"\t"$NF;}if (NF==14){printf "%s", $NF; for (i=1; i<16; i=i+2){str = sprintf("%s:%s", str, substr($NF, i, 2))}; printf("%s\t%s\n", s, substr(str, 2)); s=str=""} }; close(cmd);FS=" ";}' ; }
-
-lshba () { lsdev -F "name status physloc" | /usr/bin/env awk 'BEGIN {
+# List HBA: List HBA info
+lshba () { lsdev -F "name status physloc" | awk '
+BEGIN {
     # Header
     print "name\tstatus\t\tphyslot\t\t\t\tWWPN\t\t\tPart #\tCCIN\tColoned WWPN";
 }
@@ -96,12 +89,8 @@ $1 ~ /^fcs.+/ {
 
 #------------------------------------------------------------------------------
 # mdt file sorter for io, with powerpath replacements
-# Usage: mdtsort mdt.io
+# Usage: mdtsort mdt.io > mdt.power
 mdtsort () { awk '
-BEGIN {
-    ;
-}
-
 NF == 1 {
     # Device
     # The "default" line.
@@ -118,7 +107,7 @@ NF == 1 {
     # Device name, trim "r" and ":".
     dev = substr($0, 2, length($0)-2);
 
-    # Get powerpath device replacements: rhdisk => rdiskpower.
+    # Get powerpath device replacements: rhdisk => rhdiskpower.
     cmd = "powermt display dev="dev" 2>&1"; 
     cmd | getline s; match(s, "="); 
     if (RLENGTH == 1) {
@@ -154,6 +143,128 @@ END {
 ' $1 | sort -k 1,1 -k 3,3n -k 4,4n | cut -d" " -f5- | tr '|' '\n'; }
 
 #------------------------------------------------------------------------------
+# jy_rmvgs: remove all vg the above function created
+jy_rmvgs () {
+   mount | awk '/dev\/jfs/ {system("umount "$2)}';
+   lspv | awk '!/rootvg/ && /active/ {system("varyoffvg "$3)}';
+   lsvg | awk '!/rootvg/ {system("exportvg "$1)}';
+   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'; }
+
+#------------------------------------------------------------------------------
+# jy_mkvgs: Create jfs and jfs2 VGs in AIX
+# Issue: 
+#     * No built-in sorting in NAWK and I didn't implement or use external
+#       sort. Since we are doing system calls not just outputs.
+#       Expect stupid lv serials!
+#
+# To Reverse the effect:
+#   mount | awk '/dev\/jfs/ {system("umount "$2)}'
+#   lspv | awk '!/rootvg/ && /active/ {system("varyoffvg "$3)}'
+#   lsvg | awk '!/rootvg/ {system("exportvg "$1)}'
+#   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'
+#
+jy_mkvgs () { lsdev -Cc disk | awk '
+BEGIN {
+    # Max PP size, VG capacity, device string length, and PP number in LVs
+    MAX_PP_SIZE=8; MAX_VG_CAP=512; MAX_DEV_TYPE=6; LV_PP_NUM=20;
+}
+# Ignore hdiskpower and SAS
+/hdiskpower/ { next; }
+/SAS/ { next; }
+$2 != "Available" { next; }
+
+{
+    # Ignore those with PVIDs
+    if (!system("lspv "$1" 2>&1 | grep -q IDENTIFIER > /dev/null"))
+    next;
+}
+
+# Filter EMC, test powerpath
+/EMC/ {
+    # Calculate PP Size
+    dev_ppsize = getppsize($1);
+    dev_lunsize = getlunsize($1);
+    # Do PowerPath path lookup
+    cmd = "powermt display dev="$1" 2>&1";
+    cmd | getline s; match(s, "="); 
+    if (RLENGTH == 1) {
+        powerdisk = substr(s,RSTART+RLENGTH);
+    }
+    close(cmd);
+    
+    dev = justify(powerdisk)
+    lun[dev] = powerdisk
+    vg[dev] = "vg_"dev;
+    ppsize[dev] = dev_ppsize;
+    lunsize[dev] = dev_lunsize;
+    next;
+}
+# Others
+{
+    # Get justified name like hdisk001
+    dev = justify($1);
+    lun[dev] = $1;
+    vg[dev] = "vg_"dev;
+    lunsize[dev] = getlunsize(lun[dev]);
+    ppsize[dev] = getppsize(lun[dev]);
+}
+
+END {
+    for (d in lun){
+        # Commands execution
+        system("mkvg -s "ppsize[d]" -f -y "vg[d]" "lun[d]);
+        system("mklv -y jfs_"d" -t jfs "vg[d]" "LV_PP_NUM);
+        system("mklv -y jfs2_"d" -t jfs2 "vg[d]" "LV_PP_NUM);
+        system("crfs -v jfs -d jfs_"d" -m /jfs_"d" -u testgroup -A no");
+        system("crfs -v jfs2 -d jfs2_"d" -m /jfs2_"d" -u testgroup -A no");
+        system("varyonvg "vg[d]);
+        system("mount /jfs_"d);
+        system("mount /jfs2_"d);
+        system("lsvg -l "vg[d]);
+        print "-------------------- The Magical Seperator ---------------------"
+    }
+}
+
+# Calculate PP Size, default min to MAX_PP_SIZE
+function getppsize ( device ) {
+    cmd = "bootinfo -P 0 -s "device;
+    cmd | getline maxppsize;
+    close(cmd);
+    if (maxppsize < MAX_PP_SIZE) {
+        return maxppsize;
+    }
+    else {
+        return MAX_PP_SIZE;
+    }
+}
+
+# Calculate lun Size, default max to MAX_VG_CAP
+function getlunsize ( device ) {
+    cmd = "bootinfo -s "device;
+    cmd | getline maxlunsize;
+    close(cmd);
+
+    if (maxlunsize < MAX_VG_CAP) {
+        return maxlunsize - maxlunsize % 32;
+    }
+    else {
+        return MAX_VG_CAP;
+    }
+}
+
+# Get justified name like hdisk001
+function justify ( str ) {
+    match (str, "[0-9]+")
+    type = substr(str,1,RSTART-1);
+    # Shorten it
+    type = substr(type,1,MAX_DEV_TYPE);
+    seq = substr(str,RSTART,RLENGTH);
+    return sprintf("%s%03d", type, seq);
+}
+' ; }
+
+
+#------------------------------------------------------------------------------
 # calc: in awk
 calc () { awk "BEGIN{ print $* }" ; }
 
@@ -180,12 +291,19 @@ deldefdisk () { lsdev -Cc disk | awk '/Defined/ {system("rmdev -Rdl "$1)}'; }
 
 #------------------------------------------------------------------------------
 # Delete All disk expt. active ones, like rootvg
-#delalldisk() {lsdev -Cc disk | awk '$1 !~ /hdisk0/ {print $1}' | xargs -n 1 rmdev -Rdl; }
 delalldisk () { lspv | awk '!/active/ {system("rmdev -Rdl "$2)}'; }
 
 #------------------------------------------------------------------------------
 # Clear PVID
 pvidclr () { lspv | awk '!/active/ {system("chdev -l "$1" -a pv=clear")}'; }
+
+#------------------------------------------------------------------------------
+# which hdiskpower is using this hdisk, or vice versa
+disk2power () { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
+power2disk () { powermt display dev=$2 | grep 'hdisk[^p]'; }
+
+###############################################################################
+# Personal Functions
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
@@ -199,11 +317,6 @@ odmget () { scp -r xujinyu@9.3.118.78:/cygdrive/c/pub/jyxu/odm/$1.$2 .; }
 #------------------------------------------------------------------------------
 # Put file to 78
 to78 () { scp $1 xujinyu@9.3.118.78:/cygdrive/c/pub/jyxu/buffer/$1; }
-
-#------------------------------------------------------------------------------
-# which hdiskpower is using this hdisk, or vice versa
-disk2power () { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
-power2disk () { powermt display dev=$2 | grep 'hdisk[^p]'; }
 
 # find wwpn in Brocade/Cisco Fabric Switch
 bfind () { ssh brocade "nodefind $1"; }
