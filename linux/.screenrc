@@ -1,137 +1,185 @@
-##########################################################################
-# .screenrc, jyxu
-# Settings
-shell -${SHELL}
-defscrollback 1024
+#
+# Example of a user's .screenrc file
+#
+
+# http://www.orkut.com/CommMsgs.aspx?cmm=1988&tid=4
+
+# This is how one can set a reattach password:
+# password ODSJQf.4IJN7E    # "1234"
+
+term xterm
+
+# no annoying audible bell, please
+vbell on
+
+# detach on hangup
+autodetach on
+
+# don't display the copyright page
 startup_message off
 
-# Infos
-#hardstatus on
-#hardstatus alwayslastline
-#caption always "${USER} %{= kc}%H %{= .g}%D %d.%m.%Y %0c"
-#caption always "%{= Bw}%-w%{= kW}%n %t%{= Bw}%+w%{= BW}%? @%u%?%? [%h]%?%-= - %LD %d %LM - %c"
-#caption always "%?%F%{= Kk}%:%{=u kR}%?  %h %-024=%{+b} %C%a %D %d %M %Y%{= db}  - %LD %d %LM - %c"
-#hardstatus alwayslastline "%{= kR} %-Lw%{=b Kk} %n%f %t %{-}%+Lw %=%{= dd}"
+# emulate .logout message
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+
+# advertise hardstatus support to $TERMCAP
+# termcapinfo  * '' 'hs:ts=\E_:fs=\E\\:ds=\E_\E\\'
+
+# make the shell in every window a login shell
+#shell -$SHELL
+
+# autoaka testing
+# shellaka '> |tcsh'
+# shellaka '$ |sh'
+
+# set every new windows hardstatus line to somenthing descriptive
+# defhstatus "screen: ^En (^Et)"
+
+defscrollback 10000
+
+# don't kill window after the process died
+# zombie "^["
+
+################
+#
+# xterm tweaks
+#
+
+#xterm understands both im/ic and doesn't have a status line.
+#Note: Do not specify im and ic in the real termcap/info file as
+#some programs (e.g. vi) will not work anymore.
+termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+
+#80/132 column switching must be enabled for ^AW to work
+#change init sequence to not switch width
+termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
+
+# Make the output buffer large for (fast) xterms.
+termcapinfo xterm* OL=10000
+
+# tell screen that xterm can switch to dark background and has function
+# keys.
+termcapinfo xterm 'VR=\E[?5h:VN=\E[?5l'
+termcapinfo xterm 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+termcapinfo xterm 'kh=\E[1~:kI=\E[2~:kD=\E[3~:kH=\E[4~:kP=\E[H:kN=\E[6~'
+
+# special xterm hardstatus: use the window title.
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
+
+#terminfo xterm 'vb=\E[?5h$<200/>\E[?5l'
+termcapinfo xterm 'vi=\E[?25l:ve=\E[34h\E[?25h:vs=\E[34l'
+
+# emulate part of the 'K' charset
+termcapinfo   xterm 'XC=K%,%\E(B,[\304,\\\\\326,]\334,{\344,|\366,}\374,~\337'
+
+# xterm-52 tweaks:
+# - uses background color for delete operations
+termcapinfo xterm ut
+
+# pgup pgdn for xterm
+termcapinfo xterm*|rxvt* 'ti@:te@'
+
+################
+#
+# wyse terminals
+#
+
+#wyse-75-42 must have flow control (xo = "terminal uses xon/xoff")
+#essential to have it here, as this is a slow terminal.
+termcapinfo wy75-42 xo:hs@
+
+# New termcap sequences for cursor application mode.
+termcapinfo wy* CS=\E[?1h:CE=\E[?1l:vi=\E[?25l:ve=\E[?25h:VR=\E[?5h:VN=\E[?5l:cb=\E[1K:CD=\E[1J
+
+################
+#
+# other terminals
+#
+
+#make hp700 termcap/info better
+termcapinfo  hp700 'Z0=\E[?3h:Z1=\E[?3l:hs:ts=\E[62"p\E[0$~\E[2$~\E[1$}:fs=\E[0}\E[61"p:ds=\E[62"p\E[1$~\E[61"p:ic@'
+
+# Extend the vt100 desciption by some sequences.
+termcap  vt100* ms:AL=\E[%dL:DL=\E[%dM:UP=\E[%dA:DO=\E[%dB:LE=\E[%dD:RI=\E[%dC
+terminfo vt100* ms:AL=\E[%p1%dL:DL=\E[%p1%dM:UP=\E[%p1%dA:DO=\E[%p1%dB:LE=\E[%p1%dD:RI=\E[%p1%dC
 
 
+################
+#
+# 256 colours
+#
+# ... http://frexx.de/xterm-256-notes/
+#
 
-# don't use the hardstatus line for system messages, use reverse video instead
-# (we'll be using it for the list of tab windows - see hardstatus alwayslastline
-# below)
-hardstatus off
+# terminfo and termcap for nice 256 color terminal
+# allow bold colors - necessary for some reason
+attrcolor b ".I"
+# tell screen how to set colors. AB = background, AF=foreground
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# erase background with current bg color
+defbce "on"
 
-# use the caption line for the computer name, load, hstatus (as set by zsh), & time
-# the caption line gets repeated for each window being displayed (using :split),
-# so we'll use color cues to differentiate the caption of the current, active
-# window, and the others.
-#    always                  - display the caption continuously.  Since
-#                              hardstatus is 'alwayslastline', it will be on the
-#                              next to last line.
-#    "%?%F"                  - if (leading '%?') this region has focus ('%F') 
-#                              (e.g. it's the only region being displayed, or,
-#                              if in split-screen mode, it's the currently active
-#                              region)
-#      "%{= Kk}"               - set the colorscheme to blac[k] on grey (bright blac[K]),
-#                                with no other effects (standout, underline, etc.)
-#    "%:"                    - otherwise ('%:' between a pair of '%?'s)
-#      "%{=u kR}"              - set the colorscheme to [R]ed on blac[k], and
-#                                underline it, but no other effects (bold, standout, etc.) 
-#    "%?"                    - end if (trailing '%?')
-#    "  %h "                 - print two spaces, tthne the [h]ardstatus of the
-#                              current tab window (as set by zsh - see zshrc) and
-#                              then another space.
-#    "%-024="                - either pad (with spaces) or truncate the previous
-#                              text so that the rest of the caption string starts
-#                              24 characters ('024') from the right ('-') edge of
-#                              the caption line.
-#                              NOTE: omitting the '0' before the '24' would pad
-#                              or truncate the text so it would be 24% from the
-#                              right.
-#    "%{+b}                  - add ('+') [b]old to the current text effects, but
-#                              don't change the current colors.
-#    " %C:%s%a %D %d %M %Y"  - print the [C]urrent time, a colon, the [s]econds,
-#                              whether it's [a]m or pm, the [D]ay name, the [d]ay
-#                              of the month, the [M]onth, and the [Y]ear.
-#                              (this takes up 24 characters, so the previous
-#                              pad/truncate command makes sure the clock doesn't
-#                              get pushed off of the caption line)
-#    "%{= dd}"               - revert to the [d]efault background and [d]efault
-#                              foreground colors, respectively, with no ('= ')
-#                              other effects.
-#  other things that might be useful later are
-#    " %H"                   - print a space, then the [H]ostname.
-#    "(%{.K}%l%{-}):"        - print a '(', then change the text color to grey
-#                              (aka bright blac[K]), and print the current system
-#                              [l]oad.  Then revert to the previous colorscheme
-#                              ('%{-}') and print a close ')' and a colon.
-#                              NOTE: the load is only updated when some other
-#                              portion of the caption string needs to be changed
-#                              (like the seconds in the clock, or if there were a
-#                              backtick command)
-#    "%0`"                   - put the output of a backtick command in the line
-#    "%-024<"                - don't pad, just truncate if the string is past 24
-#                              characters from the right edge
-#    "%-="                   - pad (with spaces) the previous text text so that
-#                              the rest of the caption string is justified
-#                              against the right edge of the screen.
-#                              NOTE: doesn't appear to truncate previous text.
-caption always           "%?%F%{= Kk}%:%{=u kR}%?  %h %-024=%{+b} %C%a %D %d %M %Y%{= db}"
-# use the hardstatus line for the window list
-#    alwayslastline      - always display the hardstatus as the last line of the
-#                          terminal
-#    "%{= kR} %-Lw"      - change to a blac[k] background with bright [R]ed text,
-#                          and print all the tab [w]indow numbers and titles in
-#                          the [L]ong format (ie with flags) upto ('-') the
-#                          current tab window
-#    "%{=b Kk} %n%f %t " - change to grey (bright blac[K]) background with
-#                          [b]old blac[k] text, with no other effects, and print
-#                          the [n]umber of the current tab window, any [f]lags it
-#                          might have, and the [t]itle of the current tab window
-#                          (as set by zsh - see zshrc).
-#                          NOTE: the color match with the caption line makes it
-#                          appear as if a 'tab' is dropping down from the caption
-#                          line, highlighting the number & title of the current
-#                          tab window.  Nifty, ain't it)
-#    "%{-}%+Lw "         - revert to the previous color scheme (red on black)
-#                          and print all the tab [w]indow numbers and titles in
-#                          the [L]ong format (ie with flags) after ('+') the
-#                          current tab window.
-#    "%=%{= dd}"         - pad all the way to the right (since there is no text
-#                          that follows this) and revert to the [d]efault
-#                          background and [d]efault foreground colors, with no
-#                          ('= ') other effects.
-hardstatus alwayslastline "%{= kR} %-Lw%{=b Kk} %n%f %t %{-}%+Lw %=%{= dd}"
+#term "screen-256color"
+#term "screen-88color-bce"
+#term "screen-256color-bce"
+#term xterm
 
+################
+#
+# ssh-agent support
+#
+# http://www.jukie.net/~bart/blog/screen-ssh-agent
+#
 
+unsetenv SSH_AUTH_SOCK
+setenv SSH_AUTH_SOCK "$HOME/.screen/ssh-auth-sock.$HOSTNAME"
 
-### these are taken from http://www.strcat.de
-#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wk}%n*%f %t%?(%u)%?%?%{yk}%+Lw%? %=%t %c"
-#hardstatus alwayslastline "%{rk}[Time:%c] %{gb} %w %{= dd}"
-#hardstatus alwayslastline "%{= kG} %w %{= dd} %=%t %{rk}[Time:%c]"
-#hardstatus alwayslastline "%{kr}[Time: %c:%s]%{gk} %{+b } %w %{= dd} %=%t"
-#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
-#hardstatus alwayslastline "%{kr}[%H@$LOGNAME]%{wk} %?%-Lw%?%{gk}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
-#hardstatus alwayslastline "%{kr}[%M %d :: %c]%{wk} %?%-Lw%?%{gk}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
-#hardstatus alwayslastline "%{= kY}%c%{dd} %{= kc}windows: %?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
-#hardstatus alwayslastline "%{= kR}[%M %d :: %c]%{dd} %{= kc}%?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
-#hardstatus alwayslastline "%{kr}[Time: %c:%s]%{wk} %?%-Lw%?%{gk}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
-#hardstatus alwayslastline "%{bw}%1`%= %{+b ky}| %c:%s |%{+b rw} ip: %2` | vpn: %3`"
-#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
-#hardstatus alwayslastline "%{kr}[Time: %c:%s]%{gk} %{+b } %w %{= dd} %=%t"
-#hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
-#hardstatus alwayslastline "\033[m\033[42;30m %m%d \033[m \033[42;30m%c\033[m\033[42;30m %w \033[m"
-#hardstatus alwayslastline " %m%d \033[42;30m%c\033[m \033[42;30m %w \033[m"
-#hardstatus alwayslastline " %m%d %c \033[42;30m %w \033[m"
-#hardstatus alwayslastline " [%{b}fnord%{d}] | %n [%{r}%t%{d}] %W | %m/%d/%Y | %c"
-#hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
-#hardstatus alwayslastline "%?%F%{.R.}%?%3n %t%? [%h]%?"
+################
+#
+# keybindings
+#
 
-# Using this in AIX screen 3.9
-#hardstatus alwayslastline "%{= kc}${USER} %{= kR}#% %{= kB}${HOSTNAME} %{= .g}%D %d.%m.%Y %0c" 
+#remove some stupid / dangerous key bindings
+bind k
+bind ^k
+bind .
+bind ^\
+bind \\
+bind ^h
+bind h
+#make them better
+bind 'K' kill
+bind 'I' login on
+bind 'O' login off
+bind '}' history
 
-# Bindings
-bind = resize =
-bind + resize +1
-bind - resize -1
-bind _ resize max
+# Yet another hack:
+# Prepend/append register [/] to the paste if ^a^] is pressed.
+# This lets me have autoindent mode in vi.
+register [ "\033:se noai\015a"
+register ] "\033:se ai\015a"
+bind ^] paste [.]
+
+################
+#
+# default windows
+#
+
+# screen -t local 0
+# screen -t mail 1 elm
+# screen -t 40 2 rlogin faui40
+
+#################
+#
+# caption/hardstatus
+# http://jinome.stanford.edu/stat366/unix/.screenrc
+
+# caption always "%3n %t%? @%u%?%? [%h]%?"
+# hardstatus alwaysignore
+# hardstatus alwayslastline "%w"
+
+# caption always "%{Yb} %Y-%02m-%02d %0c %{k}|%{C} %LD %{k}|%{G} %l %{k}|%{W} %-Lw%{+u}%n %t%{-u}%+Lw"
+
+caption always "%{Yb} %D %Y-%02m-%02d %0c %{k}|%{G} %l %{k}|%{W} %-w%{+b}%n %t%{-b}%+w"
 
