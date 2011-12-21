@@ -14,6 +14,44 @@ alias ..='cd ..'
 alias hist="grep '$1' ~/.sh_history"
 alias mem="free -m"
 
+alias measyncall="emerge --sync && layman -S && update-eix && emerge -uptDN world"
+alias measync="emerge --sync && layman -s akoya && layman -s gentoo-china && layman -s sabayon && update-eix && emerge -uptDN world"
+alias meausys="emerge -uDN system || until emerge --resume --skipfirst; do emerge --resume --skipfirst; done"
+alias meauworld="emerge -uDN world || until emerge --resume --skipfirst; do emerge --resume --skipfirst; done"
+alias pa="ps -A"
+alias pag="ps -A | grep"
+alias meavel="tail -f /var/log/emerge.log"
+
+# mails
+alias muttimap="mutt -F .muttrc_imap"
+alias fetchmailakv="fetchmail -akv"
+
+# news
+alias slrn_cn99="export NNTPSERVER=news.cn99.com && slrn"
+alias slrn_aioe="export NNTPSERVER=news.aioe.org && slrn -C"
+alias slrn_newsfan="export NNTPSERVER=news.newsfan.net && slrn"
+alias slrn_ms="export NNTPSERVER=msnews.microsoft.com && slrn"
+alias slrn_hk="export NNTPSERVER=news.newsgroup.com.hk && slrn"
+alias slrn_netfront="export NNTPSERVER=freenews.netfront.net && slrn -C"
+alias slrn_webking="export NNTPSERVER=news.webking.cn && slrn -C"
+alias slrn_gmane="export NNTPSERVER=news.gmane.org && slrn -C"
+alias slrn_camb="export NNTPSERVER=textnews.news.cambrium.nl && slrn -C"
+alias slrn_ru="export NNTPSERVER=news.mi.ras.ru && slrn -C"
+
+# Misc
+alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
+alias viewpic="feh -F -Z"
+alias cls="tput clear"
+alias ausweather="wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | grep title | sed -e 's/<[^>]*>//g' -e 's/&#xB0;//g' | egrep '^[A-Z]'"
+alias shweather="wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | grep title | sed -e 's/<[^>]*>//g' -e 's/&#xB0;//g' | egrep '^[A-Z]'"
+alias dlsite="wget --random-wait -r -p -e robots=off -U mozilla"
+
+# Utils
+#alias colonfy="sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit' <<< "
+alias colonfy="sed 's/../:&/2g' <<< "
+alias decolonfy="sed 's/://g' <<< "
+
+# zsh -------------------------------------------------------------------- 
 # Set up auto extension stuff
 alias -s html=$BROWSER
 alias -s org=$BROWSER
@@ -31,43 +69,10 @@ alias -s java=$EDITOR
 alias -s txt=$EDITOR
 alias -s PKGBUILD=$EDITOR
 
-alias measyncall="emerge --sync && layman -S && update-eix && emerge -uptDN world"
-alias measync="emerge --sync && layman -s akoya && layman -s gentoo-china && layman -s sabayon && update-eix && emerge -uptDN world"
-alias meausys="emerge -uDN system || until emerge --resume --skipfirst; do emerge --resume --skipfirst; done"
-alias meauworld="emerge -uDN world || until emerge --resume --skipfirst; do emerge --resume --skipfirst; done"
-alias pa="ps -A"
-alias pag="ps -A | grep"
-alias meavel="tail -f /var/log/emerge.log"
-
-# mails
-alias muttimap="mutt -F .muttrc_imap"
-alias fetchmailakv="fetchmail -akv"
-
-# news
-alias slrn_cn99="export NNTPSERVER=news.cn99.com && slrn"
-alias slrn_newsfan="export NNTPSERVER=news.newsfan.net && slrn"
-alias slrn_ms="export NNTPSERVER=msnews.microsoft.com && slrn"
-alias slrn_hk="export NNTPSERVER=news.newsgroup.com.hk && slrn"
-alias slrn_netfront="export NNTPSERVER=freenews.netfront.net && slrn -C"
-alias slrn_webking="export NNTPSERVER=news.webking.cn && slrn -C"
-alias slrn_gmane="export NNTPSERVER=news.gmane.org && slrn -C"
-alias slrn_camb="export NNTPSERVER=textnews.news.cambrium.nl && slrn -C"
-alias slrn_ru="export NNTPSERVER=news.mi.ras.ru && slrn -C"
-
-# COMMAND L equivalent to command |less
-alias -g L='|less' 
+# COMMAND L equivalent to command |most
+alias -g L='|most' 
 
 # command S equivalent to command &> /dev/null &
 alias -g S='&> /dev/null &'
-
-# Misc
-alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
-alias viewpic="feh -F -Z"
-alias cls="tput clear"
-alias dlsite="wget --random-wait -r -p -e robots=off -U mozilla"
-
-# Utils
-alias colonfy="sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit' <<< "
-alias decolonfy="sed 's/://g' <<< "
 
 

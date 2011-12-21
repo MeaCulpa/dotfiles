@@ -3,6 +3,10 @@
 #
 
 #------------------------------------------------------------------------------
+# SS connection
+ss () { ssh -l root $1; }
+
+#------------------------------------------------------------------------------
 # Find the file to edit if in $PATH or in the current dir
 vip () {
   ITEM=$1
@@ -17,8 +21,10 @@ vip () {
 }
 
 #------------------------------------------------------------------------------
-# Find file
-fit () { find /src /opt /usr /home -name ${1:?"Filename required!"} -ls; }
+fit () {
+  [ "$1" ] || return
+  find /src /opt /usr /home -name "$1" -ls
+}
 
 #------------------------------------------------------------------------------
 # psf: Displays matches found in ps -ef
@@ -35,32 +41,37 @@ psf () {
     done
 }
 
-#------------------------------------------------------------------------------
+
 # calc: awk calculator
 calc()  { awk "BEGIN{ print $* }" ; }
 
+# easy ssl encoding/decoding with blowfish
+sslenc() { openssl bf -e -a -salt; }
+ssldec() { openssl bf -d -a -salt; }
+
+
 #------------------------------------------------------------------------------
 # dlosspkg: Download oss pkg from AIX Linux Toolbox
-dlosspkg () {wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i}
+dlosspkg () { wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i; }
 
 #------------------------------------------------------------------------------
 # findbigger: find FILES BIgger than certain blocks on . 
-findbigger () {find . -xdev -size +"$1" -ls | sort -r -n -k7}
+findbigger () { find . -xdev -size +"$1" -ls | sort -r -n -k7; }
 
 #------------------------------------------------------------------------------
 # dnswp: Search wikipedia through DNS
-dnswp () {dig +short txt "$1".wp.dg.cx}
+dnswp () { dig +short txt "$1".wp.dg.cx; }
 
 #------------------------------------------------------------------------------
 # histstat: Command history Stat
-histstat () {history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head}
+histstat () { history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head; }
 
 #------------------------------------------------------------------------------
 # gtranslate: Google Translate, example:
 # gtranslate hello en es
 #
 # language codes: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-gtranslate(){ curl -s "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1\n/'; }
+gtranslate() { curl -s "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1\n/'; }
 
 #------------------------------------------------------------------------------
 # chkgmail: Google Mail Atom parser
@@ -123,17 +134,17 @@ mklink() { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a hre
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
-ausweather() {curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
-shweather() {curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+ausweather() { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+shweather() { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 
 
 #------------------------------------------------------------------------------
 # ANSI color zebra output
-zebra() {cat $1 | awk '{if (NR%2 == 1)printf("\033[30m\033[47m%s\033[0m\n", $0); else print}';}
+zebra() { cat $1 | awk '{if (NR%2 == 1)printf("\033[30m\033[47m%s\033[0m\n", $0); else print}';}
 
 #------------------------------------------------------------------------------
 # ANSI color zebra output, longhorn!
-longhorn() {cat $1 | awk '{if (NR%2 == 1)printf("\033[1;37m\033[43m%s\033[0m\n", $0); else printf("\033[33m\033[47m%s\033[0m\n", $0);}';}
+longhorn() { cat $1 | awk '{if (NR%2 == 1)printf("\033[1;37m\033[43m%s\033[0m\n", $0); else printf("\033[33m\033[47m%s\033[0m\n", $0);}';}
 
 #------------------------------------------------------------------------------
 # Current trend topic in twitter
@@ -141,13 +152,13 @@ twittrend() { curl -x 192.168.11.3:8123 -s search.twitter.com | awk -F'</?[^>]+>
 
 #------------------------------------------------------------------------------
 # tail -f with timestamp
-ttailf() {tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}';}
+ttailf() { tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}';}
 
 #------------------------------------------------------------------------------
 # awk analizer, try some [-F]s!
 awkanalize() { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: "NR", COL: "NF"\t"$i}}'; }
 
 #------------------------------------------------------------------------------
-# easy ssl encoding/decoding with blowfish
-sslenc() { openssl bf -e -a -salt; }
-ssldec() { openssl bf -d -a -salt; }
+# steam
+steam() { wine /home/inferno/.wine/drive_c/steam/Steam.exe; } 
+
