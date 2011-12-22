@@ -162,3 +162,8 @@ awkanalize() { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: 
 # steam
 steam() { wine /home/inferno/.wine/drive_c/steam/Steam.exe; } 
 
+#------------------------------------------------------------------------------
+# cfgmgr
+cfgmgr() { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attached to ${i##*/}" && echo "- - -" > /sys/class/scsi_host/${i##*/}/scan; done; }
+
+
