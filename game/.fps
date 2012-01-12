@@ -1,0 +1,7 @@
+alias masakano="et +set fs_game nq +connect 118.2.11.75:27966"
+alias downcaster="et +set fs_game nq +connect 221.145.117.149:28961"
+alias omatsuri1="et +set fs_game nq +connect 202.212.91.197:27960"
+alias omatsuri2="et +set fs_game nq +connect 202.212.91.197:27961"
+alias omatsuri3="et +set fs_game nq +connect 202.212.91.197:27962"
+alias etfajay2="et +set fs_game jaymod +connect jay2.clan-fa.com:27960"
+
