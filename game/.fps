@@ -4,4 +4,6 @@ alias omatsuri1="et +set fs_game nq +connect 202.212.91.197:27960"
 alias omatsuri2="et +set fs_game nq +connect 202.212.91.197:27961"
 alias omatsuri3="et +set fs_game nq +connect 202.212.91.197:27962"
 alias etfajay2="et +set fs_game jaymod +connect jay2.clan-fa.com:27960"
+alias etfajay3="et +set fs_game jaymod +connect jay3.clan-fa.com:27960"
+alias etfareq="et +set fs_game jaymod +connect 8.9.4.227:27960"
 
