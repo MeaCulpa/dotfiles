@@ -11,8 +11,9 @@ source /etc/profile
 export HISTFILE=~/.sh_history
 export HISTSIZE=10000
 export SAVEHIST=10000 
-
+export PATH=$PATH:~/bin
 export PAGER=less
+export EDITOR=vim
 
 # Other
 WORDCHARS='*?_-[]~=&;!#$%^(){}<>' # chars as part of filename
@@ -139,7 +140,7 @@ esac
 # Gentoo Specific
 export BZR_EDITOR=VIM
 export PAGER=most
-export PATH=$PATH:~/scripts
+export PATH=$PATH:~/bin
 
 # if using GNU screen, let the zsh tell screen what the title and hardstatus
 # of the tab window should be.
@@ -193,5 +194,8 @@ if [[ $TERM == "screen" ]]; then
 fi
 
 source ~/.alias
-source ~/.func
+source ~/.fps
+
+FPATH=$FPATH:~/.func
+autoload ~/.func
 
