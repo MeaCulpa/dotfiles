@@ -131,5 +131,6 @@ setprompt
 #esac
 
 source .alias
-source .func
+FPATH=$FPATH:~/.func
+autoload ~/.func
 
