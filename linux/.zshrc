@@ -197,5 +197,6 @@ source ~/.alias
 source ~/.fps
 
 FPATH=$FPATH:~/.func
-autoload ~/.func
+#Autoload functions
+eval `awk '!/^#/ && /\(\)/ {print "autoload "$1}' .func`
 
