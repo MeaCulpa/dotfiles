@@ -194,9 +194,10 @@ if [[ $TERM == "screen" ]]; then
 fi
 
 source ~/.alias
+source ~/.func
 source ~/.fps
 
-FPATH=$FPATH:~/.func
+#FPATH=$FPATH:~/.func
 #Autoload functions
-eval `awk '!/^#/ && /\(\)/ {print "autoload "$1}' .func`
+#eval `awk '!/^#/ && /\(\)/ {print "autoload "$1}' .func`
 
