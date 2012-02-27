@@ -169,3 +169,9 @@ cfgmgr () { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attac
 # dmesglog
 dmesglog () { dmesg > `print -n dmesg_ && date +'%Y%m%d%H%M%S'`; }
 
+
+#------------------------------------------------------------------------------
+# isgd
+isgd () { curl 'http://is.gd/create.php?format=simple' --data-urlencode url="$1" ; printf "\n" ; }
+
+
