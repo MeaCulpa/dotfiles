@@ -107,7 +107,8 @@ ipkg () { echo $((`eix --only-names -I | wc -l` * 100 / `eix --only-names | wc -
 
 #------------------------------------------------------------------------------
 # installed gentoo pkg percentage
-kacha_upaste () { scrot /tmp/scrop_tmp.png -bcsd 3 -e "echo | upaste -image \$f | xsel -bi; rm \$f"; }
+#kacha_upaste () { scrot /tmp/scrop_tmp.png -bcsd 3 -e "echo | upaste -image \$f | xsel -bi; rm \$f"; }
+kacha_upaste () { scrot /tmp/scrop_tmp.png -bcsd 3 -e "echo | immcurl \$f | xsel -bi; rm \$f"; }
 
 #------------------------------------------------------------------------------
 # BBC Radio
