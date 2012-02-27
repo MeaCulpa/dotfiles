@@ -136,7 +136,6 @@ mklink () { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a hr
 ausweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 shweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 
-
 #------------------------------------------------------------------------------
 # ANSI color zebra output
 zebra () { cat $1 | awk '{if (NR%2 == 1)printf("\033[30m\033[47m%s\033[0m\n", $0); else print}';}
@@ -174,4 +173,28 @@ dmesglog () { dmesg > `print -n dmesg_ && date +'%Y%m%d%H%M%S'`; }
 # isgd
 isgd () { curl 'http://is.gd/create.php?format=simple' --data-urlencode url="$1" ; printf "\n" ; }
 
+
+#------------------------------------------------------------------------------
+# get ascii code of a character
+asciilookup () { man ascii | awk -v char=$1 '
+    BEGIN { print "Char\tOct\tDec\tHex"}
+    /NOTES/ {exit}
+    {
+        if ($4 == char) {
+            printf("%s\t%s\t%s\t%s\n", $4, $1, $2, $3)
+        }
+        
+        if ($NF == char) {
+            printf("%s\t%s\t%s\t%s\n", $NF, $(NF-3), $(NF-2), $(NF-3))
+        }
+    }
+' ; }
+
+#------------------------------------------------------------------------------
+# ssh-copy-id to restricted shell
+ssh_copy_id_restrict () {
+    scp $1:.ssh/authorized_keys2 ~/.ssh/tmp_key_$1
+    cat ~/.ssh/id_rsa.pub >> ~/.ssh/tmp_key_$1
+    scp ~/.ssh/tmp_key_$1 $1:.ssh/authorized_keys2
+; }
 

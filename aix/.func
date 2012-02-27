@@ -14,7 +14,7 @@ vip () {
   FOUND=$(which $ITEM 2>/dev/null)
   [ "$FOUND" ] && /usr/bin/vi $FOUND || echo "Unable to locate \"$ITEM\""
   unset $FOUND
-}
+; }
 
 #------------------------------------------------------------------------------
 # Find file
@@ -33,7 +33,7 @@ psf () {
        /bin/ps -ef | /bin/grep $CLI | /bin/grep -v $$
        shift 1
     done
-}
+; }
 
 #------------------------------------------------------------------------------
 # findbigger: find FILES Bigger than certain blocks on . 
@@ -311,14 +311,7 @@ power2disk () { powermt display dev=$2 | grep 'hdisk[^p]'; }
 ausweather () { wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 shweather () { wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 
-#------------------------------------------------------------------------------
-# Get odm: odmget default hp
-odmget () { scp -r xujinyu@9.3.118.78:/cygdrive/c/pub/jyxu/odm/$1.$2 .; }
-
-#------------------------------------------------------------------------------
-# Put file to 78
-to78 () { scp $1 xujinyu@9.3.118.78:/cygdrive/c/pub/jyxu/buffer/$1; }
-
+###############################################################################
 # find wwpn in Brocade/Cisco Fabric Switch
 bfind () { ssh brocade "nodefind $1"; }
 cfind () { ssh cisco "show fcns database detail | grep -i -B 3 -A 15 $1"; }

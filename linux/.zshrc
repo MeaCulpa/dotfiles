@@ -194,10 +194,42 @@ if [[ $TERM == "screen" ]]; then
 fi
 
 source ~/.alias
-source ~/.func
 source ~/.fps
 
-#FPATH=$FPATH:~/.func
-#Autoload functions
-#eval `awk '!/^#/ && /\(\)/ {print "autoload "$1}' .func`
+mkdir -p ~/.funcs
+
+# split .func file into small functions under .funcs for autoloading
+awk -v homedir=$HOME '
+
+    BEGIN {comment="# Shell Function"}
+    /^#/ && name == "" {
+        comment = comment"\n"$0;
+        next;
+    }
+
+    !/^#/ && /\(\)/ {
+        name = $1;
+        fun[name] = comment;    
+    }
+
+    /; \}$/ && !/next; \}$/ {
+        if (name == "") {
+            print "Parse Error on Line "NR": "$0;
+            next;
+        }
+        comment = "# Shell Function";
+        fun[name] = fun[name]"\n"$0;
+        print fun[name] > homedir"/.funcs/"name;
+        name = "";
+        next;
+    }
+
+    NR > 0 {
+        fun[name] = fun[name]"\n"$0;
+    }
+' ~/.func
+
+FPATH=$FPATH:~/.funcs
+autoload ~/.funcs/*(:t)
+
 
