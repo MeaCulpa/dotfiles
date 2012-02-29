@@ -180,13 +180,16 @@ isgd () { curl 'http://is.gd/create.php?format=simple' --data-urlencode url="$1"
 asciilookup () { man ascii | awk -v char=$1 '
     BEGIN { print "Char\tOct\tDec\tHex"}
     /NOTES/ {exit}
+    /Tables/ {exit}
     {
         if ($4 == char) {
-            printf("%s\t%s\t%s\t%s\n", $4, $1, $2, $3)
+            printf("%s\t%s\t%s\t%s\n", $4, $1, $2, $3);
+            exit;
         }
         
         if ($NF == char) {
-            printf("%s\t%s\t%s\t%s\n", $NF, $(NF-3), $(NF-2), $(NF-3))
+            printf("%s\t%s\t%s\t%s\n", $NF, $(NF-3), $(NF-2), $(NF-3));
+            exit;
         }
     }
 ' ; }
