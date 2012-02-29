@@ -39,9 +39,6 @@ function ttyis
 	alias de="daemon emacs"
         alias dx="daemon xant"
 
-#	Call Jack's Alias's
-. /.alias
-
 function xe
 {       SAVDISP=$DISPLAY
         DISPLAY=""; export DISPLAY
