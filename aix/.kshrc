@@ -75,6 +75,4 @@ export TERM=vt100
 
 set -o vi
 
-# Why walk when you can ride?
-/usr/bin/zsh
 
