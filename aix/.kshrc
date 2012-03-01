@@ -69,7 +69,7 @@ function ez
 
 ######  Personal Stuff  ######
 export PATH=$PATH:/opt/freeware/bin
-PS1=`logname`@`hostname -s`:'$PWD>'
+PS1=`logname`@`hostname -s`:'$PWD# '
 export PS1
 export TERM=vt100
 
