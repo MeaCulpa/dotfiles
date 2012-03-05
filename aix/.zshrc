@@ -104,8 +104,12 @@ setprompt () {
     else 
         eval PR_HOST='${PR_YELLOW}%M${PR_NO_COLOR}' #SSH
     fi
+
+    # Get AIX Level into prompt
+    PR_BUILD=${BR_BUILD:=`cat /usr/lpp/bos/aix_release.level`}
+
     # set the prompt
-    PS1=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]${PR_USER_OP} '
+    PS1=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_YELLOW}${PR_BUILD}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]${PR_USER_OP} '
     PS2=$'%_>'
 }
 setprompt

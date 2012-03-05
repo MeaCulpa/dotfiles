@@ -200,7 +200,6 @@ mkdir -p ~/.funcs
 
 # split .func file into small functions under .funcs for autoloading
 awk -v homedir=$HOME '
-
     BEGIN {comment="# Shell Function"}
     /^#/ && name == "" {
         comment = comment"\n"$0;
