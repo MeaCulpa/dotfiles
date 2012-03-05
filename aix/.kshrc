@@ -69,7 +69,8 @@ function ez
 
 ######  Personal Stuff  ######
 export PATH=$PATH:/opt/freeware/bin
-PS1=`logname`@`hostname -s`:'$PWD# '
+PR_BUILD=${BR_BUILD:=`cat /usr/lpp/bos/aix_release.level`}
+PS1=`logname`@`hostname -s`[$PR_BUILD]:'$PWD# '
 export PS1
 export TERM=vt100
 
