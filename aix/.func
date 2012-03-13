@@ -292,7 +292,7 @@ deldefdisk () { lsdev -Cc disk | awk '/Defined/ {system("rmdev -Rdl "$1)}'; }
 
 #------------------------------------------------------------------------------
 # Delete All disk expt. active ones, like rootvg
-delalldisk () { lspv | awk '!/active/ {system("rmdev -Rdl "$2)}'; }
+delalldisk () { lspv | awk '!/active/ {system("rmdev -Rdl "$1)}'; }
 
 #------------------------------------------------------------------------------
 # Clear PVID
