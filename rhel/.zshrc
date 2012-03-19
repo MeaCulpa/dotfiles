@@ -90,7 +90,7 @@ setprompt () {
     PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
     # Check the UID
-    if [[ $UID -ge 1000 ]]; then # normal user
+    if [[ $UID -ge 500 ]]; then # normal user
         eval PR_USER='${PR_GREEN}%n${PR_NO_COLOR}'
         eval PR_USER_OP='${PR_GREEN}%#${PR_NO_COLOR}'
     elif [[ $UID -eq 0 ]]; then # root
