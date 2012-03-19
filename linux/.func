@@ -77,8 +77,7 @@ gtranslate () { curl -s "http://ajax.googleapis.com/ajax/services/language/trans
 # chkgmail: Google Mail Atom parser
 # Usage: chkgmail USER PASS
 # 
-chkgmail () { curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" | awk 'NF>1' |awk -F '</?title>|</?summary>|</?name>' '/title/ {print "\n["substr($2,1,80)"]"};/summary/{print "\033[32m"$2"\033[39m";};/name/{print "\t--"$2}';}
-
+chkgmail () { curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" | awk -F '</?title>|</?summary>|</?name>' 'NF<2 {next;} /title/ {print "\n["substr($2,1,80)"]"};/summary/{print "\033[32m"$2"\033[39m";};/name/{print "\t--"$2}'; }
 #------------------------------------------------------------------------------
 # immcurl: post to imm.io
 # Usage: immcurl imagefile.name
