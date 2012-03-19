@@ -1,0 +1,59 @@
+###############################################################################
+# .alias, MeaCulpa
+#
+alias ls="ls -F --color=auto"
+alias la="ls -al --color=auto"
+alias ll="ls -l --color=auto"
+alias grep='grep --color=auto' 
+alias lsd='ls -ld *(-/DN)'
+alias lsa='ls -ld .*'
+alias f='find |grep'
+alias c="clear"
+alias dir='ls -1'
+alias ..='cd ..'
+alias hist="grep '$1' ~/.sh_history"
+alias mem="free -m"
+
+alias pa="ps -A"
+alias pag="ps -A | grep"
+alias meavel="tail -f /var/log/emerge.log"
+
+
+# Misc
+alias tree="ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'"
+alias viewpic="feh -F -Z"
+alias cls="tput clear"
+alias ausweather="wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | grep title | sed -e 's/<[^>]*>//g' -e 's/&#xB0;//g' | egrep '^[A-Z]'"
+alias shweather="wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | grep title | sed -e 's/<[^>]*>//g' -e 's/&#xB0;//g' | egrep '^[A-Z]'"
+alias dlsite="wget --random-wait -r -p -e robots=off -U mozilla"
+
+# Utils
+#alias colonfy="sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit' <<< "
+alias colonfy="sed 's/../:&/2g' <<< "
+alias decolonfy="sed 's/://g' <<< "
+
+# zsh -------------------------------------------------------------------- 
+# Set up auto extension stuff
+alias -s html=$BROWSER
+alias -s org=$BROWSER
+alias -s php=$BROWSER
+alias -s com=$BROWSER
+alias -s net=$BROWSER
+alias -s png=feh
+alias -s jpg=feh
+alias -s gif=feg
+alias -s sxw=soffice
+alias -s doc=soffice
+alias -s gz=tar -xzvf
+alias -s bz2=tar -xjvf
+alias -s java=$EDITOR
+alias -s txt=$EDITOR
+alias -s PKGBUILD=$EDITOR
+
+# COMMAND L equivalent to command |most
+alias -g L='|most' 
+
+# command S equivalent to command &> /dev/null &
+alias -g S='&> /dev/null &'
+
+
