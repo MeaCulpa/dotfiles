@@ -324,3 +324,38 @@ ssh_copy_id_restrict () {
     scp ~/.ssh/tmp_key_$1 $1:.ssh/authorized_keys2
 ; }
 
+#------------------------------------------------------------------------------
+# displayTZOffset calculates the timezone offset from GMT for the current user
+displayTZOffset () {
+	awk 'BEGIN{
+		"date +\"%H %M\"" | getline localHr localMin;
+		"TZ=GMT date +\"%H %M\"" | getline gmtHr gmtMin;
+	
+		localTime = (localHr * 60) + localMin;
+		gmtTime = (gmtHr * 60) + gmtMin;
+		timeDiff = localTime - gmtTime;
+		if(timeDiff > 720)
+			timeDiff = 1440 - timeDiff
+		else if(timeDiff < -720)
+			timeDiff = -1 * (1440 + timeDiff)
+		if(timeDiff < 0)
+			minus = true;
+		diffHr = int(timeDiff / 60);
+		diffMin = timeDiff - (diffHr * 60);
+		diffHr = (diffHr > 0)? diffHr : -diffHr;
+		diffMin = (diffMin > 0) ? diffMin : -diffMin;
+		if(minus){
+			printf("%02d:%02d\n", diffHr, diffMin);
+		}else{
+			printf("-%02d:%02d\n", diffHr, diffMin);
+		}
+	}' </dev/null
+; }
+
+#------------------------------------------------------------------------------
+# Displays ISO8601 Date
+displayISO8601Date () {
+	tzOffset=`displayTZOffset`
+	echo `date +%Y-%m-%dT%H:%M:%S`$tzOffset
+; }
+
