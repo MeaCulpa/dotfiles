@@ -1,0 +1,820 @@
+## If you dont want to organize it, put new entries in at the very end
+
+>=media-sound/soundkonverter-0.2.90-r1 kdeenablefinal lame                                   
+>=x11-libs/qt-4.0 qt3support sqlite sqlite3                                  
+                                    
+app-accessibility/dasher gnome 
+                                   
+app-admin/conky audacious hddtemp imlib lua lua-imlib lua-cairo mpd thinkpad -ipv6                                  
+# PackageKit, Sabayon config                                   
+app-admin/packagekit entropy cron pm-utils -qt4                                                                   
+                                  
+app-arch/advancecomp mng                                    
+app-arch/file-roller nautilus 
+                                   
+app-backup/bacula sqlite3 
+                                                                     
+app-cdr/brasero nautilus                                    
+app-cdr/cdrdao -gnome 
+
+# DO NOT FUCKING REMOVE THIS -- GNUPG                                   
+app-crypt/gnupg static                                    
+app-crypt/mit-krb5 krb4 openldap
+# app-crypt/pinentry is now a meta-package
+# enable GTK2 by default, people complaining
+# about dependencies, should really use pinentry-base instead                                 
+app-crypt/pinentry gtk qt4 
+                                  
+app-editors/bluefish gnome                                    
+app-editors/emacs xft                                    
+app-editors/vim vim-pager                                    
+
+app-emacs/auctex preview-latex                                    
+
+app-emulation/e-uae capslib                                    
+app-emulation/emul-linux-x86-soundlibs esd                                    
+app-emulation/libvirt kvm qemu                                    
+app-emulation/qemu-kvm havekernel -modules no_kernel_module vde qemu-ifup spice fdt
+app-emulation/vice gnome                                    
+app-emulation/virtualbox-bin additions vboxwebsrv -chm rdesktop-vrdp
+
+app-laptop/pommed -gtk                                    
+
+## some silliness here on beagle, make up your mind
+app-misc/beagle -firefox gtk -gtk -avahi chm ole                                                                    
+app-misc/ddccontrol -gtk -gnome
+# Kernel drivers are unwanted for lirc, they're in-kernel  
+app-misc/lirc -lirc_devices_audio -lirc_devices_audio_alsa -lirc_devices_serial                                  
+app-misc/mc -slang                                   
+app-misc/sabayon-version x86_64_release                                    
+
+app-mobilephone/gnokii sms -X                                   
+
+app-office/abiword plugins                                    
+app-office/dia gnome-print                                    
+app-office/glabels doc                                    
+app-office/gnucash ofx                                    
+app-office/homebank ofx                                    
+app-office/karbon wpg                                    
+app-office/kword wpd                                    
+app-office/magicpoint mng                                    
+app-office/libreoffice -nsplugin gnome java templates -kde                                
+app-office/libreoffice-l10n-meta linguas_as_IN linguas_be_BY linguas_dz linguas_en_ZA linguas_hi_IN linguas_ml_IN linguas_mr_IN linguas_ne linguas_nr linguas_ns linguas_or_IN linguas_pa_IN linguas_sh linguas_st linguas_sw_TZ linguas_te_IN linguas_th linguas_ti_ER linguas_tn linguas_ts linguas_ur_IN linguas_ve linguas_xh linguas_zu linguas_gu linguas_ku linguas_my linguas_oc linguas_om linguas_or linguas_si linguas_te linguas_as linguas_ast linguas_ml linguas_mr linguas_ug linguas_bo linguas_brx linguas_ca_XV linguas_dgo linguas_fo linguas_gd linguas_ia linguas_id linguas_ka linguas_kn linguas_kok linguas_ks linguas_ky linguas_lo linguas_mai linguas_mi linguas_mni linguas_pap linguas_ps linguas_sa_IN linguas_sat linguas_sd linguas_sq linguas_sw linguas_ti
+
+app-pda/libopensync-plugin-syncml obex                                    
+app-pda/pilot-link threads                                    
+
+app-portage/eix sqlite                                    
+app-portage/portato etc-proposals                                    
+
+app-text/aspell -linguas_af -linguas_be -linguas_bg -linguas_br -linguas_ca -linguas_cs -linguas_cy -linguas_da -linguas_de -linguas_el -linguas_en -linguas_eo -linguas_es -linguas_et -linguas_fi -linguas_fo -linguas_fr -linguas_ga -linguas_gl -linguas_he -linguas_hr -linguas_is -linguas_it -linguas_nl -linguas_no -linguas_pl -linguas_pt -linguas_ro -linguas_ru -linguas_sk -linguas_sl -linguas_sr -linguas_sv -linguas_uk -linguas_vi  
+app-text/djvu threads -nsplugin                                   
+app-text/enchant aspell                                    
+app-text/evince djvu dvi                                    
+app-text/fbreader -gtk                                    
+app-text/ghostscript-gpl -cjk -gtk
+app-text/lcdf-typetools kpathsea                                    
+app-text/recode -nls                                    
+app-text/texlive -truetype                                    
+
+dev-db/mysql -berkdb embedded pic
+virtual/mysql embedded
+# soundex required by Entropy and secure-delete required by xulrunner for dev-db/sqlite
+dev-db/sqlite soundex extensions                                  
+dev-db/sqliteodbc sqlite3                                    
+
+dev-dotnet/libgdiplus exif                                    
+
+dev-embedded/avr-libc -selinux
+
+dev-games/cegui devil                                    
+dev-games/crystalspace mng                                    
+
+dev-java/antlr cxx                                    
+dev-java/glazedlists java5                                    
+dev-java/swt -firefox                                    
+dev-java/swt cairo                                    
+dev-lang/fpc source                                    
+dev-lang/lua deprecated                                    
+dev-lang/mono moonlight                                    
+dev-lang/ocaml tk                                    
+dev-lang/php fpm posix simplexml mysql mysqli mysqlnd sqlite sqlite3 ftp gd imap calendar ctype sockets snmp wddx apache2 filter soap curl mhash hash pcre reflection spl xml tokenizer pdo pcntl json tidy cgi bcmath postgres zip xsl
+dev-lang/python sqlite                                    
+
+dev-libs/boost threads                                    
+dev-libs/crypto++ sse3                                    
+dev-libs/dbus-glib bash-completion                                    
+dev-libs/gdl gnome                                    
+# 2010-04-6, trying to disable USE="mono" from gmime (was enabled)
+# 2010-05-20, mono needs to stay until someone rebuilds everything that depends on gmime -mono as well ~Az   
+# dev-libs/gmime -mono                                    
+dev-libs/libmcs -kde                                    
+dev-libs/nss utils                                                                        
+# With soprano we want redland too, because it is lightweight                                    
+dev-libs/soprano redland -java clucene                                 
+dev-libs/xerces-c xqilla icu                                   
+dev-libs/xmlrpc-c curl                                    
+
+dev-ml/camlimages gs                                    
+dev-ml/lablgtk gnomecanvas                                    
+
+dev-perl/PDL fftw                                    
+
+dev-php/roadsend-php mysql sqlite3                                   
+
+dev-python/cgkit 3ds
+# Make possible to have dev-python/epydoc without python compiled with tk                       
+dev-python/epydoc -X                                    
+dev-python/gnome-python-extras -firefox                                    
+dev-python/matplotlib -wxwindows                                    
+dev-python/PyQt4 webkit sql assistant declarative
+dev-python/traitsgui wxwidgets qt4                                   
+
+dev-scheme/guile deprecated regex networking                                   
+
+dev-tcltk/tclxml expat                                    
+
+dev-util/anjuta subversion                                    
+dev-util/codeblocks contrib                                    
+dev-util/eclipse-sdk java6
+dev-util/glade -gnome                                    
+dev-util/jay java                                 
+dev-util/qt-creator git subversion kde examples                                   
+dev-vcs/subversion -java -apache2 -dso -kde                                 
+
+dev-vcs/bzr bash-completion curl sftp                                  
+dev-vcs/git bash-completion
+dev-vcs/git curl webdav -subversion -gtk                                 
+
+games-emulation/generator sdlaudio                                    
+games-emulation/qmc2 sdlmess                                    
+
+games-engines/stratagus mng                                    
+
+games-fps/freedoom doomsday                                    
+games-fps/nexuiz dedicated maps                                   
+games-fps/warsow irc openal                                   
+games-fps/worldofpadman maps                                    
+
+games-rpg/eternal-lands-data music sound                                   
+games-rpg/nwn-data videos                                    
+
+games-strategy/uqm voice                                    
+games-strategy/warzone2100 videos                                    
+
+games-util/springlobby bittorrent                                    
+
+gnome-base/gconf policykit                                    
+gnome-base/gnome-applets gnome networkmanager gstreamer
+gnome-base/gvfs ios samba gnome gdu fuse archive gnome-keyring
+gnome-base/librsvg gnome
+gnome-base/nautilus gnome                                    
+
+gnome-extra/avant-window-navigator doc gnome xfce                                  
+gnome-extra/avant-window-navigator-extras gnome                                    
+gnome-extra/libgsf gnome                                    
+
+kde-base/dolphin semantic-desktop thumbnail                                    
+kde-base/gwenview kipi semantic-desktop                                   
+# move kde-base/kde-l10n-meta kde-base/kde-l10n
+kde-base/kde-l10n linguas_be linguas_csb linguas_ne linguas_th linguas_wa                                
+kde-base/kde-meta -nls semantic-desktop                                   
+kde-base/kdebase-kioslaves samba                                    
+kde-base/kdebase-runtime-meta semantic-desktop                                    
+kde-base/kdelibs acl -pertty jpeg2k semantic-desktop                                 
+kde-base/kdeplasma-addons semantic-desktop                                    
+kde-base/kopete addbookmarks alias autoreplace connectionstatus contactnotes gadu groupwise highlight history jingle netmeeting nowlistening sametime texteffect translator webpresence winpopup irc yahoo statistics otr -kdeenablefinal slp qq oscar            
+kde-base/krunner xcomposite                                    
+kde-base/kwin captury xcomposite                                   
+kde-base/okular chm djvu ebook crypt
+kde-base/plasma-workspace semantic-desktop                                    
+kde-base/pykde4 semantic-desktop                                    
+kde-base/solid networkmanager -wicd 
+# enable Google Gadgets on Plasma
+# not yet!
+# kde-base/plasma-workspace google-gadgets
+
+kde-misc/knetworkmanager networksettings                                    
+
+mail-client/claws-mail bogofilter -kde -pda                                   
+mail-client/evolution exchange                                    
+mail-client/mail-notification mozilla pop mbox gmail                                 
+mail-client/thunderbird lightning -linguas_en_GB -linguas_es_AR -linguas_es_ES -linguas_fy -linguas_fy_NL -linguas_ga -linguas_ga_IE -linguas_gu_IN -linguas_ka -linguas_ku -linguas_nb -linguas_nb_NO -linguas_nn -linguas_nn_NO -pa_IN linguas_pl -linguas_pt -linguas_pt_BR -linguas_pt_PT -linguas_sv_SE -linguas_zh_CN -linguas_zh_TW              
+mail-client/mutt sidebar smtp                                    
+mail-filter/dovecot-antispam dspam                                    
+mail-filter/procmail mbox                                    
+mail-filter/spamassassin-fuzzyocr gocr                                    
+
+media-gfx/blender blender-game verse player                                  
+media-gfx/gimp exif                                    
+media-gfx/gimp mng wmf                                   
+media-gfx/gimp smp                                    
+media-gfx/gphoto2 aalib                                    
+media-gfx/greycstoration fftw                                    
+media-gfx/imagemagick fftw gs                                   
+media-gfx/inkscape effects inkjar jabber                                  
+media-gfx/k3d 3ds                                    
+media-gfx/kphotoalbum kipi                                    
+media-gfx/splashutils fbcondecor mng                                                                       
+
+media-libs/blib aalib                                                                       
+media-libs/coin javascript                                    
+media-libs/devil mng                                    
+media-libs/freetype -X -auto-hinter                                                                      
+media-libs/libggi aalib                                    
+media-libs/libgphoto2 exif                                    
+media-libs/libpng apng                                    
+media-libs/libsoundtouch sse2                                    
+media-libs/libxtract fftw                                    
+media-libs/mediastreamer video                                    
+media-libs/mesa video_cards_intel video_cards_mach64 video_cards_mga video_cards_r128 video_cards_radeon video_cards_savage video_cards_sis video_cards_tdfx video_cards_via video_cards_nouveau
+media-libs/mlt -qt3 melt frei0r kde quicktime                                  
+media-libs/openal -pulseaudio                                    
+media-libs/openexr -video_cards_nvidia                                    
+media-libs/swfdec -oss gstreamer pulseaudio                                  
+media-libs/urt gs                                    
+media-libs/vigra fftw                                    
+media-libs/vips fftw                                    
+media-libs/win32codecs real                                                                        
+media-libs/xine-lib dxr3 aalib mng -win32codecs -gtk                                
+
+media-plugins/alsa-plugins libsamplerate pulseaudio                                   
+media-plugins/audacious-plugins cue chardet icecast wavpack                                   
+media-plugins/vdr-weatherng dxr3                                    
+
+media-radio/tucnak2 fftw                                    
+
+media-sound/alsa-tools -gtk                                    
+media-sound/amarok lastfm cdaudio ifp njb mtp musicbrainz mp4 embedded                             
+media-sound/ardour freesound                                    
+media-sound/asunder wavpack                                    
+media-sound/audacious wma timidity lirc dbus chardet                                
+media-sound/audacity ladspa vamp                                   
+media-sound/banshee podcast -ipod -zeroconf mtp njb                                 
+media-sound/lmms fftw fluidsynth                                   
+# move media-sound/phonon media-libs/phonon
+media-libs/phonon -gstreamer                                    
+media-sound/qtractor sse                                    
+media-sound/quodlibet trayicon                                    
+media-sound/snd fftw                                    
+media-sound/sonic-visualiser fftw                                    
+
+media-tv/mythtv fftw -xvmc                                   
+media-tv/xawtv aalib
+# Disabling vaapi for now, see bug #2221
+media-tv/xbmc vdpau css -vaapi webserver rtmp xrandr
+
+media-video/avidemux amr                                    
+media-video/blinkensim aalib                                    
+# Drop xine-ui from dvdrip, since we don't want it on G ISO                                 
+media-video/dvdrip mplayer subtitles fping -xine                                 
+media-video/dvgrab quicktime
+# To enable vdpau, video_cards_nvidia USE flag must be enabled
+virtual/ffmpeg threads ogg vhook faac faad vdpau video_cards_nvidia amr cpudetection vaapi vpx
+media-video/ffmpeg threads ogg vhook faac faad vdpau video_cards_nvidia amr cpudetection vaapi vpx                                                     
+media-video/mkvtoolnix wxwindows                                    
+media-video/mplayer -dxr3 aalib mng x264 dvdnav mp2 openal mmxext radio rtc rar tga tivo zoran cpudetection cddb cdparanoia 3dnow 3dnowext sse sse2 vidix amr bl ftp lirc md5sum pnm ass ssse3 vdpau ladspa vpx
+# testing mplayer flags
+media-video/mplayer fbcon bs2b
+media-video/ogmrip ogm mp4 srt                                  
+media-video/totem xulrunner iplayer galago                                    
+media-video/transcode mjpeg                                    
+media-video/vdr dxr3 atsc subtitles iptv pinplugin graphtft menuorg submenu yaepg ttxtsubs dvbsetup menuorg rotor
+# fontconfig => http://forum.sabayon.org/viewtopic.php?f=59&t=22548&p=126807
+media-video/vlc aalib id3tag httpd vlm xulrunner samba -vaapi fontconfig skins win32codecs
+# broken with nvidia atm, 2011-03-13
+media-video/vlc -vaapi
+media-video/xine-ui aalib
+
+net-analyzer/echoping -ssl
+# No need to have USE=X on net-snmp
+net-analyzer/net-snmp -X 
+# Disable GTK for nmap, unfortunately this ebuild
+# should be split. Come on, common user doesn't use this
+# and it's mostly a CLI thing    
+net-analyzer/nmap -gtk                                    
+net-analyzer/snmptt mysql                                    
+net-analyzer/zabbix frontend agent server                                  
+
+net-dialup/freeradius threads                                    
+net-dialup/mgetty -fax                                    
+net-dialup/ppp atm dhcp radius -gtk
+
+net-dns/avahi howl-compat mdnsresponder-compat dbus gdbm -gtk python autoipd -qt4                             
+net-dns/dnsmasq -dbus                                    
+
+net-fs/samba acl oav winbind                                  
+
+net-im/centerim aim gadu icq irc jabber lj msn rss yahoo                            
+net-im/gajim -avahi                                    
+net-im/pidgin bonjour console gadu groupwise meanwhile msn prediction qq sasl silc -zephyr                          
+net-im/psi jingle                                    
+
+net-irc/inspircd mysql sqlite                                   
+net-irc/kvirc -audiofile dcc_video                                   
+
+net-libs/libgadu ssl threads 
+# Disable net-wireless/bluez for libpcap to avoid having dbus, thus half X shit around pulled in    
+net-libs/libpcap -bluetooth                                    
+net-libs/libsoup gnome                                    
+net-libs/opal sip h323                                   
+net-libs/ptlib wav dns pipechan                                  
+net-libs/webkit-gtk sqlite xslt                                   
+net-libs/wvstreams -qt3                                    
+
+net-mail/dbmail sqlite3                                    
+net-mail/tpop3d mbox maildir                                   
+
+net-misc/aria2 metalink bittorrent xmlrpc
+# bluetooth use flag is useless
+net-misc/networkmanager nss dhclient modemmanager -bluetooth connection-sharing dhcpcd
+# to make VPN working with networkmanager (nm-applet)                                 
+net-misc/networkmanager-openvpn gnome                                    
+net-misc/networkmanager-pptp gnome
+## networkmanager-vpnc, someone make up their minds                                   
+net-misc/networkmanager-vpnc -gnome gnome                                                                       
+net-misc/ntp -zeroconf                                    
+net-misc/nxclient prebuilt                                    
+net-misc/nxnode prebuilt vnc                                   
+net-misc/openssh -ldap -X                                                                      
+net-misc/scponly sftp scp winscp rsync unison subversion passwd                              
+net-misc/tightvnc -java server                                   
+net-misc/vinagre -avahi                                    
+
+net-p2p/amule geoip stats remote upnp daemon                                
+net-p2p/deluge webinterface                                    
+net-p2p/gnunet sqlite                                    
+net-p2p/vuze source                                    
+
+net-print/cups -java                                    
+net-print/gutenprint foomaticdb -gtk
+# Also install ppd files with package, otherwise ppl are lost     
+net-print/hplip parport fax snmp usb hpijs static-ppds                                  
+
+net-proxy/privoxy threads                                    
+
+net-wireless/bluez gstreamer
+net-wireless/btsco ao skype                                   
+net-wireless/wpa_supplicant -qt3 -qt4                                   
+
+sci-astronomy/celestia -kde                                    
+
+sci-geosciences/grass fftw tcl tk                                  
+sci-geosciences/mapserver flash threads                                   
+
+sci-libs/itpp fftw                                    
+sci-libs/vtk tk                                    
+
+sci-mathematics/maxima latex                                    
+sci-mathematics/octave fftw                                    
+
+sci-visualization/fityk gnuplot wxwindows                                   
+sci-visualization/gnuplot gd wxwidgets                                   
+sci-visualization/gnuplot wxwindows                                    
+sci-visualization/grace fftw                                    
+sci-visualization/gwyddion fftw                                    
+
+sys-apps/groff -X                                    
+sys-apps/hal disk-partition dell apm laptop -X                                
+sys-apps/hwdata-gentoo binary-drivers                                    
+sys-block/parted device-mapper                                    
+sys-apps/pciutils -zlib                                    
+
+sys-auth/pambase consolekit -kerberos
+
+sys-block/gparted -kde -gtk dmraid mdadm btrfs
+# Kernel modules not needed       
+sys-block/open-iscsi -modules                                    
+
+# grub2 must be slotted for a while
+>sys-boot/grub-1 multislot
+# qemu is known to cause troubles
+# efi-32, unwanted
+# efi-64, requires anaconda to set this flag to EFI partitions: bios_grub on
+sys-boot/grub device-mapper grub_platforms_coreboot -grub_platforms_efi-32 -grub_platforms_efi-64 -grub_platforms_emu -grub_platforms_ieee1275 -grub_platforms_multiboot grub_platforms_pc -grub_platforms_qemu
+
+# Disable GTK for distcc, this is a server-side app and it's better to not ship with gtk
+sys-devel/distcc -avahi -gtk                                                                                                           
+sys-devel/gcc objc objc++ objc-gc -gtk                                                                    
+
+sys-fs/mtd-utils xattr                                    
+sys-fs/ntfs3g suid                                    
+sys-fs/ntfsprogs fuse                                    
+sys-fs/udev extras                                    
+
+# We want splash, dmraid and grub with linux-openvz and linux-server
+sys-kernel/linux-openvz grub splash dmraid                                  
+sys-kernel/linux-sabayon splash dmraid grub symlink                                 
+sys-kernel/linux-server grub splash dmraid                                  
+sys-kernel/linux-vserver grub splash dmraid                                  
+sys-kernel/sabayon-sources symlink                                    
+
+sys-libs/db -java                                    
+
+www-apps/trac mysql postgres vhosts sqlite                                 
+
+www-client/epiphany -dbus                                    
+www-client/firefox-bin linguas_be linguas_id linguas_ka linguas_ku linguas_pa_IN linguas_sq                               
+www-client/midori sqlite                                    
+www-client/firefox xforms mozbranding filepicker -linguas_en_GB -linguas_es_AR -linguas_es_ES -linguas_fy -linguas_fy_NL -linguas_ga -linguas_ga_IE -linguas_gu_IN -linguas_ka -linguas_ku -linguas_nb -linguas_nb_NO -linguas_nn -linguas_nn_NO -linguas_pa_IN -linguas_pt -linguas_pt_BR -linguas_pt_PT -linguas_sv_SE -linguas_zh_CN -linguas_zh_TW -gnome           
+www-client/seamonkey -linguas_en_GB -linguas_es_AR -linguas_es_ES -linguas_fy -linguas_fy_NL -linguas_ga -linguas_ga_IE -linguas_gu_IN -linguas_ka -linguas_ku -linguas_nb -linguas_nb_NO -linguas_nn -linguas_nn_NO -pa_IN -linguas_pl -linguas_pt -linguas_pt_BR -linguas_pt_PT -linguas_sv_SE -linguas_zh_CN -linguas_zh_TW               
+
+www-plugins/gnash vaapi -kde                                                                       
+
+# Our Apache defaults
+www-servers/apache apache2_modules_cgi apache2_modules_cgid apache2_modules_proxy apache2_modules_proxy_ajp apache2_modules_proxy_balancer apache2_modules_proxy_connect apache2_modules_proxy_ftp apache2_modules_proxy_http apache2_modules_substitute apache2_modules_version apache2_modules_auth_digest apache2_modules_authn_dbd apache2_modules_cern_meta apache2_modules_charset_lite apache2_modules_dumpio ident apache2_modules_imagemap apache2_modules_log_forensic apache2_modules_asis apache2_modules_dbd suexec
+www-servers/cherokee admin
+# Inflate lighttpd          
+www-servers/lighttpd fastcgi php lua memcache xattr                                
+
+x11-apps/fusion-icon -qt4                                    
+
+x11-base/xorg-server -ipv6 kdrive                                   
+x11-base/xorg-x11 intel                                    
+
+x11-drivers/ati-drivers distribution -qt4                                                                       
+x11-drivers/nvidia-drivers distribution -gtk                                   
+
+x11-libs/cairo glitz -qt4
+# move x11-libs/ecore dev-libs/ecore
+dev-libs/ecore curl                                    
+# move x11-libs/evas media-libs/evas
+media-libs/evas fontconfig sse threads
+# to make cinepaint work, enable threads on fltk                                 
+x11-libs/fltk threads xft                                    
+x11-libs/goffice gnome
+# Drop gtk style support from qt-gui, it's just ridiculous
+# 2010-11-11 Joost Ruis: Keep  raster disabled, seems to cause screen corruption on my Intel machine.
+# 2011-03-25 Joost Ruis: enable raster again for testing.
+x11-libs/qt-gui mng private-headers raster -gtk
+x11-libs/qt-core private-headers
+x11-libs/qt-script private-headers 
+x11-libs/qt-declarative webkit private-headers
+
+# used by mythtv                      
+x11-libs/qt-sql mysql                                    
+x11-libs/wxGTK gnome                                    
+
+x11-misc/xaos aalib
+# Disable new-login, pulls in gdm or kdm, which is bad
+x11-misc/xscreensaver -new-login                                 
+
+x11-plugins/cairo-dock-plugins alsa exif -kde mail musicplayer powermanager terminal tomboy wifi xgamma compiz -gio -gmenu gnome -network-monitor -webkit -xfce -xklavier        
+
+x11-terms/rxvt-unicode xterm-color                                                                        
+
+x11-themes/cairo-dock-themes Azur Cobalt Djoole Glattering I_Cairo MacOSX TapisVert Ubuntu Verde Wood                           
+x11-themes/gnome-colors-common branding                                    
+x11-themes/gtk-engines-qtcurve -mozilla                                   
+x11-themes/qtcurve-qt4 kde                                    
+x11-themes/skinenigmang-logos dxr3                                    
+
+x11-wm/compiz -gnome -kde                                   
+x11-wm/compiz-fusion -gnome -kde                                   
+x11-wm/enlightenment xrandr -exchange                                  
+x11-wm/fluxbox imlib                                    
+x11-wm/fvwm imlib                                    
+x11-wm/icewm imlib                                                                       
+
+xfce-base/thunar thumbnail                                    
+xfce-base/xfdesktop thunar-vfs                                    
+xfce-base/xfwm4 xcomposite                                    
+
+# Since those are not linker deps, we
+# can drop then and let users decide
+# to install the fonts they want
+app-text/ghostscript-gpl -linguas_ja -linguas_ko -linguas_zh_CN -linguas_zh_TW
+
+# Needed for gnome-shell
+media-libs/clutter opengl introspection
+
+# See Sabayon bug #890
+sys-devel/libperl ithreads
+dev-lang/perl ithreads
+
+# See Sabayon bug #1020
+dev-libs/openct pcsc-lite
+
+# libdvdcss setup
+media-libs/libdvdread -css
+media-libs/xine-lib -css
+app-cdr/brasero -css
+media-tv/mythtv -css
+
+# Disable gtk dependency, unwanted for Core
+dev-python/python-meh -gtk
+app-admin/system-config-date -gtk
+dev-python/python-slip -gtk
+app-admin/firstboot -gtk
+app-admin/system-config-users -X
+
+# PackageKit settings
+app-admin/packagekit-base pm-utils entropy
+
+# Add xattr support to rsync
+net-misc/rsync xattr
+# Disable KDE on backintime
+app-backup/backintime gnome -kde
+
+# Wine, more features
+app-emulation/wine fontconfig samba
+
+# ejabberd, more features!
+net-im/ejabberd mod_irc mod_muc mod_pubsub odbc web
+
+# gdb tuning, we want XML
+sys-devel/gdb expat
+
+# bluetooth stuff is now provided by gnome-bluetooth
+gnome-extra/nautilus-sendto -bluetooth
+
+# Pylons stuff
+dev-python/paste openid
+dev-python/pylons genshi jinja
+
+# Provide more dovecot features
+net-mail/dovecot managesieve sieve sqlite
+# More postfix features
+mail-mta/postfix mbox sasl
+
+# openresolv support
+net-dns/bind resolvconf
+net-misc/connman resolvconf
+net-misc/networkmanager resolvconf
+net-misc/vpnc resolvconf
+
+# add HVM
+app-emulation/xen-tools hvm
+
+# doesn't build with tiff 4.0
+sci-geosciences/mapserver -tiff
+
+# Hylafax features
+net-misc/hylafax mgetty
+
+# temp. disable python support due to sip shit
+sci-chemistry/avogadro -python
+sci-geosciences/qgis -python
+
+# libva coolness
+x11-libs/libva video_cards_dummy video_cards_intel video_cards_nvidia
+
+# we provide networkmanager tools for tweaking network settings,
+# moreover network-admin is broken and causes massive meltdown
+app-admin/gnome-system-tools -network nfs
+
+# No fuck git by default!
+sys-devel/gettext -git
+
+# vmware-tools defaults
+# app-emulation/vmware-tools vmware_guest_freebsd vmware_guest_linux vmware_guest_netware vmware_guest_solaris vmware_guest_winPre2k vmware_guest_windows
+
+# libproxy is bloatware
+net-libs/libproxy -kde -gnome
+# moreover, xulrunner gets pulled in, in XFCE spins
+net-libs/libproxy -xulrunner
+
+# For safety (no particular reason, but grub requires ncurses)
+# we also provide libncurses.a
+sys-libs/ncurses static-libs
+
+## Put new entries after this line if you dont want to organize it. ##
+######################################################################
+
+net-analyzer/snort dynamicplugin
+mail-mta/netqmail qmail-spp
+app-mobilephone/kannel mysql
+dev-libs/libassuan static-libs
+media-libs/ming php
+app-arch/p7zip -kde
+x11-misc/keytouch -kde
+x11-misc/keytouch-editor -kde
+media-libs/libsdl aalib	
+media-libs/libcanberra gstreamer
+dev-java/gnu-classpath gstreamer
+# Disable nautilus integration, it gets pulled in in XFCE spin
+sys-apps/gnome-disk-utility -nautilus -avahi
+x11-misc/notification-daemon gstreamer
+media-video/kino gstreamer quicktime
+gnome-base/gnome-panel eds
+x11-themes/sabayon-artwork-kde ksplash
+dev-db/postgresql-base threads
+media-libs/libsamplerate sndfile
+app-benchmarks/phoronix-test-suite gd -gtk
+dev-lang/ifc idb
+net-nds/openldap -minimal
+media-libs/libgpod ios
+app-emulation/ganeti kvm
+app-i18n/skk-jisyo cdb
+net-misc/x2goserver sqlite
+media-plugins/kipi-plugins calendar
+sci-libs/gdal geos
+dev-db/tora oracle
+media-sound/moc curl
+kde-base/kdepimlibs semantic-desktop
+media-libs/gd fontconfig
+x11-libs/qt-webkit kde
+www-client/uget gstreamer
+dev-libs/libf2c static-libs
+kde-base/krdc vnc
+net-voip/ekiga gstreamer
+x11-libs/libdrm video_cards_intel video_cards_nouveau video_cards_radeon video_cards_vmware libkms
+app-office/koffice-libs reports
+app-editors/gedit-plugins terminal
+sci-chemistry/xds-bin smp
+dev-java/gnu-classpath -qt4
+app-cdr/xfburn gstreamer
+x11-libs/qt-qt3support kde
+x11-libs/qt-assistant compat
+app-text/texlive-core xetex
+media-sound/mp3splt-gtk gstreamer
+media-sound/gpodder gstreamer
+net-proxy/tsocks tordns
+sys-kernel/dracut dracut_modules_gensplash dracut_modules_syslog dracut_modules_btrfs dracut_modules_dmraid dracut_modules_nfs dracut_modules_lvm dracut_modules_multipath dracut_modules_plymouth
+games-fps/darkplaces textures
+media-sound/deadbeef curl lastfm hotkeys sndfile supereq cover
+net-misc/remmina vnc ssh
+app-misc/gpsdrive speech 
+media-video/miro faac
+media-gfx/sane-frontends gimp
+dev-db/freetds mssql
+www-plugins/adobe-flash -32bit
+dev-libs/libxml2 icu
+media-video/jubler mplayer
+dev-libs/xmlsec gcrypt
+dev-libs/tntnet sdk
+x11-themes/tango-icon-theme branding
+dev-games/ode double-precision
+dev-util/nvidia-cuda-sdk opencl
+app-pda/syncevolution sqlite
+sci-chemistry/openbabel -perl -python
+media-sound/clementine ios
+dev-libs/tinyxml -stl
+net-misc/mediatomb thumbnail
+
+# Needed for Netbeans ide 
+dev-java/swing-layout source
+
+sys-auth/polkit -kde -gtk
+dev-util/geany-plugins enchant gtkspell
+sci-geosciences/tangogps gps
+kde-base/kdesdk-misc extras
+dev-java/antlr script
+app-misc/sphinx mysql
+x11-misc/shutter webphoto
+dev-games/physfs hog
+app-misc/tuxcmd-modules gnome unrar
+media-sound/cmus mikmod
+sci-libs/hdf5 mpi threads
+virtual/mpi romio
+sys-cluster/openmpi romio
+kde-base/activitymanager semantic-desktop
+kde-base/kget semantic-desktop
+
+# Testing out crafted kde4-base.eclass
+media-gfx/digikam handbook semantic-desktop 
+dev-util/kdevelop php ruby
+dev-util/kdevplatform git subversion 
+
+dev-libs/libgcrypt static-libs
+dev-libs/libgpg-error static-libs
+net-im/kadu xmpp
+dev-libs/libksba static-libs
+sys-fs/evms -gtk
+mail-filter/maildrop authlib
+dev-python/pyudev pyqt4
+dev-libs/popt static-libs
+net-libs/glib-networking gnome
+
+# New splashutils wants static-libs see Gentoo bug #356231
+media-libs/libpng static-libs
+media-libs/lcms static-libs
+virtual/jpeg static-libs
+media-libs/libjpeg-turbo static-libs
+media-libs/libmng static-libs
+
+# Prepare for GNOME 3
+# cairo pulls in mesa in the end, which is bad for spinbase
+dev-python/pygobject introspection -cairo
+sys-auth/polkit introspection
+sys-power/upower introspection
+net-libs/libsoup introspection
+x11-libs/gtk+:2 introspection
+media-libs/gst-plugins-base introspection
+media-libs/gstreamer introspection
+dev-libs/glib introspection
+net-libs/libsoup-gnome introspection
+media-libs/babl introspection
+gnome-extra/polkit-gnome introspection
+gnome-base/libgtop introspection
+x11-libs/libnotify introspection
+dev-libs/libgee introspection
+gnome-base/gnome-panel introspection bonobo
+sys-boot/plymouth video_cards_intel video_cards_nouveau video_cards_radeon 
+
+# Our artwork, blame Ian
+>=x11-themes/elementary-icon-theme-2.7.1 monochrome branding
+
+# Kill all linguas off kdepim-runtime
+kde-base/kdepim-runtime -linguas_ar -linguas_be -linguas_ca -linguas_ca@valencia -linguas_cs -linguas_da -linguas_de -linguas_el -linguas_en_GB -linguas_eo -linguas_es -linguas_et -linguas_fi -linguas_fr -linguas_ga -linguas_gl -linguas_hr -linguas_hu -linguas_ia -linguas_it -linguas_ja -linguas_kk -linguas_km -linguas_ko -linguas_lt -linguas_lv -linguas_mai -linguas_nb -linguas_nds -linguas_nl -linguas_nn -linguas_pa -linguas_pl -linguas_pt -linguas_pt_BR -linguas_ro -linguas_ru -linguas_se -linguas_sk -linguas_sl -linguas_sv -linguas_th -linguas_tr -linguas_uk -linguas_zh_CN -linguas_zh_TW
+
+app-i18n/scim-bridge  qt4 gtk
+x11-drivers/nvidia-drivers gtk
+
+# ---
+# BEGIN: x11-drivers/nvidia-drivers-275.21
+# ---
+# ---
+# END: x11-drivers/nvidia-drivers-275.21
+# ---
+
+#required by x11-misc/notification-daemon-0.5.0, required by virtual/notification-daemon-0[-gnome], required by x11-libs/libnotify-0.7.3, required by www-client/firefox-5.0-r2[libnotify], required by firefox (argument)
+=media-libs/libcanberra-0.28-r3 gtk
+
+# ---
+# BEGIN: dev-vcs/bzr-2.4.0
+# ---
+# ---
+# END: dev-vcs/bzr-2.4.0
+# ---
+
+
+# ---
+# BEGIN: dev-vcs/bzr-2.4.0
+# ---
+# ---
+# END: dev-vcs/bzr-2.4.0
+# ---
+
+
+# ---
+# BEGIN: games-roguelike/nethack-3.4.3-r1
+# ---
+# ---
+# END: games-roguelike/nethack-3.4.3-r1
+# ---
+
+#required by x11-misc/notification-daemon-0.5.0, required by virtual/notification-daemon-0[-gnome], required by x11-libs/libnotify-0.7.4, required by www-client/firefox-6.0[libnotify], required by @selected, required by @world (argument)
+>=media-libs/libcanberra-0.28-r5 gtk
+
+# ---
+# BEGIN: www-plugins/adobe-flash-11.0.1.129_rc201109061
+# ---
+# ---
+# END: www-plugins/adobe-flash-11.0.1.129_rc201109061
+# ---
+
+#required by media-libs/libkgeomap-2.2.0, required by media-gfx/digikam-2.2.0, required by digikam (argument)
+>=kde-base/marble-4.7.1 kde plasma
+#required by dev-db/virtuoso-server-6.1.3-r1, required by dev-libs/soprano-2.7.0[virtuoso], required by app-office/akonadi-server-1.6.0-r1, required by kde-base/kdepimlibs-4.7.1[semantic-desktop], required by media-plugins/kipi-plugins-2.2.0[calendar], required by media-gfx/digikam-2.2.0, required by digikam (argument)
+>=sys-libs/zlib-1.2.5.1-r2 minizip
+net-p2p/mldonkey bittorrent gd fasttrack gnutella
+games-fps/quake3 teamarena
+#required by dev-texlive/texlive-xetex-2011, required by texlive-xetex (argument)
+>=app-text/texlive-core-2011-r5 xetex
+#required by dev-texlive/texlive-xetex-2011, required by texlive-xetex (argument)
+>=app-text/texlive-core-2011-r5 xetex
+#required by dev-texlive/texlive-xetex-2011, required by texlive-xetex (argument)
+>=app-text/texlive-core-2011-r5 xetex
+dev-vcs/subversion -kerberos
+#required by net-print/cups-1.4.8-r22, required by app-office/libreoffice-bin-3.4.3.2-r1, required by libreoffice-bin (argument)
+>=app-text/ghostscript-gpl-9.04-r4 cups
+#required by app-office/libreoffice-bin-3.4.3.2-r1, required by libreoffice-bin (argument)
+>=app-text/poppler-0.18.1 cairo
+>=media-libs/phonon-4.4.3 vlc
+#required by virtual/rubygems-4, required by dev-ruby/rdoc-3.12[-test,ruby_targets_ruby19], required by dev-lang/ruby-1.9.3_p0[rdoc], required by dev-ruby/rake-0.9.2.2[ruby_targets_ruby19], required by dev-ruby/json-1.6.3[-test,-doc,ruby_targets_ruby18]
+>=dev-ruby/rubygems-1.8.11 ruby_targets_ruby19
+#required by dev-ruby/rdoc-3.12[ruby_targets_ruby19], required by dev-lang/ruby-1.9.3_p0[rdoc], required by dev-ruby/rake-0.9.2.2[ruby_targets_ruby19], required by dev-ruby/json-1.6.3[-test,-doc,ruby_targets_ruby18]
+>=dev-ruby/racc-1.4.7 ruby_targets_ruby19
+#required by dev-ruby/racc-1.4.7[-test,-doc,ruby_targets_ruby18], required by dev-ruby/rdoc-3.12[ruby_targets_ruby19], required by dev-lang/ruby-1.9.3_p0[rdoc], required by dev-ruby/json-1.6.3[ruby_targets_ruby19]
+>=dev-ruby/rake-0.9.2.2 ruby_targets_ruby19
+#required by dev-ruby/rdoc-3.12[ruby_targets_ruby19], required by dev-lang/ruby-1.9.3_p0[rdoc], required by dev-ruby/rake-0.9.2.2[ruby_targets_ruby19], required by dev-ruby/racc-1.4.7[-test,-doc,ruby_targets_ruby18]
+>=dev-ruby/json-1.6.3 ruby_targets_ruby19
+#required by dev-lang/ruby-1.9.3_p0[rdoc], required by dev-ruby/rake-0.9.2.2[ruby_targets_ruby19], required by dev-ruby/json-1.6.3[-test,-doc,ruby_targets_ruby18]
+>=dev-ruby/rdoc-3.12 ruby_targets_ruby19
+games-util/xqf geoip
+media-libs/mesa g3dvl
+
+net-misc/dropbox librsync-bundled
+net-im/bitlbee twitter
+media-video/mplayer2 3dnowext 
+
+# ---
+# BEGIN: media-video/mplayer2-9999
+# ---
+# ---
+# END: media-video/mplayer2-9999
+# ---
+
+
+# ---
+# BEGIN: media-video/ffmpeg-9999
+# ---
+# ---
+# END: media-video/ffmpeg-9999
+# ---
+
+media-video/mplayer -encode
+
+#required by sys-kernel/genkernel-3.4.27[crypt], required by @selected, required by @world (argument)
+>=sys-fs/cryptsetup-1.4.1-r1 static

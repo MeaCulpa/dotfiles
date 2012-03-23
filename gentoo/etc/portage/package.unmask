@@ -1,0 +1,93 @@
+<sys-apps/portage-2.3
+
+# E17 support
+=media-libs/imlib2-9999
+
+# Unmasking development kernel sources for openvz
+=sys-kernel/openvz-sources-2.6.32*
+
+# Only version 1.6.x works with latest kernels
+net-fs/openafs-kernel
+net-fs/openafs
+
+
+
+# ---
+# BEGIN: dev-vcs/bzr-2.4.0
+# ---
+# ---
+# END: dev-vcs/bzr-2.4.0
+# ---
+
+
+# ---
+# BEGIN: dev-vcs/bzr-2.4.0
+# ---
+# ---
+# END: dev-vcs/bzr-2.4.0
+# ---
+>=dev-vcs/bzr-2.4.0
+
+
+# ---
+# BEGIN: games-roguelike/nethack-3.4.3-r1
+# ---
+# ---
+# END: games-roguelike/nethack-3.4.3-r1
+# ---
+
+#required by nethack (argument)
+# /usr/portage/profiles/package.mask:
+# Tavis Ormandy <taviso@gentoo.org> (21 Mar 2006)
+# masked pending unresolved security issues #125902
+>=games-roguelike/nethack-3.4.3-r1
+
+# ---
+# BEGIN: www-plugins/adobe-flash-11.0.1.129_rc201109061
+# ---
+# ---
+# END: www-plugins/adobe-flash-11.0.1.129_rc201109061
+# ---
+
+#required by splashutils (argument)
+# /etc/portage/package.mask:
+# Joost Ruis: Masked because on our overlay, prevent pulling in Portage versions
+=media-gfx/splashutils-1.5.4.4
+#required by esound (argument)
+# /usr/portage/profiles/package.mask:
+# Nirbheek Chauhan <nirbheek@gentoo.org> (04 Jan 2012)
+# Outdated and unused sound daemon. Why is this still in the tree?
+# Removal of esd and deps in 30 days.
+# In exceptional cases, you may use Pulseaudio's esound wrapper.
+=media-sound/esound-0.2.41
+#required by @preserved-rebuild (argument)
+# /usr/portage/profiles/package.mask:
+# Andreas K. Huettel <dilfridge@gentoo.org> (1 Dec 2011)
+# The phonon xine backend is unmaintained and makes trouble
+=media-libs/phonon-xine-9999
+#required by savage-bin (argument)
+# /usr/portage/profiles/package.mask:
+# Samuli Suominen <ssuominen@gentoo.org> (30 Oct 2011)
+# Masked for security bug #294253, use only at your own risk!
+=games-strategy/savage-bin-2.00e
+
+# ---
+# BEGIN: media-video/mplayer2-9999
+# ---
+# ---
+# END: media-video/mplayer2-9999
+# ---
+
+
+# ---
+# BEGIN: media-video/ffmpeg-9999
+# ---
+# ---
+# END: media-video/ffmpeg-9999
+# ---
+
+#required by sys-auth/consolekit-0.4.5-r3[acl], required by sys-auth/polkit-0.104-r1, required by sys-fs/udisks-1.0.4-r2, required by kde-base/kdelibs-4.8.1-r1[udisks], required by kde-base/marble-4.8.1[kde], required by @selected, required by @world (argument)
+# /etc/portage/package.mask:
+# udevadm settle bug on LiveCD boot
+# reported upstream...
+=sys-fs/udev-182

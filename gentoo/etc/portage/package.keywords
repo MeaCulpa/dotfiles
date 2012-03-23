@@ -1,0 +1,88 @@
+# Only use stable versions of these libs 
+sys-libs/glibc -~amd64 -~x86
+dev-lang/python -~amd64 -~x86
+dev-libs/openssl -~amd64 -~x86
+dev-lang/perl -~amd64 -~x86
+sys-devel/make -~amd64 -~x86
+
+app-crypt/qca:2 **
+dev-python/pycups **
+
+# Needed for E17
+~media-libs/imlib2-9999 **
+
+# Grub2, make binpkg for now, keep masked
+<sys-boot/grub-2.99 **
+dev-embedded/avr-libc * ~* -amd64 -~amd64
+
+# Use portage-2.2
+=sys-apps/portage-2.2* **
+
+# temp keyword python 2.7.2
+=dev-lang/python-2.7.2 ~amd64 ~x86
+
+# ---
+# BEGIN: x11-drivers/nvidia-drivers-275.21
+# ---
+# ---
+# END: x11-drivers/nvidia-drivers-275.21
+# ---
+
+
+# ---
+# BEGIN: dev-vcs/bzr-2.4.0
+# ---
+# ---
+# END: dev-vcs/bzr-2.4.0
+# ---
+
+
+# ---
+# BEGIN: dev-vcs/bzr-2.4.0
+# ---
+# ---
+# END: dev-vcs/bzr-2.4.0
+# ---
+
+
+# ---
+# BEGIN: games-roguelike/nethack-3.4.3-r1
+# ---
+# ---
+# END: games-roguelike/nethack-3.4.3-r1
+# ---
+
+
+# ---
+# BEGIN: www-plugins/adobe-flash-11.0.1.129_rc201109061
+# ---
+# ---
+# END: www-plugins/adobe-flash-11.0.1.129_rc201109061
+# ---
+
+#required by quake3-cpma (argument)
+=games-fps/quake3-cpma-1.48 **
+#required by @preserved-rebuild (argument)
+=media-libs/phonon-xine-9999 **
+
+# ---
+# BEGIN: media-video/mplayer2-9999
+# ---
+# ---
+# END: media-video/mplayer2-9999
+# ---
+
+#required by =media-video/mplayer2-9999 (argument)
+#=media-video/mplayer2-9999 **
+
+# ---
+# BEGIN: media-video/ffmpeg-9999
+# ---
+# ---
+# END: media-video/ffmpeg-9999
+# ---
+
+#required by =media-video/mplayer-9999 (argument)
+#=media-video/mplayer-9999 **
+#required by =media-video/ffmpeg-9999 (argument)
+#=media-video/ffmpeg-9999 **

@@ -1,0 +1,273 @@
+# Masked because it requires a flag change.
+
+# 2011-03-29 Joost Ruis: Prevent packages to downgrade xulrunner
+<net-libs/xulrunner-2.0
+
+# Temp. masked
+<gnome-base/gnome-desktop-2.30.2
+app-i18n/anthy-ss
+app-vim/cvscommand
+app-vim/vcscommand
+app-shells/scsh
+app-office/openoffice-l10n-meta
+sci-biology/mira
+media-fonts/acroread-asianfonts
+media-sound/songbird-bin
+>dev-lang/erlang-13.2.4
+>=app-portage/portpeek-1.9.70
+media-sound/frescobaldi
+
+# Joost Ruis: Masked because on our overlay, prevent pulling in Portage versions
+>media-tv/xbmc-10.0-r2
+x11-drivers/ati-drivers::gentoo
+media-gfx/splashutils::gentoo
+
+# Joost Ruis:squeezebox bundles these 
+>dev-perl/DBIx-Class-0.08120
+
+# Joost Ruis: Tagged for Sabayon 6
+dev-lang/python:3.1
+
+# Joost Ruis: Needed by masked python:3.1
+>=dev-python/simpletal-5.0
+>=dev-python/manuel-1.4.1
+>=dev-util/eric-5.0.2
+>=net-irc/znc-0.098
+>=net-zope/zope-interface-3.6.1
+>=media-gfx/blender-2.57
+
+# Joost Ruis: Old as wolfden!
+app-editors/emacs:21
+app-editors/emacs:22
+x11-libs/gtk+:1
+
+# Joost Ruis: wants tcl +threads
+app-admin/moodss
+
+### Blockers
+
+# 2010-10-29 Joost Ruis: Blocks sci-biology/emboss              
+sys-devel/cons
+dev-java/emma
+
+# Joost Ruis: Blocks bash
+app-shells/bashdb
+
+# Joost Ruis: Blocks app-shells/ksh
+app-shells/pdksh
+
+# Joost Ruis: Blocks media-gfx/hugin
+dev-util/cocom
+
+# Joost Ruis: Requires mesa +motif
+media-libs/openinventor
+sci-biology/arb
+
+# Joost Ruis: Requires flag additions on apache webserver
+gnome-extra/gnome-user-share
+
+# Joost Ruis: needs pciutils with zlib, but we have it in package.use with -zlib no idea why.
+xfce-extra/xfce4-cellmodem-plugin
+
+### Temp masked due a bug
+
+# Gentoo bug #277649
+sci-astronomy/ast
+sci-astronomy/ds9
+
+# Gentoo bug #297995
+net-misc/asterisk-chan_sccp
+
+### Slotted packages
+<net-analyzer/metasploit-3.2_p6750
+
+### net-analyser
+
+# Joost Ruis: We have netcat6 in our tree
+net-analyzer/netcat
+app-forensics/air
+
+### net-p2p 
+
+### www-client
+
+# Joost Ruis: This requires x11-libs/fltk with -cairo, that ain't happening 
+www-client/dillo 
+
+### net-misc
+
+# Joost Ruis: We use Avahi so we want to mask this
+net-misc/mDNSResponder
+net-misc/asterisk-res_bondia
+
+# Joost Ruis: We have Openswan in our tree so we must mask this
+net-misc/strongswan
+
+# Joost Ruis: We have tightvnc in our tree so we must mask this
+net-misc/tigervnc
+
+# Joost Ruis: This package cannot be in tree with distcc
+net-misc/pump
+
+# Joost Ruis: This package cannot be in tree with sys-apps/iproute2
+net-misc/arpd
+
+# Joost Ruis: Wants >=net-libs/loudmouth-1.2.0[debug]
+net-irc/irssi-xmpp
+
+# Joost Ruis: Wants >=dev-lang/perl-5.6.1[-ithreads] never going to happen.
+net-irc/epic4
+
+# Joost Ruis: We use net-misc/ntp so we want to mask this
+net-misc/openntpd
+
+# Joost Ruis: We use net-misc/netkit-telnetd so we want to mask
+net-misc/telnet-bsd
+
+# Joost Ruis: Seems to be incompatible with latest net-misc/asterisk
+=net-misc/asterisk-rate_engine-0.5.4
+
+# Joost Ruis: We use dev-texlive/texlive-latexextra so we want to mask this
+dev-tex/prosper
+dev-texlive/texlive-psutils
+dev-texlive/texlive-langarab
+
+# Joost Ruis: wants dev-python/imaging +tk compiled, ain't going to happen
+=media-sound/lilycomp-1.0.2-r1
+media-gfx/skencil
+media-gfx/asymptote
+net-mail/gml
+
+# Joost Ruis: wants dev-lang/python +tk
+app-editors/leo
+sci-chemistry/viewmol
+sci-chemistry/sparky
+dev-python/editobj
+dev-python/pmw
+dev-python/pythong
+dev-python/ropeide
+sci-chemistry/pymol-plugins-promol
+sci-chemistry/pymol-plugins-cealign
+sci-chemistry/pymol-plugins-emovie
+sci-chemistry/pymol-plugins-bni-tools
+sci-chemistry/pymol
+sci-chemistry/prodecomp
+sci-chemistry/oasis
+sci-chemistry/hollow
+sci-chemistry/ccpn
+sci-chemistry/ccp4
+sci-chemistry/ccp4-apps
+sci-chemistry/xia2
+sci-chemistry/pointless
+sci-chemistry/xdsi
+sci-chemistry/mrbump
+sci-physics/camfr
+net-analyzer/namebench
+
+# Joost Ruis: We use net-wireless/gnome-bluetooth now
+net-wireless/bluez-gnome
+gnome-extra/gnome-vfs-obexftp
+
+# Joost Ruis: Blocks metacity
+x11-misc/expocity
+
+### Games
+
+# Joost Ruis: Requires esd, not want
+=games-arcade/monster-masher-1.8.1
+
+# Joost Ruis: Requires media-libs/sdl-mixer[timidity]
+games-rpg/xu4
+games-arcade/rocksndiamonds
+
+# Joost Ruis: Wants gd-external for PHP, not want
+net-analyzer/pnp4nagios
+
+# 2010-05-07 Be careful, these versions made xbmc+vdpau go boom
+# >media-video/ffmpeg-0.5_p20373
+
+# 2010-07-26 Joost Ruis: Needs PHP with -postgre
+dev-php/PEAR-HTTP_Download
+dev-php/PEAR-File_PDF
+
+# 2010-10-02 Joost Ruis: Needs PHP with +mssql
+dev-php/PEAR-MDB2_Driver_mssql
+
+# 2010-10-02 Joost Ruis: Needs PHP with +firebird
+dev-php/PEAR-MDB2_Driver_ibase
+
+# 2010-10-02 Joost Ruis: Needs PHP with +oci8
+dev-php/PEAR-MDB2_Driver_oci8
+
+# 2010-07-26 Joost Ruis: Needs PHP with +xsl
+dev-php5/propel-runtime
+dev-php5/propel-generator
+dev-php5/propel
+# move dev-php5/phing dev-php/phing
+dev-php/phing
+dev-php/agavi
+
+# 2010-08-17 Joost Ruis: Blocks x11-misc/notification-daemon 
+xfce-extra/xfce4-notifyd 
+
+# 2010-10-29 Joost Ruis: Needs media-libs/mesa +motif
+sci-chemistry/molmol
+
+# 2010-10-29 Joost Ruis: collision with sci-libs/gdal
+sci-astronomy/cpl
+sci-astronomy/esorex
+
+# 2010-11-16 Joost Ruis: Needs qt-gui with +gtk (What the hell??)
+media-sound/qtractor
+
+# 2010-11-18 Joost Ruis: Blocks media-fonts/jsmath-extra-dark 
+media-fonts/jsmath-extra-light
+
+# 2010-11-18 Joost Ruis: Blocks media-fonts/urw-fonts
+media-fonts/gnu-gs-fonts-other
+media-fonts/gnu-gs-fonts-std
+
+# 2010-11-18 Joost Ruis: Blocks media-fonts/culmus
+media-fonts/culmus-ancient
+
+# 2010-12-28 Joost Ruis: Needs older mythtv version 0.22
+media-plugins/mythflix
+
+# 2010-12-28 Joost Ruis: Needs vdr with -noepg
+media-plugins/vdr-noepgmenu
+
+# 2010-12-28 Joost Ruis: Needs vdr +setup, but we cannot enable that flag. 
+media-plugins/vdr-setup
+
+# 2010-11-26 Fabio Erculiani: Keep networkmanager from our overlay
+net-misc/networkmanager::gentoo
+>=gnome-extra/nm-applet-0.8.4
+
+# 2011-01-08 Fabio Erculiani: broken, resolv.conf issue
+# see http://forum.sabayon.org/viewtopic.php?f=52&t=22717
+>net-dns/openresolv-3.4
+
+# 2011-02-03 Joost Ruis: Wants media-libs/alsa-lib (Change USE: +alisp)
+dev-python/pyglet
+
+# 2011-02-22 Joost Ruis: Wants x11-libs/wxGTK (Change USE: +gstreamer)
+media-sound/guayadeque
+
+# 2011-04-11 Joost Ruis: breaks stuff. See Gentoo bug #362883
+>media-libs/mediastreamer-2.6.0
+>=media-plugins/mediastreamer-x264-1.4.1
+>=net-voip/linphone-3.4.3
+
+# 2011-04-27 Joost Ruis: See Gentoo bug #358869
+>=sys-power/powertop-1.97
+
+# 2011-05-27 Joost Ruis: Wants dev-libs/tinyxml-2.6.1-r1 +stl but that conflicts with filezilla
+media-plugins/vdr-audiorecorder
+
+# udevadm settle bug on LiveCD boot
+# reported upstream...
+>=sys-fs/udev-168
+
+=net-misc/dropbox-1.2.51
+#=net-misc/dropbox-1.2.51-r1
+
