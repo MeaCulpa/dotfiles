@@ -303,6 +303,15 @@ pvidclr () { lspv | awk '!/active/ {system("chdev -l "$1" -a pv=clear")}'; }
 disk2power () { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
 power2disk () { powermt display dev=$2 | grep 'hdisk[^p]'; }
 
+#------------------------------------------------------------------------------
+# Check reserve/release options
+chkreserve () { lsdev -Cc disk | awk '$4 ~ /HP|EMC|Hitachi|PowerPath/ { printf($1"\t"); system("lsattr -El "$1" -a reserve_policy") }'; }
+
+#------------------------------------------------------------------------------
+# Set all LUN to no_reserve
+chgnoreserve () { lsdev -Cc disk | awk '$4 ~ /HP|EMC|Hitachi|PowerPath/ { system("chdev -l "$1" -a reserve_policy=no_reserve") }'; }
+
+
 ###############################################################################
 # Personal Functions
 
