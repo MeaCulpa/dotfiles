@@ -1,0 +1,12 @@
+Skyrim - Animations.bsa
+Skyrim - Interface.bsa
+Skyrim - Meshes.bsa
+Skyrim - Misc.bsa
+Skyrim - Shaders.bsa
+Skyrim - Textures.bsa
+Skyrim - Voices.bsa
+Skyrim - VoicesExtra.bsa
+Skyrim.esm
+Update.esm
+Skyrim.bsa
+
