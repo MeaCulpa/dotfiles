@@ -1,0 +1,54 @@
+#!/bin/bash
+MEMSIZE=2048M
+mounted=false
+
+. /etc/make.conf
+. /etc/init.d/functions.sh
+
+if [ -z "$PORTAGE_TMPDIR" ]; then
+  PORTAGE_TMPDIR="/var/tmp/portage"
+fi
+
+
+mounttmpfs() {
+                mount -t tmpfs -o size=$MEMSIZE,nr_inodes=1M tmpfs ${PORTAGE_TMPDIR}
+                mounted="true"
+}
+
+compile() {
+        einfo "running emerge ${*}"
+                emerge ${*}
+}
+
+unmount() {
+        ebegin "unmounting tmpfs"
+                umount -f ${PORTAGE_TMPDIR}
+        eend $?
+}
+
+ebegin "Mounting $MEMSIZE of memory to ${PORTAGE_TMPDIR}"
+        if [ -z "$(pgrep -f /usr/bin/emerge)" ];then
+                if [ -z "$(mount | grep ${PORTAGE_TMPDIR})" ];then
+                     mounttmpfs
+                else
+                     eerror "tmpfs already mounted!"
+                     exit 0
+                fi
+        else
+                eerror "emerge already running!"
+                exit 0
+        fi
+eend $?
+
+# the next line would change the cpu-governour, if available, to the highest frequency
+#[ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ] && echo performance > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
+# run emerge
+compile $@
+
+# unmount tmpfs
+$mounted && umount ${PORTAGE_TMPDIR}
+
+# and set the scheduler back to "ondemand"
+#[ -f /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ] && echo ondemand > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+
