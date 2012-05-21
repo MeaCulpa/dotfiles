@@ -24,7 +24,8 @@ compinit
 setopt AUTO_LIST
 setopt AUTO_MENU
 setopt MENU_COMPLETE 
-setopt correctall
+#setopt correctall
+setopt correct
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt autocd
