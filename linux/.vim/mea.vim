@@ -13,6 +13,9 @@ set nowrap
 " wrap words at 75
 set textwidth=75
 
+" Treate Chinese
+set formatoptions+=mM
+
 " Auto insert line-breaks for txt and mail file.
 au BufEnter *.txt setl tx ts=4 sw=4 fo+=n2a
 au BufEnter *.mail setl tx ts=4 sw=4 fo+=n2a
