@@ -201,3 +201,8 @@ ssh_copy_id_restrict () {
     scp ~/.ssh/tmp_key_$1 $1:.ssh/authorized_keys2
 ; }
 
+#------------------------------------------------------------------------------
+# xunlei Download
+xunlei_d () { aria2c --load-cookies=xunlei.cookie --max-connection-per-server=5 --split=5 $1 -o $2; }
+#xunlei_d () { wget --load-cookies=xunlei.cookie -c -t 0 --timeout=60 --waitretry=60 $1 -O $2; }
+
