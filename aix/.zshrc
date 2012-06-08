@@ -107,8 +107,8 @@ setprompt () {
     fi
 
     # Get AIX Level into prompt
-    #PR_BUILD=${BR_BUILD:=`cat /usr/lpp/bos/aix_release.level`}
-    PR_BUILD=${BR_BUILD:=`lslpp -qcL bos.mp 2>/dev/null | cut -d: -f3`}
+    PR_BUILD=${PR_BUILD:=`cat /usr/lpp/bos/aix_release.level`}
+    #PR_BUILD=${PR_BUILD:=`lslpp -qcL bos.mp 2>/dev/null | cut -d: -f3`}
 
     # set the prompt
     PS1=$'${PR_CYAN}[${PR_USER}${PR_CYAN}@${PR_HOST}${PR_CYAN}][${PR_YELLOW}${PR_BUILD}${PR_CYAN}][${PR_BLUE}%~${PR_CYAN}]${PR_USER_OP} '
