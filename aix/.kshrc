@@ -69,7 +69,8 @@ function ez
 
 ######  Personal Stuff  ######
 export PATH=$PATH:/opt/freeware/bin
-PR_BUILD=${BR_BUILD:=`cat /usr/lpp/bos/aix_release.level`}
+#PR_BUILD=${BR_BUILD:=`cat /usr/lpp/bos/aix_release.level`}
+PR_BUILD=${BR_BUILD:=`lslpp -qcL bos.mp 2>/dev/null | cut -d: -f3`}
 PS1=`logname`@`hostname|cut -d'.' -f1`[$PR_BUILD]:'$PWD# '
 export PS1
 export TERM=vt100
