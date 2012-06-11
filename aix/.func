@@ -275,6 +275,10 @@ calc () { awk "BEGIN{ print $* }" ; }
 lsfcs () { lsdev -Cc adapter | awk '/fcs/ {printf("\n");  system("lsdev -C | grep "$3"")}' | awk '{sub(/^hd/, "\thd")};1'; }
 
 #------------------------------------------------------------------------------
+# List disk size
+lsdisksize () { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s "$1)}' ; }
+
+#------------------------------------------------------------------------------
 # lspath watcher
 mlspath () { while true; do clear; echo 'Output of lspath'; echo '-----------------'; lspath | sort +2; sleep ${1:=5}; done; }
 
