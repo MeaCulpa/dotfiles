@@ -168,6 +168,10 @@ cfgmgr () { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attac
 # dmesglog
 dmesglog () { dmesg > `print -n dmesg_ && date +'%Y%m%d%H%M%S'`; }
 
+#------------------------------------------------------------------------------
+# world clock, usage: worldclock austin
+worldclock() { ls -R1 /usr/share/zoneinfo | awk -v i=${1:='Shanghai'} 'tolower($1) ~ tolower(i) {system("TZ="$1" date"); exit}'; }
+
 
 #------------------------------------------------------------------------------
 # isgd
