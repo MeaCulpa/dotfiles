@@ -208,3 +208,7 @@ ssh_copy_id_restrict () {
 xunlei_d () { aria2c --load-cookies=xunlei.cookie --max-connection-per-server=10 --split=10 $1 -o $2; }
 #xunlei_d () { wget --load-cookies=xunlei.cookie -c -t 0 --timeout=60 --waitretry=60 $1 -O $2; }
 
+#------------------------------------------------------------------------------
+# Playing with figlet
+figshowall() { figlist | awk -v char=$1 'NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}' }
+
