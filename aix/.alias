@@ -70,10 +70,6 @@ alias t100="export TERM=vt100"
 alias trs="export TERM=rxvt"
 alias cls="tput clear"
 
-# Utils
-alias colonfy="sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit' <<< "
-alias decolonfy="sed 's/://g' <<< "
-
 # Misc
 alias dlsite="wget --random-wait -r -p -e robots=off -U mozilla"
 

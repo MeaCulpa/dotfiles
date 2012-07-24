@@ -13,8 +13,7 @@ vip () {
 
   FOUND=$(which $ITEM 2>/dev/null)
   [ "$FOUND" ] && /usr/bin/vi $FOUND || echo "Unable to locate \"$ITEM\""
-  unset $FOUND
-; }
+  unset $FOUND; }
 
 #------------------------------------------------------------------------------
 # Find file
@@ -32,8 +31,7 @@ psf () {
     for CLI do
        /bin/ps -ef | /bin/grep $CLI | /bin/grep -v $$
        shift 1
-    done
-; }
+    done; }
 
 #------------------------------------------------------------------------------
 # findbigger: find FILES Bigger than certain blocks on . 
@@ -45,12 +43,13 @@ dnswp () { dig +short txt "$1".wp.dg.cx; }
 
 #------------------------------------------------------------------------------
 # histstat: Command history Stat
-histstat () { history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head; }
+histstat () { history | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head; }
 
 #------------------------------------------------------------------------------
-# WWPN colonfy
-colon () { sed 's/../:\0/2g'; }
-#colon () { sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
+# WWPN colon and de-colon
+colonfy () { print $1 | sed 's/../:&/g' | cut -c2-; }
+decolonfy () { print $1 | sed 's/://g'; }
+colon () { sed 's/../:&/g' | cut -c2-; }
 decolon () { sed 's/://g'; }
 
 #------------------------------------------------------------------------------
@@ -262,21 +261,21 @@ function justify ( str ) {
     seq = substr(str,RSTART,RLENGTH);
     return sprintf("%s%03d", type, seq);
 }
-' ; }
+'; }
 
 
 #------------------------------------------------------------------------------
 # calc: in awk
-calc () { awk "BEGIN{ print $* }" ; }
+calc () { awk "BEGIN{ print $* }"; }
 
 #------------------------------------------------------------------------------
 # List fcscsi device and children
-#lsfcs() {lsdev -Cc adapter | awk '/fcs/ {system("lsdev -C | grep "$3"\n")}' ; }
+#lsfcs() {lsdev -Cc adapter | awk '/fcs/ {system("lsdev -C | grep "$3"\n")}'; }
 lsfcs () { lsdev -Cc adapter | awk '/fcs/ {printf("\n");  system("lsdev -C | grep "$3"")}' | awk '{sub(/^hd/, "\thd")};1'; }
 
 #------------------------------------------------------------------------------
 # List disk size
-lsdisksize () { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s "$1)}' ; }
+lsdisksize () { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s "$1)}'; }
 
 #------------------------------------------------------------------------------
 # lspath watcher
@@ -334,8 +333,7 @@ cfind () { ssh cisco "show fcns database detail | grep -i -B 3 -A 15 $1"; }
 ssh_copy_id_restrict () {
     scp $1:.ssh/authorized_keys2 ~/.ssh/tmp_key_$1
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/tmp_key_$1
-    scp ~/.ssh/tmp_key_$1 $1:.ssh/authorized_keys2
-; }
+    scp ~/.ssh/tmp_key_$1 $1:.ssh/authorized_keys2; }
 
 #------------------------------------------------------------------------------
 # displayTZOffset calculates the timezone offset from GMT for the current user
@@ -362,13 +360,11 @@ displayTZOffset () {
 		}else{
 			printf("-%02d:%02d\n", diffHr, diffMin);
 		}
-	}' </dev/null
-; }
+	}' </dev/null; }
 
 #------------------------------------------------------------------------------
 # Displays ISO8601 Date
 displayISO8601Date () {
 	tzOffset=`displayTZOffset`
-	echo `date +%Y-%m-%dT%H:%M:%S`$tzOffset
-; }
+	echo `date +%Y-%m-%dT%H:%M:%S`$tzOffset; }
 
