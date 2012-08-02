@@ -1,0 +1,38 @@
+#!/bin/sh
+# From Arch Wiki. [link] is the profile name
+# tmpfs Firefox profile to shm and use rsync to backup.
+# Can be put to chron, like every 2 hours:
+#    0 */2 * * * ~/bin/firefox-sync > ~/firefox-sync.result
+#
+
+static=main
+link=uq3g6doz.default
+volatile=/dev/shm/firefox-$USER
+
+IFS=
+set -efu
+
+echo '------------------------------------'
+date '+Sync Started At %H:%M:%S, %Y-%M-%d'
+echo '------------------------------------'
+cd ~/.mozilla/firefox
+
+if [[ ! -r $volatile ]]; then
+    mkdir -m0700 $volatile
+fi
+
+if [[ "$(readlink $link)" != "$volatile" ]]; then
+    mv $link $static
+    ln -s $volatile $link
+fi
+
+if [[ -e $link/.unpacked ]]; then
+    rsync -av --delete --exclude .unpacked ./$link/ ./$static/
+else
+    rsync -av ./$static/ ./$link/
+    touch $link/.unpacked
+fi
+
+echo '------------------------------------'
+date '+Sync Ended At %H:%M:%S, %Y-%M-%d'
+echo '------------------------------------'
