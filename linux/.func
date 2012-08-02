@@ -206,6 +206,10 @@ xunlei_d () { aria2c -c --load-cookies=xunlei.cookie --max-connection-per-server
 htdocs2gsa () { rsync -avz ~/htdocs jyxu@bejgsa.ibm.com:/bejgsa/.home/h1/jyxu/web/public/; }
 
 #------------------------------------------------------------------------------
+# rdp to windows, rdp_win ip user pass
+rdp_win () { rdesktop -g 1280x800 -a 16 -u $2 -p $3 $1; }
+
+#------------------------------------------------------------------------------
 # poaste to mozillapaste
 mozpaste () {
     PASTE_DATA=""
