@@ -13,7 +13,7 @@ IFS=
 set -efu
 
 echo '------------------------------------'
-date '+Sync Started At %H:%M:%S, %Y-%M-%d'
+date '+Sync Started At %H:%M:%S, %Y-%m-%d'
 echo '------------------------------------'
 cd ~/.mozilla/firefox
 
@@ -34,5 +34,5 @@ else
 fi
 
 echo '------------------------------------'
-date '+Sync Ended At %H:%M:%S, %Y-%M-%d'
+date '+Sync Ended At %H:%M:%S, %Y-%m-%d'
 echo '------------------------------------'

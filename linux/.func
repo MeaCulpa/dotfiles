@@ -225,3 +225,8 @@ $input"
     curl -i --data-urlencode "code2=$PASTE_DATA" -d "parent_pid=&format=text&poster=MeaCulpa&expiry=d&paste=Send" http://pastebin.mozilla.org/ -s \
         | egrep -o 'http.*' | tee >(xsel); }
 
+
+#------------------------------------------------------------------------------
+# wget whole dir
+wgetdir () { wget -H -r --level=1 -k -p $1; }
+
