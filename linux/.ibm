@@ -4,38 +4,6 @@ alias -g myp6="Server-8204-E8A-SN06AA512-SSP"
 alias -g myvplex="Server-9117-MMA-SN10706A0_VPLEX"
 
 ###############################################################################
-# AIX TL HMC Tasks
-## Info
-#aixtl-p6-status() { ssh iodhmc12 "lssyscfg -r lpar -m Server-8204-E8A-SN06AA512-SSP -F --header | cut -d',' -f1,4" | sort; }
-aixtl-status() { ssh iodhmc12 "lssyscfg -r lpar -m Server-8204-E8A-SN06AA512-SSP -F --header" | awk -F',' 'BEGIN {OFS="\t"}{print$1,$2,$3,$4,$6,$19,$20 | "sort -n -k2"}' ;}
-aixtl-hwres() {ssh iodhmc12 "lshwres -r io --rsubtype slot -m Server-8204-E8A-SN06AA512-SSP --header -F unit_phys_loc,lpar_name,description,feature_codes," ;}
-aixtl-hwchildres() {ssh iodhmc12 "lshwres -r io --rsubtype slotchildren -m Server-8204-E8A-SN06AA512-SSP --header -F phys_loc,lpar_name,pci_vendor_id,description" ;}
-
-## Start
-aixtl-vios1-start() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvios1 -f aixtlvios1" ; }
-aixtl-vios2-start() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvios2 -f aixtlvios2" ; }
-aixtl-vioc1-start() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvioc1 -f aixtlvioc1" ; }
-aixtl-vioc2-start() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvioc2 -f aixtlvioc2" ; }
-
-aixtl-vios1-start-lpm() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvios1 -f lpm" ; }
-aixtl-vios2-start-lpm() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvios2 -f lpm" ; }
-aixtl-vioc1-start-lpm() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvioc1 -f lpm" ; }
-aixtl-vioc2-start-lpm() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o on -n aixtlvioc2 -f lpm" ; }
-
-## Shutdown
-aixtl-vios1-shutdown() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o shutdown --immed -n aixtlvios1" ; }
-aixtl-vios2-shutdown() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o shutdown --immed -n aixtlvios2" ; }
-aixtl-vioc1-shutdown() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o shutdown --immed -n aixtlvioc1" ; }
-aixtl-vioc2-shutdown() { ssh iodhmc12 "chsysstate -r lpar -m Server-8204-E8A-SN06AA512-SSP -o shutdown --immed -n aixtlvioc2" ; }
-
-#vterm
-aixtl-vios1-vterm () { ssh iodhmc12 "mkvterm -m Server-8204-E8A-SN06AA512-SSP -p aixtlvios1" ; }
-aixtl-vios2-vterm () { ssh iodhmc12 "mkvterm -m Server-8204-E8A-SN06AA512-SSP -p aixtlvios2" ; }
-aixtl-vioc1-vterm () { ssh iodhmc12 "mkvterm -m Server-8204-E8A-SN06AA512-SSP -p aixtlvioc1" ; }
-aixtl-vioc2-vterm () { ssh iodhmc12 "mkvterm -m Server-8204-E8A-SN06AA512-SSP -p aixtlvioc2" ; }
-
-
-###############################################################################
 # HMC VTerm
 hmcmkvterm () { ssh $1 "mkvterm -m $2 -p $3" ; }
 
@@ -58,3 +26,22 @@ hmclparstartsms () { ssh $1 "chsysstate -r lpar -m $2 -o on -b sms -n $3 -f $4" 
 ###############################################################################
 # HMC LPAR Shutdown
 hmclparshutdown () { ssh $1 "chsysstate -r lpar -m $2 -o shutdown --immed -n $3" ; }
+
+
+
+###############################################################################
+# AIX TL 2012
+#
+jupiterres () { hmchwres 'sankp10' 'Server-8205-E6C-SN10C0D0R_AIXTL' }
+jupiterstat () { hmclparstat 'sankp10' 'Server-8205-E6C-SN10C0D0R_AIXTL' }
+
+
+
+
+
+
+
+
+
+
+
