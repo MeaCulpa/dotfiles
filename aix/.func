@@ -103,42 +103,56 @@ NF == 1 {
         head[dev] = "default:";
         next;
     }
-
+    
     # Device name, trim "r" and ":".
     dev = substr($0, 2, length($0)-2);
 
     # Get powerpath device replacements: rhdisk => rhdiskpower.
-    cmd = "powermt display dev="dev" 2>&1"; 
-    cmd | getline s; match(s, "="); 
+    cmd = "powermt display dev="dev" 2>&1";
+    cmd | getline s; match(s, "=");
     if (RLENGTH == 1) {
         power[dev] = dev = substr(s,RSTART+RLENGTH);
     }
     else {
         power[dev] = "none";
     }
-    
+     
     close(cmd);
-    
+  
     # Extract device type, name, sequence, subsequence ("hdisk XX :").
     match (dev, "[0-9]+")
     type[dev] = substr(dev,1,RSTART-1);
     seq[dev] = substr(dev,RSTART,RLENGTH);
     subseq[dev] = substr(dev,RSTART+RLENGTH);
-    
+  
     # De-trim
     head[dev] = "r"dev":";
-    
-}
-
-NF > 1 { 
+    # Initialize Spec
+    spec[dev] = ""
+} 
+  
+NF > 1 {
     # All the parameters, using "|" for a tmp delimiter over newlines.
-    spec[dev] = sprintf("%s|%s", spec[dev], $0); 
-}
-
+    spec[dev] = sprintf("%s|%s", spec[dev], $0);
+} 
+  
 END {
     # Output.
-    for (d in head) print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
-}
+    for (d in head) {
+        # Raw IOs
+        if (head[d] ~ /^rhd/) {
+            print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
+        }
+        # FileSys IOs
+        else if (head[d] ~ /^rjfs/) {
+            print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
+        }
+        # Out Of Scope
+        else {
+            ;
+        }
+    }
+} 
 # sort the result, tailor output, and get back delimiter
 ' $1 | sort -k 1,1 -k 3,3n -k 4,4n | cut -d" " -f5- | tr '|' '\n'; }
 
@@ -148,7 +162,8 @@ jy_rmvgs () {
    mount | awk '/dev\/jfs/ {system("umount "$2)}';
    lspv | awk '!/rootvg/ && /active/ {system("varyoffvg "$3)}';
    lsvg | awk '!/rootvg/ {system("exportvg "$1)}';
-   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'; }
+   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'
+   ls -1 / | awk '/jfs_|jfs2_/{system("rm -r /"$1)}'; }
 
 #------------------------------------------------------------------------------
 # jy_mkvgs: Create jfs and jfs2 VGs in AIX
