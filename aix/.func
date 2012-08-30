@@ -139,6 +139,10 @@ NF > 1 {
 END {
     # Output.
     for (d in head) {
+        # Default
+        if (d == "default") {
+            print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
+        }
         # Raw IOs
         if (head[d] ~ /^rhd/) {
             print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
@@ -314,12 +318,12 @@ delalldisk () { lspv | awk '!/active/ {system("rmdev -Rdl "$1)}'; }
 
 #------------------------------------------------------------------------------
 # Clear PVID
-pvidclr () { lspv | awk '!/active/ {system("chdev -l "$1" -a pv=clear")}'; }
+pvidclr () { lspv | awk '$4 != "active" && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'; }
 
 #------------------------------------------------------------------------------
 # which hdiskpower is using this hdisk, or vice versa
 disk2power () { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
-power2disk () { powermt display dev=$2 | grep 'hdisk[^p]'; }
+power2disk () { powermt display dev=$1 | grep 'hdisk[^p]'; }
 
 #------------------------------------------------------------------------------
 # Check reserve/release options
