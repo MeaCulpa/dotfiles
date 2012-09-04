@@ -150,7 +150,7 @@ awkanalize () { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row:
 
 #------------------------------------------------------------------------------
 # cfgmgr
-cfgmgr () { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attached to ${i##*/}" && echo "- - -" > /sys/class/scsi_host/${i##*/}/scan; done
+cfgmgr () { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attached to ${i##*/}" && echo "- - -" > /sys/class/scsi_host/${i##*/}/scan; done; }
 
 #------------------------------------------------------------------------------
 # dmesglog
@@ -196,18 +196,18 @@ ssh_copy_id_restrict () {
 # Playing with figlet
 figshowall () { figlist | awk -v char=$1 'NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}'; }
 
-#------------------------------------------------------------------------------
-# xunlei Download
+##------------------------------------------------------------------------------
+## xunlei Download
 #xunlei_d () { wget --load-cookies=xunlei.cookie -c -t 0 --timeout=60 --waitretry=60 $1 -O $2; }
 xunlei_d () { aria2c -c --load-cookies=xunlei.cookie --max-connection-per-server=10 --split=10 $1 -o $2; }
 
 #------------------------------------------------------------------------------
-# htdocs to bejgsa
-htdocs2gsa () { rsync -avz ~/htdocs jyxu@bejgsa.ibm.com:/bejgsa/.home/h1/jyxu/web/public/; }
-
-#------------------------------------------------------------------------------
 # rdp to windows, rdp_win ip user pass
 rdp_win () { rdesktop -g 1280x800 -a 16 -u $2 -p $3 $1; }
+
+#------------------------------------------------------------------------------
+# htdocs to bejgsa
+htdocs2gsa () { rsync -avz --delete ~/htdocs jyxu@bejgsa.ibm.com:/bejgsa/.home/h1/jyxu/web/public/; }
 
 #------------------------------------------------------------------------------
 # poaste to mozillapaste
@@ -225,6 +225,9 @@ $input"
     curl -i --data-urlencode "code2=$PASTE_DATA" -d "parent_pid=&format=text&poster=MeaCulpa&expiry=d&paste=Send" http://pastebin.mozilla.org/ -s \
         | egrep -o 'http.*' | tee >(xsel); }
 
+#------------------------------------------------------------------------------
+# acdsee 
+acdsee () { feh -g 800x600 -d -S filename $1; }
 
 #------------------------------------------------------------------------------
 # wget whole dir
@@ -232,7 +235,25 @@ wgetdir () { wget -H -r --level=1 -k -p $1; }
 
 #------------------------------------------------------------------------------
 # kacha and paste to immio. Default to 70% quality
-# scrot's -e option is messy to use with sed, awk etc.
-#
 kacha_immio () { scrot /tmp/scrot_tmp.png -d 3 -q 75 -m && curl -s --form image=@/tmp/scrot_tmp.png --form submit=OK http://imm.io/store/  | awk -F '\"[:,]\"' '{print $4}' | tee >(xsel) && rm /tmp/scrot_tmp.png; }
+
+#------------------------------------------------------------------------------
+# Simple RSS Fead Reader
+rssawk () { curl -s "$1" | awk '
+BEGIN { FS = "</?title>?|</?description>?|</?link>?";
+        RS = ">\n";
+}
+
+NF < 2 { next;}
+
+/title/ { print "\n[\033[32m"substr($2,1,85)"\033[39m]";}
+
+/link/ { print "\033[36m"$2"\033[39m";}
+
+/description/ {
+    gsub ("<!\\[CDATA\\[|\\]\\]>", "", $2);
+    print $2 | "fmt -w 85 -";
+    close("fmt -w 85 -");
+}
+'; }
 
