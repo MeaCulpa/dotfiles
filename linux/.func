@@ -227,7 +227,7 @@ $input"
 
 #------------------------------------------------------------------------------
 # acdsee 
-acdsee () { feh -g 800x600 -d -S filename $1; }
+acdsee () { feh -g 1024x768 -d -S filename $1; }
 
 #------------------------------------------------------------------------------
 # wget whole dir
@@ -256,4 +256,6 @@ NF < 2 { next;}
     close("fmt -w 85 -");
 }
 '; }
+
+#rssawk () { curl -s "$1" | awk 'BEGIN { FS = "</?title>?|</?description>?|</?link>?"; RS = ">\n";} NF < 2 { next;} /title/ { print "\n[\033[32m"substr($2,1,85)"\033[39m]";} /link/ { print "\033[36m"$2"\033[39m";} /description/ { gsub ("<!\\[CDATA\\[|\\]\\]>", "", $2); print $2 | "fmt -w 85 -"; close("fmt -w 85 -"); } '; }
 
