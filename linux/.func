@@ -128,9 +128,8 @@ mklink () { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a hr
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
-#ausweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
-ausweather () { curl -s http://open.live.bbc.co.uk/weather/feeds/en/4671654/3dayforecast.rss | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
-shweather () { curl -s http://open.live.bbc.co.uk/weather/feeds/en/1796236/3dayforecast.rss | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+ausweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+shweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 
 #------------------------------------------------------------------------------
 # ANSI color zebra output
@@ -239,7 +238,7 @@ wgetdir () { wget -H -r --level=1 -k -p $1; }
 kacha_immio () { scrot /tmp/scrot_tmp.png -d 3 -q 75 -m && curl -s --form image=@/tmp/scrot_tmp.png --form submit=OK http://imm.io/store/  | awk -F '\"[:,]\"' '{print $4}' | tee >(xsel) && rm /tmp/scrot_tmp.png; }
 
 #------------------------------------------------------------------------------
-# Simple RSS Fead Reader
+# Simple RSS Fead Reader, a template
 rssawk () { curl -s "$1" | awk '
 BEGIN { FS = "</?title>?|</?description>?|</?link>?";
         RS = ">\n";
@@ -258,7 +257,36 @@ NF < 2 { next;}
 }
 '; }
 
-#rssawk () { curl -s "$1" | awk 'BEGIN { FS = "</?title>?|</?description>?|</?link>?"; RS = ">\n";} NF < 2 { next;} /title/ { print "\n[\033[32m"substr($2,1,85)"\033[39m]";} /link/ { print "\033[36m"$2"\033[39m";} /description/ { gsub ("<!\\[CDATA\\[|\\]\\]>", "", $2); print $2 | "fmt -w 85 -"; close("fmt -w 85 -"); } '; }
+
+#------------------------------------------------------------------------------
+# Hacker News RSS Fead Reader
+rssHackerNews () { curl -s http://news.ycombinator.com/rss | awk '
+function html_esc ( str ) { 
+    # TODO: catch any special char here 
+    trans["&#39;"] = "\x27"; 
+    trans["&#35;"] = "\x23"; 
+    trans["&#60;"] = "\x3c"; 
+    trans["&#62;"] = "\x3e"; 
+ 
+    for (i in trans) { 
+         gsub(i, trans[i], str) 
+     }
+
+    return str; 
+ } 
+  
+BEGIN { 
+    FS = "</?title>?|</?description>?|</?link>?"; 
+    RS = ">"; }  
+
+/title/ {
+    getline; 
+    printf "\n[\033[32m"substr(html_esc($1),1,85)"\033[39m]"; 
+}
+
+/link/ { print "\033[36m"$1"\033[39m"; }
+'; }
+
 
 #-----------------------------------------------------------------------------
 # catall
