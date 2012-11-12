@@ -293,3 +293,8 @@ BEGIN {
 # Cat files with line numbers
 catall () { for f in $*; do cat $f | nl -s " "$f": "; done; }
 
+#-----------------------------------------------------------------------------
+# console clock
+# A clock in your up-right console
+cclock () { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
+
