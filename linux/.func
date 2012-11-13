@@ -287,6 +287,29 @@ BEGIN {
 /link/ { print "\033[36m"$1"\033[39m"; }
 '; }
 
+#-----------------------------------------------------------------------------
+# dooloo.info parser, WIP
+dooloo () { curl -s dooloo.info |  awk '
+
+function html_esc ( str ) { 
+    # TODO: catch any special char here 
+    trans["&#39;"] = "\x27"; 
+    trans["&#35;"] = "\x23"; 
+    trans["&#60;"] = "\x3c"; 
+    trans["&#62;"] = "\x3e"; 
+    for (i in trans) { 
+        gsub(i, trans[i], str) 
+    }
+
+    return str; 
+} 
+
+BEGIN { RS=">\n"; FS="[\"><]|=\x27"; print "" } 
+/title=/ {
+    sub("^/", "http://dooloo.info/", $3); 
+    print "[\033[32m"substr(html_esc($7),1,85)"\033[39m]\n\033[36m"$3"\033[39m\n"
+}
+'; }
 
 #-----------------------------------------------------------------------------
 # catall
