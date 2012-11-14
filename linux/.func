@@ -262,18 +262,129 @@ NF < 2 { next;}
 # Hacker News RSS Fead Reader
 rssHackerNews () { curl -s http://news.ycombinator.com/rss | awk '
 function html_esc ( str ) { 
-    # TODO: catch any special char here 
-    trans["&#39;"] = "\x27"; 
-    trans["&#35;"] = "\x23"; 
-    trans["&#60;"] = "\x3c"; 
-    trans["&#62;"] = "\x3e"; 
- 
+
+    # General Escaping Code -> Symbol
+    for (i=33; i<383; i++) {
+        code = sprintf("&#%s;", i);
+        symbol = sprintf("%c", i);
+        trans[code] = symbol;
+    }
+
+    # Trademark, with no entity name
+    trans["&#8482;"] = sprintf("%c", 8482); # ™
+    
+    # Euro, with no code
+    trans["&euro;"] = "€"; # €
+    
+    # Common symbol with additional entity name
+    trans["&quot;"] = trans["&#34;"]; # "
+    trans["&amp;"] = trans["&#38;"]; # &
+    trans["&lt;"] = trans["&#60;"]; # <
+    trans["&gt;"] = trans["&#62;"]; # >
+    
+    # Symbols with additional entity name
+    trans["&nbsp;"] = trans["&#160;"] # None-breaking Space
+    trans["&iexcl;"] = trans["&#161;"] # ¡
+    trans["&cent;"] = trans["&#162;"] # ¢
+    trans["&pound;"] = trans["&#163;"] # £
+    trans["&curren;"] = trans["&#164;"] # ¤
+    trans["&yen;"] = trans["&#165;"] # ¥
+    trans["&brvbar;"] = trans["&#166;"] # ¦
+    trans["&sect;"] = trans["&#167;"] # §
+    trans["&uml;"] = trans["&#168;"] # ¨
+    trans["&copy;"] = trans["&#169;"] # ©
+    trans["&ordf;"] = trans["&#170;"] # ª
+    #trans[""] = trans["&#171;"] # No entity name for: «
+    trans["&not;"] = trans["&#172;"] # ¬
+    trans["&shy;"] = trans["&#173;"] # ­
+    trans["&reg;"] = trans["&#174;"] # ®
+    trans["&macr;"] = trans["&#175;"] # ¯
+    trans["&deg;"] = trans["&#176;"] # °
+    trans["&plusmn;"] = trans["&#177;"] # ±
+    trans["&sup2;"] = trans["&#178;"] # ²
+    trans["&sup3;"] = trans["&#179;"] # ³
+    trans["&acute;"] = trans["&#180;"] # ´
+    trans["&micro;"] = trans["&#181;"] # µ
+    trans["&para;"] = trans["&#182;"] # ¶
+    trans["&middot;"] = trans["&#183;"] # ·
+    trans["&cedil;"] = trans["&#184;"] # ¸
+    trans["&sup1;"] = trans["&#185;"] # ¹
+    trans["&ordm;"] = trans["&#186;"] # º
+    trans["&raquo;"] = trans["&#187;"] # »
+    trans["&frac14;"] = trans["&#188;"] # ¼
+    trans["&frac12;"] = trans["&#189;"] # ½
+    trans["&frac34;"] = trans["&#190;"] # ¾
+    trans["&iquest;"] = trans["&#191;"] # ¿
+    trans["&Agrave;"] = trans["&#192;"] # À
+    trans["&Aacute;"] = trans["&#193;"] # Á
+    trans["&Acirc;"] = trans["&#194;"] # Â
+    trans["&Atilde;"] = trans["&#195;"] # Ã
+    trans["&Auml;"] = trans["&#196;"] # Ä
+    trans["&Aring;"] = trans["&#197"] # Å
+    trans["&AElig;"] = trans["&#198;"] # Æ
+    trans["&Ccedil;"] = trans["&#199;"] # Ç
+    trans["&Egrave;"] = trans["&#200;"] # È
+    trans["&Eacute;"] = trans["&#201;"] # É
+    trans["&Ecirc;"] = trans["&#202;"] # Ê
+    trans["&Euml;"] = trans["&#203;"] # Ë
+    trans["&Igrave;"] = trans["&#204;"] # Ì
+    trans["&Iacute;"] = trans["&#205;"] # Í
+    trans["&Icirc;"] = trans["&#206;"] # Î
+    trans["&Iuml;"] = trans["&#207;"] # Ï
+    trans["&ETH;"] = trans["&#208;"] # Ð
+    trans["&Ntilde;"] = trans["&#209;"] # Ñ
+    trans["&Ograve;"] = trans["&#210;"] # Ò
+    trans["&Oacute;"] = trans["&#211;"] # Ó
+    trans["&Ocirc;"] = trans["&#212;"] # Ô
+    trans["&Otilde;"] = trans["&#213;"] # Õ
+    trans["&Ouml;"] = trans["&#214;"] # Ö
+    trans["&times;"] = trans["&#215;"] # ×
+    trans["&Oslash;"] = trans["&#216;"] # Ø
+    trans["&Ugrave;"] = trans["&#217;"] # Ù
+    trans["&Uacute;"] = trans["&#218;"] # Ú
+    trans["&Ucirc;"] = trans["&#219;"] # Û
+    trans["&Uuml;"] = trans["&#220;"] # Ü
+    trans["&Yacute;"] = trans["&#221;"] # Ý
+    trans["&THORN;"] = trans["&#222;"] # Þ
+    trans["&szlig;"] = trans["&#223;"] # ß
+    trans["&agrave;"] = trans["&#224;"] # à
+    trans["&aacute;"] = trans["&#225;"] # á
+    trans["&acirc;"] = trans["&#226;"] # â
+    trans["&atilde;"] = trans["&#227;"] # ã
+    trans["&auml;"] = trans["&#228;"] # ä
+    trans["&aring;"] = trans["&#229;"] # å
+    trans["&aelig;"] = trans["&#230;"] # æ
+    trans["&ccedil;"] = trans["&#231;"] # ç
+    trans["&egrave;"] = trans["&#232;"] # è
+    trans["&eacute;"] = trans["&#233;"] # é
+    trans["&ecirc;"] = trans["&#234;"] # ê
+    trans["&euml;"] = trans["&#235;"] # ë
+    trans["&igrave;"] = trans["&#236;"] # ì
+    trans["&iacute;"] = trans["&#237"] # í
+    trans["&icirc;"] = trans["&#238;"] # î
+    trans["&iuml;"] = trans["&#239;"] # ï
+    trans["&eth;"] = trans["&#240;"] # ð
+    trans["&ntilde;"] = trans["&#241;"] # ñ
+    trans["&ograve;"] = trans["&#242;"] # ò
+    trans["&oacute;"] = trans["&#243;"] # ó
+    trans["&ocirc;"] = trans["&#244;"] # ô
+    trans["&otilde;"] = trans["&#245;"] # õ
+    trans["&ouml;"] = trans["&#246;"] # ö
+    trans["&divide;"] = trans["&#247;"] # ÷
+    trans["&oslash;"] = trans["&#248;"] # ø
+    trans["&ugrave;"] = trans["&#249;"] # ù
+    trans["&uacute;"] = trans["&#250;"] # ú
+    trans["&ucirc;"] = trans["&#251;"] # û
+    trans["&uuml;"] = trans["&#252;"] # ü
+    trans["&yacute;"] = trans["&#253;"] # ý
+    trans["&thorn;"] = trans["&#254;"] # þ
+
     for (i in trans) { 
-         gsub(i, trans[i], str) 
-     }
+        gsub(i, trans[i], str) 
+    }
 
     return str; 
- } 
+} 
   
 BEGIN { 
     FS = "</?title>?|</?description>?|</?link>?"; 
@@ -284,7 +395,9 @@ BEGIN {
     printf "\n[\033[32m"substr(html_esc($1),1,85)"\033[39m]"; 
 }
 
-/link/ { print "\033[36m"$1"\033[39m"; }
+/link/ { 
+    print "\033[36m"$1"\033[39m"; 
+}
 '; }
 
 #-----------------------------------------------------------------------------
@@ -292,11 +405,123 @@ BEGIN {
 dooloo () { curl -s dooloo.info |  awk '
 
 function html_esc ( str ) { 
-    # TODO: catch any special char here 
-    trans["&#39;"] = "\x27"; 
-    trans["&#35;"] = "\x23"; 
-    trans["&#60;"] = "\x3c"; 
-    trans["&#62;"] = "\x3e"; 
+    
+    # General Escaping Code -> Symbol
+    for (i=33; i<383; i++) {
+        code = sprintf("&#%s;", i);
+        symbol = sprintf("%c", i);
+        trans[code] = symbol;
+    }
+    
+    # Trademark, with no entity name
+    trans["&#8482;"] = sprintf("%c", 8482); # ™
+    
+    # Euro, with no code
+    trans["&euro;"] = "€"; # €
+    
+    # Common symbol with additional entity name
+    trans["&quot;"] = trans["&#34;"]; # "
+    trans["&amp;"] = trans["&#38;"]; # &
+    trans["&lt;"] = trans["&#60;"]; # <
+    trans["&gt;"] = trans["&#62;"]; # >
+    
+    # Symbols with additional entity name
+    trans["&nbsp;"] = trans["&#160;"] # None-breaking Space
+    trans["&iexcl;"] = trans["&#161;"] # ¡
+    trans["&cent;"] = trans["&#162;"] # ¢
+    trans["&pound;"] = trans["&#163;"] # £
+    trans["&curren;"] = trans["&#164;"] # ¤
+    trans["&yen;"] = trans["&#165;"] # ¥
+    trans["&brvbar;"] = trans["&#166;"] # ¦
+    trans["&sect;"] = trans["&#167;"] # §
+    trans["&uml;"] = trans["&#168;"] # ¨
+    trans["&copy;"] = trans["&#169;"] # ©
+    trans["&ordf;"] = trans["&#170;"] # ª
+    #trans[""] = trans["&#171;"] # No entity name for: «
+    trans["&not;"] = trans["&#172;"] # ¬
+    trans["&shy;"] = trans["&#173;"] # ­
+    trans["&reg;"] = trans["&#174;"] # ®
+    trans["&macr;"] = trans["&#175;"] # ¯
+    trans["&deg;"] = trans["&#176;"] # °
+    trans["&plusmn;"] = trans["&#177;"] # ±
+    trans["&sup2;"] = trans["&#178;"] # ²
+    trans["&sup3;"] = trans["&#179;"] # ³
+    trans["&acute;"] = trans["&#180;"] # ´
+    trans["&micro;"] = trans["&#181;"] # µ
+    trans["&para;"] = trans["&#182;"] # ¶
+    trans["&middot;"] = trans["&#183;"] # ·
+    trans["&cedil;"] = trans["&#184;"] # ¸
+    trans["&sup1;"] = trans["&#185;"] # ¹
+    trans["&ordm;"] = trans["&#186;"] # º
+    trans["&raquo;"] = trans["&#187;"] # »
+    trans["&frac14;"] = trans["&#188;"] # ¼
+    trans["&frac12;"] = trans["&#189;"] # ½
+    trans["&frac34;"] = trans["&#190;"] # ¾
+    trans["&iquest;"] = trans["&#191;"] # ¿
+    trans["&Agrave;"] = trans["&#192;"] # À
+    trans["&Aacute;"] = trans["&#193;"] # Á
+    trans["&Acirc;"] = trans["&#194;"] # Â
+    trans["&Atilde;"] = trans["&#195;"] # Ã
+    trans["&Auml;"] = trans["&#196;"] # Ä
+    trans["&Aring;"] = trans["&#197"] # Å
+    trans["&AElig;"] = trans["&#198;"] # Æ
+    trans["&Ccedil;"] = trans["&#199;"] # Ç
+    trans["&Egrave;"] = trans["&#200;"] # È
+    trans["&Eacute;"] = trans["&#201;"] # É
+    trans["&Ecirc;"] = trans["&#202;"] # Ê
+    trans["&Euml;"] = trans["&#203;"] # Ë
+    trans["&Igrave;"] = trans["&#204;"] # Ì
+    trans["&Iacute;"] = trans["&#205;"] # Í
+    trans["&Icirc;"] = trans["&#206;"] # Î
+    trans["&Iuml;"] = trans["&#207;"] # Ï
+    trans["&ETH;"] = trans["&#208;"] # Ð
+    trans["&Ntilde;"] = trans["&#209;"] # Ñ
+    trans["&Ograve;"] = trans["&#210;"] # Ò
+    trans["&Oacute;"] = trans["&#211;"] # Ó
+    trans["&Ocirc;"] = trans["&#212;"] # Ô
+    trans["&Otilde;"] = trans["&#213;"] # Õ
+    trans["&Ouml;"] = trans["&#214;"] # Ö
+    trans["&times;"] = trans["&#215;"] # ×
+    trans["&Oslash;"] = trans["&#216;"] # Ø
+    trans["&Ugrave;"] = trans["&#217;"] # Ù
+    trans["&Uacute;"] = trans["&#218;"] # Ú
+    trans["&Ucirc;"] = trans["&#219;"] # Û
+    trans["&Uuml;"] = trans["&#220;"] # Ü
+    trans["&Yacute;"] = trans["&#221;"] # Ý
+    trans["&THORN;"] = trans["&#222;"] # Þ
+    trans["&szlig;"] = trans["&#223;"] # ß
+    trans["&agrave;"] = trans["&#224;"] # à
+    trans["&aacute;"] = trans["&#225;"] # á
+    trans["&acirc;"] = trans["&#226;"] # â
+    trans["&atilde;"] = trans["&#227;"] # ã
+    trans["&auml;"] = trans["&#228;"] # ä
+    trans["&aring;"] = trans["&#229;"] # å
+    trans["&aelig;"] = trans["&#230;"] # æ
+    trans["&ccedil;"] = trans["&#231;"] # ç
+    trans["&egrave;"] = trans["&#232;"] # è
+    trans["&eacute;"] = trans["&#233;"] # é
+    trans["&ecirc;"] = trans["&#234;"] # ê
+    trans["&euml;"] = trans["&#235;"] # ë
+    trans["&igrave;"] = trans["&#236;"] # ì
+    trans["&iacute;"] = trans["&#237"] # í
+    trans["&icirc;"] = trans["&#238;"] # î
+    trans["&iuml;"] = trans["&#239;"] # ï
+    trans["&eth;"] = trans["&#240;"] # ð
+    trans["&ntilde;"] = trans["&#241;"] # ñ
+    trans["&ograve;"] = trans["&#242;"] # ò
+    trans["&oacute;"] = trans["&#243;"] # ó
+    trans["&ocirc;"] = trans["&#244;"] # ô
+    trans["&otilde;"] = trans["&#245;"] # õ
+    trans["&ouml;"] = trans["&#246;"] # ö
+    trans["&divide;"] = trans["&#247;"] # ÷
+    trans["&oslash;"] = trans["&#248;"] # ø
+    trans["&ugrave;"] = trans["&#249;"] # ù
+    trans["&uacute;"] = trans["&#250;"] # ú
+    trans["&ucirc;"] = trans["&#251;"] # û
+    trans["&uuml;"] = trans["&#252;"] # ü
+    trans["&yacute;"] = trans["&#253;"] # ý
+    trans["&thorn;"] = trans["&#254;"] # þ
+
     for (i in trans) { 
         gsub(i, trans[i], str) 
     }
@@ -320,4 +545,5 @@ catall () { for f in $*; do cat $f | nl -s " "$f": "; done; }
 # console clock
 # A clock in your up-right console
 cclock () { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
+
 
