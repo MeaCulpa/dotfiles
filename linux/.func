@@ -401,8 +401,18 @@ BEGIN {
 '; }
 
 #-----------------------------------------------------------------------------
-# dooloo.info parser, WIP
-dooloo () { curl -s dooloo.info |  awk '
+# catall
+# Cat files with line numbers
+catall () { for f in $*; do cat $f | nl -s " "$f": "; done; }
+
+#-----------------------------------------------------------------------------
+# console clock
+# A clock in your up-right console
+cclock () { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
+
+#-----------------------------------------------------------------------------
+# dooloo.info parser, url stored in /tmp/dooloo.url, WIP...
+dooloo () { print "test!"; curl -s dooloo.info  |  awk '
 
 function html_esc ( str ) { 
     
@@ -529,21 +539,30 @@ function html_esc ( str ) {
     return str; 
 } 
 
-BEGIN { RS=">\n"; FS="[\"><]|=\x27"; print "" } 
-/title=/ {
-    sub("^/", "http://dooloo.info/", $3); 
-    print "[\033[32m"substr(html_esc($7),1,85)"\033[39m]\n\033[36m"$3"\033[39m\n"
+BEGIN { RS=">\n"; FS="[\"><]|=\x27"; seq = 0; print ""; choice = "";} 
+NR == FNR && /title=/ {
+    sub("^/", "http://dooloo.info/", $3);
+    printf("\033[33m%-3d\033[39m [\033[32m%s\033[39m]\n\033[36m%s\033[39m\n\n", seq, substr(html_esc($7),1,85), $3);
+    #urls[seq] = $3;
+    print seq, $3 > "/tmp/dooloo.url";
+    seq ++;
 }
+
 '; }
 
 #-----------------------------------------------------------------------------
-# catall
-# Cat files with line numbers
-catall () { for f in $*; do cat $f | nl -s " "$f": "; done; }
+# Open url stored in /tmp/dooloo.url
+dooloo_open () { awk -v choice="$1" '
 
-#-----------------------------------------------------------------------------
-# console clock
-# A clock in your up-right console
-cclock () { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
+BEGIN { 
+    if (choice == "" ) { 
+        print "Enter Your Choice:"; 
+        getline choice < "-"; 
+    }
+}
 
+$1 == choice { system("firefox "$2) }
+
+' /tmp/dooloo.url
+; }
 
