@@ -1,0 +1,25 @@
+#!/sbin/runscript
+# Copyright 1999-2011 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+#depend() {
+#	
+#}
+
+start() {
+	/usr/local/sbin/razerd -B
+	#xinput --set-prop "Razer Razer DeathAdder" "Device Accel Constant Deceleration" 3
+	eend $?
+}
+
+stop() {
+	killall razerd
+	eend $?
+}
+
+restart() {
+	killall razerd
+	/usr/local/sbin/razerd -B
+	eend $?
+}
