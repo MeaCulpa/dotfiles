@@ -566,3 +566,7 @@ $1 == choice { system("firefox "$2) }
 ' /tmp/dooloo.url
 ; }
 
+#-----------------------------------------------------------------------------
+# Get ed2k links from YYETS, given a url 
+yyets () { wget -q -O - "$1" | awk 'BEGIN {FS="|"; RS="\""} /ed2k.*mkv/ {print}' }
+
