@@ -13,9 +13,6 @@ set nowrap
 " wrap words at 75
 set textwidth=75
 
-" Treate Chinese
-set formatoptions+=mM
-
 " Auto insert line-breaks for txt and mail file.
 au BufEnter *.txt setl tx ts=4 sw=4 fo+=n2a
 au BufEnter *.mail setl tx ts=4 sw=4 fo+=n2a
@@ -132,7 +129,7 @@ endfunction
 command! ToTwitter :call Switch_to_twitter()
 command! ToIdentica :call Switch_to_identica()
 
-let twitvim_proxy = "191.168.11.3:3128"
+let twitvim_proxy = "127.0.0.1:3128"
 let twitvim_count = 129
 let twitvim_browser_cmd="firefox"
 nnoremap <F8> :FriendsTwitter<cr>
@@ -236,3 +233,7 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+
+" Treate Chinese
+set formatoptions+=mM
+

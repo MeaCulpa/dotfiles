@@ -297,6 +297,35 @@ lsfcs () { lsdev -Cc adapter | awk '/fcs/ {printf("\n");  system("lsdev -C | gre
 lsdisksize () { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s "$1)}'; }
 
 #------------------------------------------------------------------------------
+# List disk, size and path count
+lsdisksp () { lsdev -Cc disk | awk '
+
+function getDiskSize ( dev ) {
+    "bootinfo -s "dev | getline size;
+    close("bootinfo");
+    return size;
+}
+
+function getDiskPath ( dev ) {
+
+    if (dev ~ /hdiskpower/) {
+        "powermt display dev="dev" | grep fscsi | wc -l" | getline path;
+        close("powermt");
+    }
+    else {
+        "lspath -l "$1" 2>/dev/null | wc -l" | getline path;
+        close("lspath")
+    }
+    return path
+}
+
+{ 
+    printf("%-60s\t", substr($0, 1, 59));
+    printf("%-5s\t%s\n", getDiskSize($1), getDiskPath($1)); 
+}
+'; }
+
+#------------------------------------------------------------------------------
 # lspath watcher
 mlspath () { while true; do clear; echo 'Output of lspath'; echo '-----------------'; lspath | sort +2; sleep ${1:=5}; done; }
 
