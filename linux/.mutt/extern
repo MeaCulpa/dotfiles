@@ -2,6 +2,8 @@
 # external utils for mutt
 #
 
+# pipe decoded message 
+set pipe_decode
 # My Editor
 set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$" -c "normal gg3O" -c "normal gg" -c "start" '
 #set editor='vim + -c "set textwidth=72" -c "set wrap" -c "set nocp" -c "?^$" -c "normal gg/" -c "start" '
