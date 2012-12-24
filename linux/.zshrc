@@ -28,7 +28,8 @@ compinit
 setopt AUTO_LIST
 setopt AUTO_MENU
 setopt MENU_COMPLETE 
-setopt correctall
+#setopt correctall
+setopt correct
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 setopt autocd
@@ -117,28 +118,34 @@ setprompt
 
 ###############################################################################
 # Window title
-case $TERM in
-    *xterm*|rxvt|rxvt-unicode|rxvt-256color|(dt|k|E)term)
-        precmd () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" } 
-        preexec () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" }
-    ;;
-    screen)
-        precmd () { 
-            print -Pn "\e]83;title \"$1\"\a" 
-            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" 
-        }
-        preexec () { 
-            print -Pn "\e]83;title \"$1\"\a" 
-            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" 
-        }
-    ;; 
-esac
+#case $TERM in
+    #*xterm*|rxvt|rxvt-unicode|rxvt-256color|(dt|k|E)term)
+        #precmd () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" } 
+        #preexec () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" }
+    #;;
+    #screen|*xterm*)
+        #precmd () { 
+            #print -Pn "\e]83;title \"$1\"\a" 
+            #print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" 
+        #}
+        #preexec () { 
+            #print -Pn "\e]83;title \"$1\"\a" 
+            #print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" 
+        #}
+    #;; 
+#esac
 
-
+precmd () {
+    local tmp='%~'
+    local HPWD=${(%)tmp}
+    if [[ $TERM = screen ]]; then
+        printf '\ek%s\e\\' $HPWD
+    fi
+}
 
 ###############################################################################
 # Gentoo Specific
-export BZR_EDITOR=VIM
+export BZR_EDITOR=vim
 export PAGER=most
 export PATH=$PATH:~/bin
 
@@ -194,22 +201,37 @@ if [[ $TERM == "screen" ]]; then
 fi
 
 source ~/.alias
-source ~/.fps
 
 mkdir -p ~/.funcs
 
 # split .func file into small functions under .funcs for autoloading
 awk -v homedir=$HOME '
+
     BEGIN {comment="# Shell Function"}
     /^#/ && name == "" {
         comment = comment"\n"$0;
         next;
     }
-
-    !/^#/ && /\(\)/ {
-        name = $1;
+    
+    # Korn Style Function Name
+    # A bit of trouble here is many tool embeded in shell have its own function
+    # machanism like awk which is heavily used by me. I have to assume that a
+    # function with parenthes of parameters are awk functions... which means I
+    # have to use parenthes in awk function even no param exist, which seems
+    # follows most awk implemention grammar, and no parenthes shall exist in
+    # shell function declaration, which means POSIX function will be IGNORED.
+    # So, strictly use either POSIX or KSH function in the .func file.
+    #/^function/ && !/\(\)/{
+    /^function/ && $3 != "(" {
+        name = $2;
         fun[name] = comment;    
     }
+
+    # POSIX Style Function Name -- commented out since I choose KSH style now.
+    #!/^#/ && /\(\)/ {
+        #name = $1;
+        #fun[name] = comment;    
+    #}
 
     /; \}$/ && !/next; \}$/ {
         if (name == "") {
@@ -225,10 +247,17 @@ awk -v homedir=$HOME '
 
     NR > 0 {
         fun[name] = fun[name]"\n"$0;
-    }
+    } 
 ' ~/.func
 
 FPATH=$FPATH:~/.funcs
 autoload ~/.funcs/*(:t)
+
+alias -g ams="9.3.232.10"
+
+# try out sth
+#precmd() {
+       #echo
+   #}
 
 

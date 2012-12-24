@@ -4,23 +4,11 @@
 
 #------------------------------------------------------------------------------
 # SS connection
-ss () { ssh -l root $1; }
+function ss { ssh -l root $1; }
 
 #------------------------------------------------------------------------------
-# Find the file to edit if in $PATH or in the current dir
-vip () {
-  ITEM=$1
-  [ -z "$ITEM" -o -d "$ITEM" ] && {
-    echo "usage: vip <filename>"
-    return
-  }
-
-  FOUND=$(which $ITEM 2>/dev/null)
-  [ "$FOUND" ] && /usr/bin/vi $FOUND || echo "Unable to locate \"$ITEM\""
-  unset $FOUND; }
-
-#------------------------------------------------------------------------------
-fit () {
+# Look for files
+function fit {
   [ "$1" ] || return
   find /src /opt /usr /home -name "$1" -ls; }
 
@@ -28,7 +16,7 @@ fit () {
 # psf: Displays matches found in ps -ef
 #      Excludes self called processes (pid)
 #      Calling with no option runs ps -ef
-psf () {
+function psf {
   # If no command line items given:
     [ "$1" ] || /bin/ps -ef | /bin/grep -v $$
 
@@ -40,138 +28,133 @@ psf () {
 
 #------------------------------------------------------------------------------
 # dlosspkg: Download oss pkg from AIX Linux Toolbox
-dlosspkg () { wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i; }
+function dlosspkg { wget -q -O - http://www-03.ibm.com/systems/power/software/aix/linux/toolbox/alpha.html |  awk 'BEGIN {RS = ">"; FS="\""}; $2 ~ /^ftp.*'"$*"'.*rpm$/ {print $2}' | xargs wget -i; }
 
 #------------------------------------------------------------------------------
 # findbigger: find FILES BIgger than certain blocks on . 
-findbigger () { find . -xdev -size +"$1" -ls | sort -r -n -k7; }
+function findbigger { find . -xdev -size +"$1" -ls | sort -r -n -k7; }
 
 #------------------------------------------------------------------------------
 # dnswp: Search wikipedia through DNS
-dnswp () { dig +short txt "$1".wp.dg.cx; }
+function dnswp { dig +short txt "$1".wp.dg.cx; }
 
 #------------------------------------------------------------------------------
 # histstat: Command history Stat
-histstat () { history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head; }
+function histstat { history 100 | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}' | sort -rn | head; }
 
 #------------------------------------------------------------------------------
 # gtranslate: Google Translate, example:
 # gtranslate hello en es
 #
 # language codes: http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-gtranslate () { curl -s "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1\n/'; }
+function gtranslate { curl -s "http://ajax.googleapis.com/ajax/services/language/translate?v=1.0&q=$1&langpair=$2|${3:-en}" | sed 's/.*"translatedText":"\([^"]*\)".*}/\1\n/'; }
 
 #------------------------------------------------------------------------------
 # chkgmail: Google Mail Atom parser
 # Usage: chkgmail USER PASS
 # 
-chkgmail () { curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" |awk -F '</?title>|</?summary>|</?name>' 'NF<=1 {next;} /title/ {print "\n["substr($2,1,80)"]"};/summary/{print "\033[32m"$2"\033[39m";};/name/{print "\t--"$2}'; }
+function chkgmail { curl -u $1:$2 --silent "https://mail.google.com/mail/feed/atom" |awk -F '</?title>|</?summary>|</?name>' 'NF<=1 {next;} /title/ {print "\n["substr($2,1,80)"]"};/summary/{print "\033[32m"$2"\033[39m";};/name/{print "\t--"$2}'; }
 
 #------------------------------------------------------------------------------
 # immcurl: post to imm.io
 # Usage: immcurl imagefile.name
 # 
-immcurl () { curl -s --form image=@$1 --form submit=OK http://imm.io/store/ | awk -F '\"[:,]\"' '{print $4}'; }
+function immcurl { curl -s --form image=@$1 --form submit=OK http://imm.io/store/ | awk -F '\"[:,]\"' '{print $4}'; }
 
 #------------------------------------------------------------------------------
 # mlnetcli: run a mlnet cmd
 # Usage: mlnetcli COMMAND
 # 
-mlnetcli () { echo -e 'auth admin XXXXXXXXX\n$1\nq' | nc localhost 4000; }
+function mlnetcli { echo -e 'auth admin XXXXXXXXX\n$1\nq' | nc localhost 4000; }
 
 #------------------------------------------------------------------------------
 # du dir size stat
 # alt: find -maxdepth 1 -type d -exec du -sh {} \;
 # 
-sdu () { du -ch --max-depth=1 "${@-.}"|sort -h; }
+function sdu { du -ch --max-depth=1 "${@-.}"|sort -h; }
 
 #------------------------------------------------------------------------------
 # dvd chapter play
-mdvd () { mplayer -dvd-device /dev/sr0  dvd://$1-$2; }
+function mdvd { mplayer -dvd-device /dev/sr0  dvd://$1-$2; }
 
 #------------------------------------------------------------------------------
 # installed gentoo pkg percentage
-ipkg () { echo $((`eix --only-names -I | wc -l` * 100 / `eix --only-names | wc -l`))%; }
+function ipkg { echo $((`eix --only-names -I | wc -l` * 100 / `eix --only-names | wc -l`))%; }
 
 #------------------------------------------------------------------------------
-# installed gentoo pkg percentage
-kacha_upaste () { scrot /tmp/scrop_tmp.png -bcsd 3 -e "echo | upaste -image \$f | xsel -bi; rm \$f"; }
-
-#------------------------------------------------------------------------------
-# BBC Radio
-bbcradio () { local s;echo "Select a station:";select s in 1 1x 2 3 4 5 6 7 "Asian Network an" "Nations & Local lcl";do break;done;s=($s);mplayer -playlist "http://www.bbc.co.uk/radio/listen/live/r"${s[@]: -1}".asx"; }
-
-
-#------------------------------------------------------------------------------
-# Blip.fm radio
-#------------------------------------------------------------------------------
+# BBC Radio, deprecated as BBC revamped
+#function bbcradio { local s;echo "Select a station:";select s in 1 1x 2 3 4 5 6 7 "Asian Network an" "Nations & Local lcl";do break;done;s=($s);mplayer -playlist "http://www.bbc.co.uk/radio/listen/live/r"${s[@]: -1}".asx"; }
 
 # WWPN colonfy
-colon () { sed 's/../:&/g' <<< $1 | cut -c2-; }
-colon () { sed 's/../:\0/2g'; }
-#colon () { sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
-decolon () { sed 's/://g' <<< $1; }
-blipfm () { while true; do mplayer `curl -s http://blip.fm/all | sed -e 's#"#\n#g' | grep mp3$ | xargs`; done; }
+function colon { echo $1 | sed 's/../:&/g' | cut -c2-; }
+#function colon { sed 's/../:&/g' <<< $1 | cut -c2-; }
+#function colon { sed 's/../:\0/2g'; }
+#function colon { sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
+function decolon { sed 's/://g' <<< $1; }
+
+#------------------------------------------------------------------------------
+# Blip.fm Radio
+function blipfm { while true; do mplayer `curl -s http://blip.fm/all | sed -e 's#"#\n#g' | grep mp3$ | xargs`; done; }
 
 #------------------------------------------------------------------------------
 # commandlinefu
 # alt: for x in `jot - 0 2400 25`; do curl "http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/$x"  ; done > commandlinefu.txt
-cmdfu () { curl -O http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/[0-2400:25]; }
+function cmdfu { curl -O http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/[0-2400:25]; }
 
 #------------------------------------------------------------------------------
 # daily proxy
-dailyproxy () { curl -s -f -S http://www.unblockwebsitestoday.com/proxy.htm | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'; }
+function dailyproxy { curl -s -f -S http://www.unblockwebsitestoday.com/proxy.htm | egrep -o '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+'; }
 
 #------------------------------------------------------------------------------
 # make link from url
-mklink () { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a href="http://\2">\1</a>@'; }
+function mklink { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a href="http://\2">\1</a>@'; }
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
-ausweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
-shweather () { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+function ausweather { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+function shweather { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 
 #------------------------------------------------------------------------------
 # ANSI color zebra output
-#zebra() { cat $1 | awk '{if (NR%2 == 1)printf("\033[30m\033[47m%s\033[0m\n", $0); else print}'; }
-zebra () { cat $1 | awk 'NR%2 == 1 {printf("\033[30m\033[47m%s\033[0m\n", $0); next}; 1'; }
+#function zebra { cat $1 | awk '{if (NR%2 == 1)printf("\033[30m\033[47m%s\033[0m\n", $0); else print}'; }
+function zebra { cat $1 | awk 'NR%2 == 1 {printf("\033[30m\033[47m%s\033[0m\n", $0); next}; 1'; }
 
 #------------------------------------------------------------------------------
-# ANSI color zebra output, longhorn!
-longhorn () { cat $1 | awk '{if (NR%2 == 1)printf("\033[1;37m\033[43m%s\033[0m\n", $0); else printf("\033[33m\033[47m%s\033[0m\n", $0);}'; }
+# ANSI color zebra output, go longhorn!
+function longhorn { cat $1 | awk '{if (NR%2 == 1)printf("\033[1;37m\033[43m%s\033[0m\n", $0); else printf("\033[33m\033[47m%s\033[0m\n", $0);}'; }
 
 #------------------------------------------------------------------------------
 # tail -f with timestamp
-ttailf () { tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}'; }
+function ttailf { tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}'; }
 
 #------------------------------------------------------------------------------
 # awk analizer, try some [-F]s!
-awkanalize () { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: "NR", COL: "NF"\t"$i}}'; }
+function awkanalize { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: "NR", COL: "NF"\t"$i}}'; }
 
 #------------------------------------------------------------------------------
 # cfgmgr
-cfgmgr () { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attached to ${i##*/}" && echo "- - -" > /sys/class/scsi_host/${i##*/}/scan; done; }
+function cfgmgr { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attached to ${i##*/}" && echo "- - -" > /sys/class/scsi_host/${i##*/}/scan; done; }
 
 #------------------------------------------------------------------------------
 # dmesglog
-dmesglog () { dmesg > `print -n dmesg_ && date +'%Y%m%d%H%M%S'`; }
+function dmesglog { dmesg > `print -n dmesg_ && date +'%Y%m%d%H%M%S'`; }
 
 #------------------------------------------------------------------------------
-# world clock, usage: worldclock austin
-worldclock () { ls -R1 /usr/share/zoneinfo | awk -v i=${1:='Shanghai'} 'tolower($1) ~ tolower(i) {system("TZ="$1" date"); exit}'; }
+# world clock, usage: worldclock shanghai
+function worldclock { ls -R1 /usr/share/zoneinfo | awk -v i=${1:='Shanghai'} 'tolower($1) ~ tolower(i) {system("TZ="$1" date"); exit}'; }
 
 #------------------------------------------------------------------------------
 # isgd
-isgd () { curl 'http://is.gd/create.php?format=simple' --data-urlencode url="$1" ; printf "\n"; }
+function isgd { curl 'http://is.gd/create.php?format=simple' --data-urlencode url="$1" ; printf "\n"; }
 
 #------------------------------------------------------------------------------
 # easy ssl encoding/decoding with blowfish
-sslenc () { openssl bf -e -a -salt; }
-ssldec () { openssl bf -d -a -salt; }
+function sslenc { openssl bf -e -a -salt; }
+function ssldec { openssl bf -d -a -salt; }
 
 #------------------------------------------------------------------------------
 # get ascii code of a character
-asciilookup () { man ascii | awk -v char=$1 '
+function asciilookup { man ascii | awk -v char=$1 '
     BEGIN { print "Char\tOct\tDec\tHex"}
     /NOTES/ {exit}
     {
@@ -187,31 +170,31 @@ asciilookup () { man ascii | awk -v char=$1 '
 
 #------------------------------------------------------------------------------
 # ssh-copy-id to restricted shell
-ssh_copy_id_restrict () {
+function ssh_copy_id_restrict {
     scp $1:.ssh/authorized_keys2 ~/.ssh/tmp_key_$1
     cat ~/.ssh/id_rsa.pub >> ~/.ssh/tmp_key_$1
     scp ~/.ssh/tmp_key_$1 $1:.ssh/authorized_keys2; }
 
 #------------------------------------------------------------------------------
 # Playing with figlet
-figshowall () { figlist | awk -v char=$1 'NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}'; }
+function figshowall { figlist | awk -v char=$1 'NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}'; }
 
 ##------------------------------------------------------------------------------
 ## xunlei Download
-#xunlei_d () { wget --load-cookies=xunlei.cookie -c -t 0 --timeout=60 --waitretry=60 $1 -O $2; }
-xunlei_d () { aria2c -c --load-cookies=xunlei.cookie --max-connection-per-server=10 --split=10 $1 -o $2; }
+#function xunlei_d { wget --load-cookies=xunlei.cookie -c -t 0 --timeout=60 --waitretry=60 $1 -O $2; }
+function xunlei_d { aria2c -c --load-cookies=xunlei.cookie --max-connection-per-server=10 --split=10 $1 -o $2; }
 
 #------------------------------------------------------------------------------
 # rdp to windows, rdp_win ip user pass
-rdp_win () { rdesktop -g 1280x800 -a 16 -u $2 -p $3 $1; }
+function rdp_win { rdesktop -g 1280x800 -a 16 -u $2 -p $3 $1; }
 
 #------------------------------------------------------------------------------
 # htdocs to bejgsa
-htdocs2gsa () { rsync -avz --delete ~/htdocs jyxu@bejgsa.ibm.com:/bejgsa/.home/h1/jyxu/web/public/; }
+function htdocs2gsa { rsync -avz --delete ~/htdocs jyxu@bejgsa.ibm.com:/bejgsa/.home/h1/jyxu/web/public/; }
 
 #------------------------------------------------------------------------------
 # poaste to mozillapaste
-mozpaste () {
+function mozpaste {
     PASTE_DATA=""
     while read input; do 
         if [[ $PASTE_DATA == "" ]] ; then
@@ -227,19 +210,19 @@ $input"
 
 #------------------------------------------------------------------------------
 # acdsee 
-acdsee () { feh -g 1024x768 -d -S filename $1; }
+function acdsee { feh -g 1024x768 -d -S filename $1; }
 
 #------------------------------------------------------------------------------
 # wget whole dir
-wgetdir () { wget -H -r --level=1 -k -p $1; }
+function wgetdir { wget -H -r --level=1 -k -p $1; }
 
 #------------------------------------------------------------------------------
 # kacha and paste to immio. Default to 70% quality
-kacha_immio () { scrot /tmp/scrot_tmp.png -d 3 -q 75 -m && curl -s --form image=@/tmp/scrot_tmp.png --form submit=OK http://imm.io/store/  | awk -F '\"[:,]\"' '{print $4}' | tee >(xsel) && rm /tmp/scrot_tmp.png; }
+function kacha_immio { scrot /tmp/scrot_tmp.png -d 3 -q 75 -m && curl -s --form image=@/tmp/scrot_tmp.png --form submit=OK http://imm.io/store/  | awk -F '\"[:,]\"' '{print $4}' | tee >(xsel) && rm /tmp/scrot_tmp.png; }
 
 #------------------------------------------------------------------------------
 # Simple RSS Fead Reader, a template
-rssawk () { curl -s "$1" | awk '
+function rssawk { curl -s "$1" | awk '
 BEGIN { FS = "</?title>?|</?description>?|</?link>?";
         RS = ">\n";
 }
@@ -260,7 +243,7 @@ NF < 2 { next;}
 
 #------------------------------------------------------------------------------
 # Hacker News RSS Fead Reader
-rssHackerNews () { curl -s http://news.ycombinator.com/rss | awk '
+function rssHackerNews { curl -s http://news.ycombinator.com/rss | awk '
 function html_esc ( str ) { 
 
     # General Escaping Code -> Symbol
@@ -403,16 +386,16 @@ BEGIN {
 #-----------------------------------------------------------------------------
 # catall
 # Cat files with line numbers
-catall () { for f in $*; do cat $f | nl -s " "$f": "; done; }
+function catall { for f in $*; do cat $f | nl -s " "$f": "; done; }
 
 #-----------------------------------------------------------------------------
 # console clock
 # A clock in your up-right console
-cclock () { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
+function cclock { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
 
 #-----------------------------------------------------------------------------
 # dooloo.info parser, url stored in /tmp/dooloo.url, WIP...
-dooloo () { print "test!"; curl -s dooloo.info  |  awk '
+function dooloo { curl -s dooloo.info  |  awk '
 
 function html_esc ( str ) { 
     
@@ -552,7 +535,7 @@ NR == FNR && /title=/ {
 
 #-----------------------------------------------------------------------------
 # Open url stored in /tmp/dooloo.url
-dooloo_open () { awk -v choice="$1" '
+function dooloo_open { awk -v choice="$1" '
 
 BEGIN { 
     if (choice == "" ) { 
@@ -566,7 +549,9 @@ $1 == choice { system("firefox "$2) }
 ' /tmp/dooloo.url
 ; }
 
+
 #-----------------------------------------------------------------------------
 # Get ed2k links from YYETS, given a url 
-yyets () { wget -q -O - "$1" | awk 'BEGIN {FS="|"; RS="\""} /ed2k.*mkv/ {print}'; }
+function yyets { wget -q -O - "$1" | awk 'BEGIN {FS="|"; RS="\""} /ed2k.*mkv/ {print}'; }
+
 
