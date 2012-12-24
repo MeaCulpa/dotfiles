@@ -79,7 +79,7 @@ function mdvd { mplayer -dvd-device /dev/sr0  dvd://$1-$2; }
 
 #------------------------------------------------------------------------------
 # installed gentoo pkg percentage
-function ipkg { print $(($(eix --only-names -I | wc -l) * 100 / $(eix --only-names | wc -l)))%; }
+function ipkg { print 3k100 $(eix --only-names -I | wc -l)'*' $(eix --only-names | wc -l) /pq | dc; }
 
 #------------------------------------------------------------------------------
 # BBC Radio, deprecated as BBC revamped
@@ -180,7 +180,7 @@ function ssh_copy_id_restrict {
 function figshowall { figlist | awk -v char=$1 'NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}'; }
 
 ##------------------------------------------------------------------------------
-## xunlei Download
+## xunlei Download, need cookie exported from browser
 #function xunlei_d { wget --load-cookies=xunlei.cookie -c -t 0 --timeout=60 --waitretry=60 $1 -O $2; }
 function xunlei_d { aria2c -c --load-cookies=xunlei.cookie --max-connection-per-server=10 --split=10 $1 -o $2; }
 
