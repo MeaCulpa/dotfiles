@@ -65,7 +65,7 @@ function immcurl { curl -s --form image=@$1 --form submit=OK http://imm.io/store
 # mlnetcli: run a mlnet cmd
 # Usage: mlnetcli COMMAND
 # 
-function mlnetcli { echo -e 'auth admin XXXXXXXXX\n$1\nq' | nc localhost 4000; }
+function mlnetcli { print 'auth admin XXXXXXXXX\n$1\nq' | nc localhost 4000; }
 
 #------------------------------------------------------------------------------
 # du dir size stat
@@ -79,14 +79,14 @@ function mdvd { mplayer -dvd-device /dev/sr0  dvd://$1-$2; }
 
 #------------------------------------------------------------------------------
 # installed gentoo pkg percentage
-function ipkg { echo $((`eix --only-names -I | wc -l` * 100 / `eix --only-names | wc -l`))%; }
+function ipkg { print $(($(eix --only-names -I | wc -l) * 100 / $(eix --only-names | wc -l)))%; }
 
 #------------------------------------------------------------------------------
 # BBC Radio, deprecated as BBC revamped
-#function bbcradio { local s;echo "Select a station:";select s in 1 1x 2 3 4 5 6 7 "Asian Network an" "Nations & Local lcl";do break;done;s=($s);mplayer -playlist "http://www.bbc.co.uk/radio/listen/live/r"${s[@]: -1}".asx"; }
+#function bbcradio { local s;print "Select a station:";select s in 1 1x 2 3 4 5 6 7 "Asian Network an" "Nations & Local lcl";do break;done;s=($s);mplayer -playlist "http://www.bbc.co.uk/radio/listen/live/r"${s[@]: -1}".asx"; }
 
 # WWPN colonfy
-function colon { echo $1 | sed 's/../:&/g' | cut -c2-; }
+function colon { print $1 | sed 's/../:&/g' | cut -c2-; }
 #function colon { sed 's/../:&/g' <<< $1 | cut -c2-; }
 #function colon { sed 's/../:\0/2g'; }
 #function colon { sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
@@ -94,11 +94,11 @@ function decolon { sed 's/://g' <<< $1; }
 
 #------------------------------------------------------------------------------
 # Blip.fm Radio
-function blipfm { while true; do mplayer `curl -s http://blip.fm/all | sed -e 's#"#\n#g' | grep mp3$ | xargs`; done; }
+function blipfm { while true; do mplayer $(curl -s http://blip.fm/all | sed -e 's#"#\n#g' | grep mp3$ | xargs); done; }
 
 #------------------------------------------------------------------------------
 # commandlinefu
-# alt: for x in `jot - 0 2400 25`; do curl "http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/$x"  ; done > commandlinefu.txt
+# alt: for x in $(jot - 0 2400 25); do curl "http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/$x"  ; done > commandlinefu.txt
 function cmdfu { curl -O http://www.commandlinefu.com/commands/browse/sort-by-votes/plaintext/[0-2400:25]; }
 
 #------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ function dailyproxy { curl -s -f -S http://www.unblockwebsitestoday.com/proxy.ht
 
 #------------------------------------------------------------------------------
 # make link from url
-function mklink { echo $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a href="http://\2">\1</a>@'; }
+function mklink { print $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\)@<a href="http://\2">\1</a>@'; }
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
@@ -132,12 +132,12 @@ function ttailf { tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}'; }
 function awkanalize { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: "NR", COL: "NF"\t"$i}}'; }
 
 #------------------------------------------------------------------------------
-# cfgmgr
-function cfgmgr { for i in /sys/class/fc_host/host*; do echo "Rescanning devices attached to ${i##*/}" && echo "- - -" > /sys/class/scsi_host/${i##*/}/scan; done; }
+# cfgmgr using printf here simply because Bash is root login shell of RHEL, etc. They suk.
+function cfgmgr { for i in /sys/class/fc_host/host*; do printf "Rescanning devices attached to ${i##*/}\n" && printf "- - -\n" > /sys/class/scsi_host/${i##*/}/scan; done; }
 
 #------------------------------------------------------------------------------
 # dmesglog
-function dmesglog { dmesg > `print -n dmesg_ && date +'%Y%m%d%H%M%S'`; }
+function dmesglog { dmesg > $(print -n dmesg_ && date +'%Y%m%d%H%M%S'); }
 
 #------------------------------------------------------------------------------
 # world clock, usage: worldclock shanghai
@@ -391,7 +391,7 @@ function catall { for f in $*; do cat $f | nl -s " "$f": "; done; }
 #-----------------------------------------------------------------------------
 # console clock
 # A clock in your up-right console
-function cclock { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
+function cclock { while true; do print -n "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
 
 #-----------------------------------------------------------------------------
 # dooloo.info parser, url stored in /tmp/dooloo.url, WIP...
@@ -554,4 +554,41 @@ $1 == choice { system("firefox "$2) }
 # Get ed2k links from YYETS, given a url 
 function yyets { wget -q -O - "$1" | awk 'BEGIN {FS="|"; RS="\""} /ed2k.*mkv/ {print}'; }
 
+#------------------------------------------------------------------------------
+# Calculates the timezone offset from GMT for the current user
+function displayTZOffset { awk '
+
+BEGIN {
+
+    "date +\"%H %M\"" | getline localHr localMin;
+    "TZ=GMT date +\"%H %M\"" | getline gmtHr gmtMin;
+
+    localTime = (localHr * 60) + localMin;
+    gmtTime = (gmtHr * 60) + gmtMin;
+    timeDiff = localTime - gmtTime;
+
+    if (timeDiff > 720)
+        timeDiff = 1440 - timeDiff
+    else if(timeDiff < -720)
+        timeDiff = -1 * (1440 + timeDiff)
+    if(timeDiff < 0)
+        minus = true;
+
+    diffHr = int(timeDiff / 60);
+    diffMin = timeDiff - (diffHr * 60);
+    diffHr = (diffHr > 0)? diffHr : -diffHr;
+    diffMin = (diffMin > 0) ? diffMin : -diffMin;
+
+    if (minus) {
+        printf("-%02d:%02d\n", diffHr, diffMin);
+    }
+    else {
+        printf("+%02d:%02d\n", diffHr, diffMin);
+    }
+}' </dev/null; }
+
+
+#------------------------------------------------------------------------------
+# Displays ISO8601 Date
+function displayISO8601Date { print $(date +%Y-%m-%dT%H:%M:%S)$(displayTZOffset); }
 
