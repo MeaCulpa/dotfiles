@@ -137,17 +137,28 @@ setprompt
 #esac
 
 source ~/.alias
+
+# Functions
 mkdir -p ~/.funcs
 
+# Split .func file into small functions under .funcs for autoloading.
+# Process functions of this form:
+#     function functname {    Korn shell semantics
+#         shell commands
+#     }
+# 
+# Note: Not processing POSIX function format.
+#
 awk -v homedir=$HOME '
-    BEGIN {name=""; comment="# Shell Function"}
+
+    BEGIN {comment="# Shell Function"}
     /^#/ && name == "" {
         comment = comment"\n"$0;
         next;
     }
-
-    !/^#/ && /\(\)/ {
-        name = $1;
+    
+    /^function/ && $3 != "(" {
+        name = $2;
         fun[name] = comment;    
     }
 
@@ -164,11 +175,11 @@ awk -v homedir=$HOME '
     }
 
     NR > 0 {
-        comment = "";
         fun[name] = fun[name]"\n"$0;
-    }
+    } 
 ' ~/.func
 
+# Autoload all the functions in this dir
 FPATH=$FPATH:~/.funcs
 autoload ~/.funcs/*(:t)
 
