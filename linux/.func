@@ -599,3 +599,29 @@ function displayISO8601Date { print $(date +%Y-%m-%dT%H:%M:%S)$(displayTZOffset)
 #
 function pissword { if (( $2 < 1 )); then print $1; else pissword $(printf $1 | md5sum | cut -c 1-8) $(($2-1)); fi; }
 
+
+### Memcached series ###
+
+#------------------------------------------------------------------------------
+# Memcached set
+# Usage: mcache_set key value expire(default 180 sec)
+function mcache_set { 
+    printf 'set %s 0 %s %s\r\n%s\r\nquit\r\n' $1 ${3:=180} ${#2} $2 | 
+    nc localhost 11211 2&>1 | 
+    awk '/STORED/ {exit 0} { print "ERROR!"; exit 1}'; }
+
+#------------------------------------------------------------------------------
+# Memcached get
+# Usage: mcache_get key
+function mcache_get { 
+    printf 'get %s\r\nquit\r\n' $1 | 
+    nc localhost 11211 2&>1 | 
+    awk '
+/^VALUE/ && NR == 1 {next;} 
+/^END\r$/ {
+    if (NR == 1) { exit 1 } else { exit 0 }
+}
+!/^END\r$/ {print}
+'; }
+
+
