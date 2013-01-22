@@ -3,10 +3,6 @@
 # -jyxu- xujinyu@cn.ibm.com
 
 #------------------------------------------------------------------------------
-# Find file
-function fit { find /opt /usr /home -name ${1:?"Filename required!"} -ls; }
-
-#------------------------------------------------------------------------------
 # psf: Displays matches found in ps -ef
 #      Excludes self called processes (pid)
 #      Calling with no option runs ps -ef
@@ -35,9 +31,9 @@ function histstat { history | awk '{a[$2]++}END{for(i in a){print a[i] "\t" i}}'
 #------------------------------------------------------------------------------
 # WWPN colon and de-colon
 function colonfy { print $1 | sed 's/../:&/g' | cut -c2-; }
-function decolonfy  { print $1 | sed 's/://g'; }
+function decolonfy { print $1 | sed 's/://g'; }
 function colon { sed 's/../:&/g' | cut -c2-; }
-function decolon  { sed 's/://g'; }
+function decolon { sed 's/://g'; }
 
 #------------------------------------------------------------------------------
 # List HBA: List HBA info
@@ -90,60 +86,42 @@ NF == 1 {
         head[dev] = "default:";
         next;
     }
-    
+
     # Device name, trim "r" and ":".
     dev = substr($0, 2, length($0)-2);
 
     # Get powerpath device replacements: rhdisk => rhdiskpower.
-    cmd = "powermt display dev="dev" 2>&1";
-    cmd | getline s; match(s, "=");
+    cmd = "powermt display dev="dev" 2>&1"; 
+    cmd | getline s; match(s, "="); 
     if (RLENGTH == 1) {
         power[dev] = dev = substr(s,RSTART+RLENGTH);
     }
     else {
         power[dev] = "none";
     }
-     
+    
     close(cmd);
-  
+    
     # Extract device type, name, sequence, subsequence ("hdisk XX :").
     match (dev, "[0-9]+")
     type[dev] = substr(dev,1,RSTART-1);
     seq[dev] = substr(dev,RSTART,RLENGTH);
     subseq[dev] = substr(dev,RSTART+RLENGTH);
-  
+    
     # De-trim
     head[dev] = "r"dev":";
-    # Initialize Spec
-    spec[dev] = ""
-} 
-  
-NF > 1 {
+    
+}
+
+NF > 1 { 
     # All the parameters, using "|" for a tmp delimiter over newlines.
-    spec[dev] = sprintf("%s|%s", spec[dev], $0);
-} 
-  
+    spec[dev] = sprintf("%s|%s", spec[dev], $0); 
+}
+
 END {
     # Output.
-    for (d in head) {
-        # Default
-        if (d == "default") {
-            print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
-        }
-        # Raw IOs
-        if (head[d] ~ /^rhd/) {
-            print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
-        }
-        # FileSys IOs
-        else if (head[d] ~ /^rjfs/) {
-            print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
-        }
-        # Out Of Scope
-        else {
-            ;
-        }
-    }
-} 
+    for (d in head) print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
+}
 # sort the result, tailor output, and get back delimiter
 ' $1 | sort -k 1,1 -k 3,3n -k 4,4n | cut -d" " -f5- | tr '|' '\n'; }
 
@@ -153,13 +131,12 @@ function jy_rmvgs {
    mount | awk '/dev\/jfs/ {system("umount "$2)}';
    lspv | awk '!/rootvg/ && /active/ {system("varyoffvg "$3)}';
    lsvg | awk '!/rootvg/ {system("exportvg "$1)}';
-   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'
-   ls -1 / | awk '/jfs_|jfs2_/{system("rm -r /"$1)}'; }
+   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'; }
 
 #------------------------------------------------------------------------------
 # jy_mkvgs: Create jfs and jfs2 VGs in AIX
 # Issue: 
-#     * No built-in sorting in AIX AWK and I didn't implement or use external
+#     * No built-in sorting in NAWK and I didn't implement or use external
 #       sort. Since we are doing system calls not just outputs.
 #       Expect stupid lv serials!
 #
@@ -276,41 +253,12 @@ function calc { awk "BEGIN{ print $* }"; }
 
 #------------------------------------------------------------------------------
 # List fcscsi device and children
-#function lsfcs { lsdev -Cc adapter | awk '/fcs/ {system("lsdev -C | grep "$3"\n")}'; }
+#lsfcs() {lsdev -Cc adapter | awk '/fcs/ {system("lsdev -C | grep "$3"\n")}'; }
 function lsfcs { lsdev -Cc adapter | awk '/fcs/ {printf("\n");  system("lsdev -C | grep "$3"")}' | awk '{sub(/^hd/, "\thd")};1'; }
 
 #------------------------------------------------------------------------------
 # List disk size
 function lsdisksize { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s "$1)}'; }
-
-#------------------------------------------------------------------------------
-# List disk, size and path count
-function lsdisksp { lsdev -Cc disk | awk '
-
-function getDiskSize ( dev ) {
-    "bootinfo -s "dev | getline size;
-    close("bootinfo");
-    return size;
-}
-
-function getDiskPath ( dev ) {
-
-    if (dev ~ /hdiskpower/) {
-        "powermt display dev="dev" | grep fscsi | wc -l" | getline path;
-        close("powermt");
-    }
-    else {
-        "lspath -l "$1" 2>/dev/null | wc -l" | getline path;
-        close("lspath")
-    }
-    return path
-}
-
-{ 
-    printf("%-60s\t", substr($0, 1, 59));
-    printf("%-5s\t%s\n", getDiskSize($1), getDiskPath($1)); 
-}
-'; }
 
 #------------------------------------------------------------------------------
 # lspath watcher
@@ -321,7 +269,7 @@ function mlspath { while true; do clear; echo 'Output of lspath'; echo '--------
 function wwpn { lscfg -vpl $1 | grep Address | sed 's/^.*\.//g'; }
 
 #------------------------------------------------------------------------------
-# Coloned WWPN of fcsX
+# Coloned WWPN
 function cwwpn { lscfg -vpl $1 | grep Address | sed 's/^.*\.//g' | sed -e :it -e 's/\(.*[0-9A-Za-z]\)\([0-9A-Za-z]\{2\}\)/\1:\2/;tit'; }
 
 #------------------------------------------------------------------------------
@@ -334,12 +282,13 @@ function delalldisk { lspv | awk '!/active/ {system("rmdev -Rdl "$1)}'; }
 
 #------------------------------------------------------------------------------
 # Clear PVID
-function pvidclr { lspv | awk '$4 != "active" && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'; }
+function pvidclr { lspv | awk '!/active/ {system("chdev -l "$1" -a pv=clear")}'; }
 
 #------------------------------------------------------------------------------
 # which hdiskpower is using this hdisk, or vice versa
+# Depends on PowerPath version
 function disk2power { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
-function power2disk { powermt display dev=$1 | grep 'hdisk[^p]'; }
+function power2disk { powermt display dev=$2 | grep 'hdisk[^p]'; }
 
 #------------------------------------------------------------------------------
 # Check reserve/release options
@@ -351,17 +300,12 @@ function chgnoreserve { lsdev -Cc disk | awk '$4 ~ /HP|EMC|Hitachi|PowerPath/ { 
 
 
 ###############################################################################
-# None work-related Functions
+# Personal Functions
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
 function ausweather { wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
 function shweather { wget -q -O - http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
-
-###############################################################################
-# find wwpn in Brocade/Cisco Fabric Switch
-function bfind { ssh brocade "nodefind $1"; }
-function cfind { ssh cisco "show fcns database detail | grep -i -B 3 -A 15 $1"; }
 
 #------------------------------------------------------------------------------
 ## ssh-copy-id to restricted shell
@@ -403,37 +347,3 @@ function displayISO8601Date {
 	tzOffset=`displayTZOffset`
 	echo `date +%Y-%m-%dT%H:%M:%S`$tzOffset; }
 
-#-----------------------------------------------------------------------------
-# console clock
-# A clock in your up-right console
-function cclock { while true; do echo -ne "\e[s\e[0;$((COLUMNS-27))H$(date)\e[u"; sleep 1; done &; }
-
-#-----------------------------------------------------------------------------
-# real mem info
-function lsrealmem { lsattr -l sys0 -a realmem -E; }
-
-#-----------------------------------------------------------------------------
-# Shared memory info
-function lssharemem { ipcs -mb | awk '$1 == "m" {printf("%s %.2fk Shared Mem Seg %s\n", $5, $7/1024, $3)}'; }
-
-#-----------------------------------------------------------------------------
-# Memory usage by User and Process PID
-function pscomms { ps -e -o user=,vsz=,comm=,pid= | sed 's/^[[:blank:]]*//' | sort -k1,1 -k3,3; }
-
-#-----------------------------------------------------------------------------
-# Memory usage sum by Process Name
-function pspname { ps -e -o user=,vsz=,comm=,pid= | awk '
-    function append ( str1, str2, delim ) {
-        if (str1 == "") return str2;
-        return str1""delim""str2;
-    }
-    {
-        p_name[$3] = $3; p_vsz[$3] += $2; p_cnt[$3] += 1;
-        p_idusr[$3] = append(p_idusr[$3], $1"("$4")", ",");
-    }
-    END {
-        for (i in p_name) {
-            printf("%-8s\t%-8s\t%s\n" , i, p_vsz[i], p_idusr[i]);
-        }
-    }
-    ' | sort -n -k2,2; }

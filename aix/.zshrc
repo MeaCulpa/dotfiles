@@ -118,37 +118,10 @@ setprompt
 
 
 ###############################################################################
-# Window title
-#case $TERM in
-#    *xterm*|rxvt|rxvt-unicode|rxvt-256color|(dt|k|E)term)
-#        precmd () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" } 
-#        preexec () { print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" }
-#    ;;
-#    screen)
-#        precmd () { 
-#            print -Pn "\e]83;title \"$1\"\a" 
-#            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~]\a" 
-#        }
-#        preexec () { 
-#            print -Pn "\e]83;title \"$1\"\a" 
-#            print -Pn "\e]0;$TERM - (%L) [%n@%M]%# [%~] ($1)\a" 
-#        }
-#    ;; 
-#esac
 
 source ~/.alias
-
-# Functions
 mkdir -p ~/.funcs
 
-# Split .func file into small functions under .funcs for autoloading.
-# Process functions of this form:
-#     function functname {    Korn shell semantics
-#         shell commands
-#     }
-# 
-# Note: Not processing POSIX function format.
-#
 awk -v homedir=$HOME '
 
     BEGIN {comment="# Shell Function"}
@@ -156,16 +129,30 @@ awk -v homedir=$HOME '
         comment = comment"\n"$0;
         next;
     }
-    
+
+    # Korn Style Function Name
+    # A bit of trouble here is many tool embeded in shell have its own function
+    # machanism like awk which is heavily used by me. I have to assume that a
+    # function with parenthes of parameters are awk functions... which means I
+    # have to use parenthes in awk function even no param exist, which seems
+    # follows most awk implemention grammar, and no parenthes shall exist in
+    # shell function declaration, which means POSIX function will be IGNORED.
+    # So, strictly use either POSIX or KSH function in the .func file.
+    #/^function/ && !/\(\)/{
     /^function/ && $3 != "(" {
         name = $2;
         fun[name] = comment;    
     }
 
+    # POSIX Style Function Name -- commented out since I choose KSH style now.
+    #!/^#/ && /\(\)/ {
+    #name = $1;
+    #fun[name] = comment;    
+    #}
     /; \}$/ && !/next; \}$/ {
         if (name == "") {
-            print "Parse Error on Line "NR": "$0;
-            next;
+        print "Parse Error on Line "NR": "$0;
+        next;
         }
         comment = "# Shell Function";
         fun[name] = fun[name]"\n"$0;
@@ -179,7 +166,8 @@ awk -v homedir=$HOME '
     } 
 ' ~/.func
 
-# Autoload all the functions in this dir
+
+
 FPATH=$FPATH:~/.funcs
 autoload ~/.funcs/*(:t)
 
