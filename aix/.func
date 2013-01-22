@@ -288,7 +288,7 @@ function pvidclr { lspv | awk '!/active/ {system("chdev -l "$1" -a pv=clear")}';
 # which hdiskpower is using this hdisk, or vice versa
 # Depends on PowerPath version
 function disk2power { powermt display dev=$1 2>&1 | sed -n '/^Ps/{s/.*=//;p;}'; }
-function power2disk { powermt display dev=$2 | grep 'hdisk[^p]'; }
+function power2disk { powermt display dev=$1 | grep 'hdisk[^p]'; }
 
 #------------------------------------------------------------------------------
 # Check reserve/release options
