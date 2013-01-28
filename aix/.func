@@ -75,7 +75,8 @@ $1 ~ /^fcs.+/ {
 # Usage: mdtsort mdt.io > mdt.power
 function mdtsort { awk '
 NF == 1 {
-    # Device
+    # Device head lines.
+
     # The "default" line.
     if ($0 == "default:") {
         dev = "default";
@@ -87,30 +88,39 @@ NF == 1 {
         next;
     }
 
-    # Device name, trim "r" and ":".
-    dev = substr($0, 2, length($0)-2);
+    # Device: disk
+    if ( $0 ~ /^rhdisk/ ) {
+        # Device name, trim "r" and ":".
+        dev = substr($0, 2, length($0)-2);
 
-    # Get powerpath device replacements: rhdisk => rhdiskpower.
-    cmd = "powermt display dev="dev" 2>&1"; 
-    cmd | getline s; match(s, "="); 
-    if (RLENGTH == 1) {
-        power[dev] = dev = substr(s,RSTART+RLENGTH);
+        # Get powerpath device replacements: rhdisk => rhdiskpower.
+        cmd = "powermt display dev="dev" 2>&1"; 
+        cmd | getline s; match(s, "Pseudo name="); 
+        if (RLENGTH == 12) {
+            power[dev] = dev = substr(s,RSTART+RLENGTH);
+        }
+        else {
+            power[dev] = "none";
+        }
+
+        close(cmd);
+        head[dev] = "r"dev":";
     }
+    # Device: other
     else {
+        dev = $0;
+        head[dev] = $0;
         power[dev] = "none";
     }
-    
-    close(cmd);
-    
+
     # Extract device type, name, sequence, subsequence ("hdisk XX :").
     match (dev, "[0-9]+")
     type[dev] = substr(dev,1,RSTART-1);
     seq[dev] = substr(dev,RSTART,RLENGTH);
     subseq[dev] = substr(dev,RSTART+RLENGTH);
     
-    # De-trim
-    head[dev] = "r"dev":";
-    
+    # Initialize specs
+    spec[dev] = "";
 }
 
 NF > 1 { 
@@ -122,8 +132,18 @@ END {
     # Output.
     for (d in head) print type[d], power[d], seq[d], subseq[d], head[d], spec[d], "|";
 }
-# sort the result, tailor output, and get back delimiter
-' $1 | sort -k 1,1 -k 3,3n -k 4,4n | cut -d" " -f5- | tr '|' '\n'; }
+' ${1:-'/usr/lpp/htx/mdt/mdt.all'} |
+# Step 2: format output for our needs
+# sort by type and seq
+sort -k 1,1 -k 3,3n -k 4,4n |
+# tailor output
+cut -d" " -f5- | 
+# CUSTOMIZE HERE: include needed device (i.e.: disks)
+egrep '^default|^rhdisk' |
+# CUSTOMIZE HERE: exclude unwanted device (i.e.: lunz)
+egrep -v 'Z_DISK|LUNZ' |
+# get back delimiter
+tr '|' '\n'; }
 
 #------------------------------------------------------------------------------
 # jy_rmvgs: remove all vg the above function created
@@ -262,7 +282,7 @@ function lsdisksize { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s 
 
 #------------------------------------------------------------------------------
 # lspath watcher
-function mlspath { while true; do clear; echo 'Output of lspath'; echo '-----------------'; lspath | sort +2; sleep ${1:=5}; done; }
+function mlspath { while true; do clear; echo 'Output of lspath'; echo '-----------------'; lspath | sort +2; sleep ${1:-5}; done; }
 
 #------------------------------------------------------------------------------
 # Get WWPN of fcsX
