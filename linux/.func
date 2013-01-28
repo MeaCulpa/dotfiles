@@ -129,8 +129,7 @@ function ttailf { tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}'; }
 
 #------------------------------------------------------------------------------
 # awk analizer, try some [-F]s!
-#function awkanalize { cat $1 | awk -F'a href=\"|\"' '{for (i=1; i<NF; i++){print "Row: "NR", COL: "NF"\t"$i}}'; }
-function awkanalize { cat $1 | awk '{for (i=1; i<NF; i++) {printf("Row: %-3s, COL: %-3s\t%s\n", NR, NF, $i)}; print "------------------";}'; }
+function awkanalize { awk '{for (i=1; i<NF; i++) {printf("Row: %-3s, COL: %-3s\t%s\n", NR, NF, $i)}; print "------------------";}' $1; }
 
 #------------------------------------------------------------------------------
 # cfgmgr using printf here simply because Bash is root login shell of RHEL, etc. They suk.
