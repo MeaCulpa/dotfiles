@@ -111,8 +111,14 @@ function mklink { print $1 | sed -e h -e 's@/@\\@g' -e G -e 's@\([^\n]*\)\n\(.*\
 
 #------------------------------------------------------------------------------
 # Get Weather forcast from BBC
-function ausweather { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
-function shweather { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;","",$2); print $2}'; }
+function ausweather { curl -s http://newsrss.bbc.co.uk/weather/forecast/388/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;",sprintf("%c", 186) ,$2); print $2}'; }
+function shweather { curl -s http://newsrss.bbc.co.uk/weather/forecast/1713/Next3DaysRSS.xml | awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;", sprintf("%c", 186), $2); print $2}'; }
+# Or, provide your city code as parameter, see:
+#   http://ucarenya.com/doc/bbcweathercityindex
+function bbcweather { 
+    curl -s "http://newsrss.bbc.co.uk/weather/forecast/$1/Next3DaysRSS.xml" | 
+    awk -F'</*title>' '!a[$2]++&&NF!=1 {gsub("&#xB0;", sprintf("%c", 186), $2); print $2}'; }
+
 
 #------------------------------------------------------------------------------
 # ANSI color zebra output
@@ -128,8 +134,9 @@ function longhorn { cat $1 | awk '{if (NR%2 == 1)printf("\033[1;37m\033[43m%s\03
 function ttailf { tail -f $1 | awk '{sub(/^/,strftime("%F %T%z\t"));print}'; }
 
 #------------------------------------------------------------------------------
-# awk analizer, try some FS and RS
-#function awkanalize { awk '{for (i=1; i<NF; i++) {printf("Row: %-3s, COL: %-3s\t%s\n", NR, NF, $i)}; print "------------------";}' $1; }
+# awk analizer, try some FS and RS!
+#function awkanalize { awk '{for (i=1; i<NF; i++) {printf("Row: %-3s, COL: %-3s\t%s\n", NR, NF, $i)}; print "------------------";}'; }
+#function awkanalize { awk -vFS="$1" '{for (i=1; i<NF; i++) {printf("Row: %-3s, COL: %-3s\t%s\n", NR, NF, $i)}; print "------------------";}'; }
 function awkanalize { awk -vFS="$1" -vRS="$2" '{for (i=1; i<NF; i++) {printf("Row: %-3s, COL: %-3s\t%s\n", NR, NF, $i)}; print "------------------";}'; }
 
 #------------------------------------------------------------------------------
@@ -553,7 +560,7 @@ $1 == choice { system("firefox "$2) }
 
 #-----------------------------------------------------------------------------
 # Get ed2k links from YYETS, given a url 
-function yyets { wget -q -O - "$1" | awk 'BEGIN {FS="|"; RS="\""} /ed2k.*mkv/ {print}'; }
+function yyets { wget -q -O - "$1" | awk 'BEGIN {FS="|"; RS="\""} /ed2k.*Chi/ {print}'; }
 
 #------------------------------------------------------------------------------
 # Calculates the timezone offset from GMT for the current user
@@ -596,8 +603,7 @@ function displayISO8601Date { print $(date +%Y-%m-%dT%H:%M:%S)$(displayTZOffset)
 #------------------------------------------------------------------------------
 # Generate passcode using md5, again and again
 # Usage: pissword 'PrivatePhrase' Count
-# Warning: Too much count will use up process resource!
-#
+# Warning: will use up FD real quick
 function pissword { if (( $2 < 1 )); then print $1; else pissword $(printf $1 | md5sum | cut -c 1-8) $(($2-1)); fi; }
 
 
