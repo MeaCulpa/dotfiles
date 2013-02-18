@@ -1,0 +1,4 @@
+save_uisettings ui.Ucarenyes
+savehotkeys hotkeys.Ucarenyes
+save_colors colors.Ucarenyes
+save_keymaps keymaps.Ucarenyes

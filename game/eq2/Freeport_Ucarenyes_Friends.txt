@@ -1,0 +1,6 @@
+EQ2.freeport.Acrabor
+EQ2.freeport.Destruct
+EQ2.freeport.Firebasher
+EQ2.freeport.Lindon
+EQ2.freeport.Moguchagi
+EQ2.freeport.Peadip

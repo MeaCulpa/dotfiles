@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<UISettings time="1361108981" version="7">
+<UISettings time="1361111482" version="7">
     <Module Name="ArenaChampions" window_version="36">
         <Window Name="ArenaMatch" alignment="0" alignment_offset="103,91" backdrop_mo_o="1" size="810,578" />
         <Window Name="ArenaResults" alignment="0" alignment_offset="103,116" backdrop_mo_o="1" size="810,530" />
@@ -301,7 +301,7 @@
         <Window Name="Lotto" alignment="8" alignment_offset="67,38" backdrop_mo_o="1" size="335,300" />
         <Window Name="Mail" alignment="0" alignment_offset="265,99" backdrop_mo_o="1" size="352,446" />
         <Window Name="MainChat_clone_0" alignment="6" alignment_offset="0,-19" backdrop_mo_o="0.74" backdrop_n_o="0.78" click_through="true" foreground_mo_o="1" foreground_n_o="0.19" frame_mo_o="1" frame_n_o="1" locked="true" size="608,147" window_style="0">
-            <Properties clone="0" clone_version="4" currenttab="8" version="19">
+            <Properties clone="0" clone_version="4" currenttab="0" version="19">
                 <ChatTab default_channel="say" display_id="0" filter="e107000700000000000000000000ef0000000000000000000000000000000000000000000000000000000000000000000000" title="Chat">
                     <Channel name="Crafting" />
                     <Channel name="Level_40-49" />
@@ -480,5 +480,5 @@
         <Channel index="19" name="Traders" />
     </ChatChannels>
     <VoiceChat version="0" />
-    <InputControlSet index="0" readcamdist="3.16539" version="4210688001" />
+    <InputControlSet index="0" readcamdist="15.1396" version="4210688001" />
 </UISettings>

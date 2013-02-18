@@ -1,4 +1,7 @@
 target_self
 target_merc
+useability mercy or anger
+target_self
+target_merc
 useability honor among thieves
 assist

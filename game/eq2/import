@@ -1,0 +1,4 @@
+load_keymaps keymaps.Ucarenyes
+load_colors colors.Ucarenyes
+loadhotkeys hotkeys.Ucarenyes
+load_uisettings ui.Ucarenyes
