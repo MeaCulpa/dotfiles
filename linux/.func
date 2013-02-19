@@ -185,7 +185,11 @@ function ssh_copy_id_restrict {
 
 #------------------------------------------------------------------------------
 # Playing with figlet
-function figshowall { figlist | awk -v char=$1 'NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}'; }
+function figshowall { figlist | awk -v char=$1 'NR>3 && NF>1 {exit} NF == 1 {print $1":"; system("figlet -f "$1" "char);print "---"}'; }
+
+#------------------------------------------------------------------------------
+# IP Location China
+function iploc { curl -s "http://www.ip138.com/ips1388.asp?ip=$1&action=2" | iconv -f gbk -t utf8 | grep -Eo '(主|参考)数据[^<]+'; }
 
 ##------------------------------------------------------------------------------
 ## xunlei Download, need cookie exported from browser
@@ -600,10 +604,10 @@ BEGIN {
 # Displays ISO8601 Date
 function displayISO8601Date { print $(date +%Y-%m-%dT%H:%M:%S)$(displayTZOffset); }
 
+
 #------------------------------------------------------------------------------
 # Generate passcode using md5, again and again
 # Usage: pissword 'PrivatePhrase' Count
-# Warning: will use up FD real quick
 function pissword { if (( $2 < 1 )); then print $1; else pissword $(printf $1 | md5sum | cut -c 1-8) $(($2-1)); fi; }
 
 
@@ -630,5 +634,6 @@ function mcache_get {
 }
 !/^END\r$/ {print}
 '; }
+
 
 

@@ -278,7 +278,7 @@ function lsfcs { lsdev -Cc adapter | awk '/fcs/ {printf("\n");  system("lsdev -C
 
 #------------------------------------------------------------------------------
 # List disk size
-function lsdisksize { lsdev -Cc disk | awk '{printf $0"\t"; system("bootinfo -s "$1)}'; }
+function lsdisksize { lsdev -Cc disk | awk '{"bootinfo -s "$1 | getline size; printf("%-8s%s\n", size,$0); close("bootinfo")}' ; }
 
 #------------------------------------------------------------------------------
 # lspath watcher
