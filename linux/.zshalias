@@ -1,0 +1,14 @@
+##########################
+# ZSH Alias file
+#
+
+# Globals
+alias -g ams="9.3.232.10"
+alias -g clipout="tee >(xsel)"
+
+# Prefix
+alias -s txt=vim
+alias -s pdf=qpdfview
+alias -s doc=lowriter
+alias -s xls=localc
+

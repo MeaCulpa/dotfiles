@@ -201,6 +201,7 @@ if [[ $TERM == "screen" ]]; then
 fi
 
 source ~/.alias
+source ~/.zshalias
 
 mkdir -p ~/.funcs
 
@@ -253,7 +254,6 @@ awk -v homedir=$HOME '
 FPATH=$FPATH:~/.funcs
 autoload ~/.funcs/*(:t)
 
-alias -g ams="9.3.232.10"
 
 # try out sth
 #precmd() {
