@@ -367,3 +367,10 @@ function displayISO8601Date {
 	tzOffset=`displayTZOffset`
 	echo `date +%Y-%m-%dT%H:%M:%S`$tzOffset; }
 
+#------------------------------------------------------------------------------
+# Get_NGP_FSPIP
+# Usage: get_ngp_fsp_ip
+function get_ngp_fsp_ip { ssh $1 'list -l 2' | awk '/blade/ && NF > 2 { print "ifconfig -T system:"$1 }' | ssh -T $1 |  egrep 'blade|^-i '; }
+
+
+
