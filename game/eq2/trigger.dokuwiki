@@ -1,0 +1,151 @@
+====== EQ2 ACT Triggers and Spell Timers ======
+
+==== 如何操作 ====
+
+ACT Trigger 导入
+
+{{http://www.ucarenya.com/g/d/5578-2/act_trigger_import.JPG}}
+
+导入后的Trigger在这里
+
+{{http://www.ucarenya.com/g/d/5581-2/act_trigger.JPG}}
+
+
+==== General ====
+
+插棋子提醒
+
+<code xml>
+<Trigger R="(?&lt;Player&gt;.+?) placed the rally banner in (?&lt;Location&gt;.+)\." SD="Attention! Banner is in ${Location}" ST="3" CR="F" C="General" T="F" TN="Rally Banner" Ta="F" />
+</code>
+
+别人Tell你
+
+<code xml>
+<Trigger R="&#92;&#92;aPC -?\d+ (?&lt;Player_100&gt;[^:]+):[^&#92;&#92;]+&#92;&#92;/a tells you, ?&quot;(?&lt;Message&gt;.+)&quot;" SD="${Message}" ST="3" CR="F" C="General" T="F" TN="Someone sends you a tell" Ta="F" />
+</code>
+
+==== POW ====
+
+== Boar ==
+
+猪发飙
+<code xml>
+<Trigger R="\&#35;FF0000The massive boar goes on a rampage!!" SD="Boar rampage, get away!" ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+== Berik Bloodfist ==
+
+战士和奶妈溶血:
+
+
+<code xml>
+<Trigger R="FF0000Danger, Toxic Blood can only be removed by mixing with Tainted Blood" SD="Get into close with tank!" ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+<code xml>
+<Trigger R="FF0000Danger, Tainted Blood can only be removed by mixing with Toxic Blood" SD="Get into close with healer!" ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+
+== Eriak the Fetid ==
+
+前10秒对boss dps最高的无法伤害Boss
+
+<code xml>
+<Trigger R="An echo of terror should put an end to my pain" SD="Someone will be marked incapable to harm Eriak!  Adds incoming! Burn them down in twenty seconds!" ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+本角色无法伤害boss
+
+<code xml>
+<Trigger R="FF0000You have been marked for exclusion due to your damage output" SD="I am marked incapable to harm Eriak!  Burn the adds!" ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+诅咒，远离其他人再取消！
+
+<code xml>
+<Trigger R="FF0000You have the spectral blast curse upon you" SD="You are cursed by Eriak! Move away from raid! " ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+
+==== DoV ====
+
+DOV X2 debuff 过期提醒
+
+猴子
+<code xml>
+<Trigger R="FF00Slice of Despair on (?&lt;victim&gt;.+?) will expire soon" SD="D.O.V. Scout debuff expiring on ${victim}!" ST="3" CR="F" C="DoV" T="F" TN="" Ta="F" />
+</code>
+
+战士
+<code xml>
+<Trigger R="FF00Demoralizing Swipe on (?&lt;victim&gt;.+?) will expire soon" SD="D.O.V. Fighter debuff expiring on ${victim}!" ST="3" CR="F" C="DoV" T="F" TN="" Ta="F" />
+</code>
+
+奶妈
+<code xml>
+<Trigger R="FF00Divine Despair on (?&lt;victim&gt;.+?) will expire soon" SD="D.O.V. Priest debuff expiring on ${victim}!" ST="3" CR="F" C="DoV" T="F" TN="" Ta="F" />
+</code>
+
+Debuff 打上了提醒
+<code xml>
+<Trigger R="The Enraged War Boar looks like they had something ruptured inside of them" SD="Boar debuffed!" ST="3" CR="F" C="Plane of War" T="F" TN="" Ta="F" />
+</code>
+
+==== AoA ====
+
+老1的蛋蛋, 随便弄个Timer
+<code xml>
+<Trigger R="a stirge eggsack" SD="Stirge Eggsack!" ST="0" CR="F" C="Alter of Abhorrence" T="T" TN="EggSack" Ta="F" />
+</code>
+
+蛋蛋的30秒Timer
+<code xml>
+<Spell N="EggSack" T="30" OM="F" R="F" A="T" WV="0" RD="T" M="F" Tt="Stirge Eggsack" FC="-16776961" RV="0" C=" General" RC="F" />
+</code>
+
+
+Imp
+<code xml>
+<Trigger R="FF0000(?&lt;victim&gt;[A-Za-z]+?) draws attention from the Enraged Imp!" SD="Stop attack, ${victim}" ST="3" CR="F" C="Alter of Abhorrence" T="F" TN="" Ta="F" />
+</code>
+
+==== HE ====
+
+Drinal的正面大招
+<code xml>
+<Trigger R="(?&lt;Boss&gt;.+?) begins an ancient spell of smiting\." SD="Warning! ${Boss} is smiting! Interrupt or hide behind!" ST="3" CR="F" C="Harrow&apos;s End: Baleful Dominion" T="F" TN="" Ta="F" />
+</code>
+
+
+==== Brigand ====
+
+Dispatch打上后提醒，带一个24秒的Timer(Reuse一般是3x-4x秒所以不是全时段覆盖的. Brig其实可以在20秒之前再打Debilitate+Murderous Rake做到debuff全时段覆盖, 但那样Brig自己dps会大大减少...). Brig自己UI其实能看到，别人看Brig打的Dispatch才是重要的。 多人打Dispatch就会有多个...
+Trigger:
+<code xml>
+<Trigger R="Dispatch (?:critically )hits (?&lt;victim&gt;.+?) for (?&lt;damage&gt;\d+) (?&lt;damagetype&gt;.+?) damage\." SD="" ST="0" CR="F" C="Brigand" T="T" TN="Dispatched" Ta="F" />
+</code>
+
+Trigger里用到的Spell Timer:
+<code xml>
+<Spell N="Dispatched" T="24" OM="F" R="F" A="T" WV="5" RD="T" M="T" Tt="" FC="-16776961" RV="-5" C=" General" RC="F" />
+</code>
+
+
+==== Dirge ====
+
+CoB, 大部分人都会这样在队伍里吼:
+
+<code xml>
+<Trigger R="&#92;&#92;aPC -?\d+ [^ :]+:(?&lt;attacker&gt;[^ :]+)&#92;&#92;/a (tells you|says to the group|says to the raid party), ?&quot;(?i).*(chimes|blades|CoB).*&quot;" SD="" ST="0" CR="F" C="Dirge" T="T" TN="Chimes of Blades" Ta="F" />
+</code>
+
+
+
+
+{{tag>game eq2 xml dod}}
+
+~~LINKBACK~~
+~~DISQUS~~
+~~NOTOC~~
