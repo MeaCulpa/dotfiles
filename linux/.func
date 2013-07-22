@@ -605,11 +605,11 @@ BEGIN {
 function displayISO8601Date { print $(date +%Y-%m-%dT%H:%M:%S)$(displayTZOffset); }
 
 
-#------------------------------------------------------------------------------
-# Generate passcode using md5, again and again
+#----------------------------------------------------------------------------------------
+# Generate passcode using md5, again and again. 
+# Leading number will be replaced by an 'x', to meet win7 password restrictions
 # Usage: pissword 'PrivatePhrase' Count
-function pissword { if (( $2 < 1 )); then print $1; else pissword $(printf $1 | md5sum | cut -c 1-8) $(($2-1)); fi; }
-
+function pissword { if (( $2 < 1 )); then print ${1/#[0-9]/x}; else pissword $(printf $1 | md5sum | cut -c 1-8) $(($2-1)); fi; }
 
 ### Memcached series ###
 
