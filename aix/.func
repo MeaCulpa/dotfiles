@@ -148,10 +148,15 @@ tr '|' '\n'; }
 #------------------------------------------------------------------------------
 # jy_rmvgs: remove all vg the above function created
 function jy_rmvgs {
-   mount | awk '/dev\/jfs/ {system("umount "$2)}';
+   print 'Unmounting...'
+   mount | awk '/dev\/lv[12]/ {system("umount "$2)}';
+   print 'Varying off...'
    lspv | awk '!/rootvg/ && /active/ {system("varyoffvg "$3)}';
+   print 'Exporting...'
    lsvg | awk '!/rootvg/ {system("exportvg "$1)}';
-   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'; }
+   print 'Clearing PVID...'
+   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'
+   print '...Done!'; }
 
 #------------------------------------------------------------------------------
 # jy_mkvgs: Create jfs and jfs2 VGs in AIX
@@ -159,9 +164,10 @@ function jy_rmvgs {
 #     * No built-in sorting in NAWK and I didn't implement or use external
 #       sort. Since we are doing system calls not just outputs.
 #       Expect stupid lv serials!
+#     * Updated: Reflect new HTX naming convention
 #
 # To Reverse the effect:
-#   mount | awk '/dev\/jfs/ {system("umount "$2)}'
+#   mount | awk '/dev\/lv[12]/ {system("umount "$2)}'
 #   lspv | awk '!/rootvg/ && /active/ {system("varyoffvg "$3)}'
 #   lsvg | awk '!/rootvg/ {system("exportvg "$1)}'
 #   lspv | awk '!/active/ && $2 != "none" {system("chdev -l "$1" -a pv=clear")}'
@@ -169,62 +175,54 @@ function jy_rmvgs {
 function jy_mkvgs { lsdev -Cc disk | awk '
 BEGIN {
     # Max PP size, VG capacity, device string length, and PP number in LVs
-    MAX_PP_SIZE=8; MAX_VG_CAP=512; MAX_DEV_TYPE=6; LV_PP_NUM=20;
+    MAX_PP_SIZE=8; MAX_VG_CAP=512; MAX_DEV_TYPE=6; LV_PP_NUM=20; hd_seq=1;
 }
-# Ignore hdiskpower and SAS
-/hdiskpower/ { next; }
+
+# Ignore Unavailable device
+!/Available/ { next; }
+
+# Ignore LUNZ
+/LUNZ/ { next; }
+
+# Ignore EMC Device managed by Powerpath
+/EMC/ && !/MPIO/ { next; }
+
 /SAS/ { next; }
 $2 != "Available" { next; }
 
+# Ignore those with PVIDs
 {
-    # Ignore those with PVIDs
     if (!system("lspv "$1" 2>&1 | grep -q IDENTIFIER > /dev/null"))
     next;
 }
 
-# Filter EMC, test powerpath
-/EMC/ {
-    # Calculate PP Size
-    dev_ppsize = getppsize($1);
-    dev_lunsize = getlunsize($1);
-    # Do PowerPath path lookup
-    cmd = "powermt display dev="$1" 2>&1";
-    cmd | getline s; match(s, "="); 
-    if (RLENGTH == 1) {
-        powerdisk = substr(s,RSTART+RLENGTH);
-    }
-    close(cmd);
-    
-    dev = justify(powerdisk)
-    lun[dev] = powerdisk
-    vg[dev] = "vg_"dev;
-    ppsize[dev] = dev_ppsize;
-    lunsize[dev] = dev_lunsize;
-    next;
-}
 # Others
 {
     # Get justified name like hdisk001
     dev = justify($1);
     lun[dev] = $1;
-    vg[dev] = "vg_"dev;
+    vg[dev] = "hd"hd_seq;
+    hd_seq++;
     lunsize[dev] = getlunsize(lun[dev]);
     ppsize[dev] = getppsize(lun[dev]);
 }
 
 END {
+    print "-------------------- Creating VG and LVs ---------------------"
     for (d in lun){
-        # Commands execution
-        system("mkvg -s "ppsize[d]" -f -y "vg[d]" "lun[d]);
-        system("mklv -y jfs_"d" -t jfs "vg[d]" "LV_PP_NUM);
-        system("mklv -y jfs2_"d" -t jfs2 "vg[d]" "LV_PP_NUM);
-        system("crfs -v jfs -d jfs_"d" -m /jfs_"d" -u testgroup -A no");
-        system("crfs -v jfs2 -d jfs2_"d" -m /jfs2_"d" -u testgroup -A no");
-        system("varyonvg "vg[d]);
-        system("mount /jfs_"d);
-        system("mount /jfs2_"d);
-        system("lsvg -l "vg[d]);
+        # Commands execution, LV names following HTX naming convention
+        print("mkvg -s "ppsize[d]" -f -y vg_"d" "lun[d]);
+        print("mklv -y lv1"vg[d]" -t jfs vg_"d" "LV_PP_NUM);
+        print("mklv -y lv2"vg[d]" -t jfs2 vg_"d" "LV_PP_NUM);
+        print("crfs -v jfs -d lv1"vg[d]" -m /lv1"vg[d]" -u testgroup -A no");
+        print("crfs -v jfs2 -d lv2"vg[d]" -m /lv2"vg[d]" -u testgroup -A no");
+        print("varyonvg vg_"d);
+        print("mount /lv1"vg[d]);
+        print("mount /lv2"vg[d]);
+        print("lsvg -l vg_"d);
+        print ""
         print "-------------------- The Magical Seperator ---------------------"
+        print ""
     }
 }
 
