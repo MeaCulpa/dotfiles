@@ -211,15 +211,15 @@ END {
     print "-------------------- Creating VG and LVs ---------------------"
     for (d in lun){
         # Commands execution, LV names following HTX naming convention
-        print("mkvg -s "ppsize[d]" -f -y vg_"d" "lun[d]);
-        print("mklv -y lv1"vg[d]" -t jfs vg_"d" "LV_PP_NUM);
-        print("mklv -y lv2"vg[d]" -t jfs2 vg_"d" "LV_PP_NUM);
-        print("crfs -v jfs -d lv1"vg[d]" -m /lv1"vg[d]" -u testgroup -A no");
-        print("crfs -v jfs2 -d lv2"vg[d]" -m /lv2"vg[d]" -u testgroup -A no");
-        print("varyonvg vg_"d);
-        print("mount /lv1"vg[d]);
-        print("mount /lv2"vg[d]);
-        print("lsvg -l vg_"d);
+        system("mkvg -s "ppsize[d]" -f -y vg_"d" "lun[d]);
+        system("mklv -y lv1"vg[d]" -t jfs vg_"d" "LV_PP_NUM);
+        system("mklv -y lv2"vg[d]" -t jfs2 vg_"d" "LV_PP_NUM);
+        system("crfs -v jfs -d lv1"vg[d]" -m /lv1"vg[d]" -u testgroup -A no");
+        system("crfs -v jfs2 -d lv2"vg[d]" -m /lv2"vg[d]" -u testgroup -A no");
+        system("varyonvg vg_"d);
+        system("mount /lv1"vg[d]);
+        system("mount /lv2"vg[d]);
+        system("lsvg -l vg_"d);
         print ""
         print "-------------------- The Magical Seperator ---------------------"
         print ""
