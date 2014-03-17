@@ -1,0 +1,4 @@
+save_uisettings ui.Ulitharid
+savehotkeys hotkeys.Ulitharid
+save_colors colors.Ulitharid
+save_keymaps keymaps.Ulitharid

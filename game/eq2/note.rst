@@ -2,6 +2,77 @@
 EQ2 Note
 =========
 
+CA Recasts
+----------
+
+Single Target DU Chain
+~~~~~~~~~~~~~~~~~~~~~~
+
+    Dispatch
+    Murderous Rake
+    Debilitate
+    Sinister Strike
+    Double Up
+
+AoE DU Chain
+~~~~~~~~~~~~
+
+    Dispatch
+    Murderous Rake
+    Debilitate
+    Sinister Strike
+    Cornered
+    Double Up
+
+
+DU Chain
+~~~~~~~~
+
+60 sec
+
+    Dispatch
+    Murderous Rake
+    Debilitate
+    Sinister Strike
+    Double Up
+    
+    Cornered
+    Evasive Maneuvers
+
+    Strongarm
+
+35 sec
+
+    Thieving Essence
+    Will to Survive
+
+30 sec
+
+    Stunning Blow
+    Desperate Thrust 
+    Shank
+    BackStab
+    Battery and Assault
+
+    Black Jack
+
+    Torporous Strike
+    Traumatic Swipe
+
+20 sec
+
+    Gouge   
+    Evade
+
+    Barroom Negotiation
+
+10 sec
+    Puncture
+    Bum Rush
+    Rob
+    Shred
+
+
 Macros
 ------
 
@@ -57,6 +128,8 @@ Things ot get
 -------------
 
 Green Adorn x3: 
+    
+    Prime Consecrated Soul Trap
 
     Orb of Crippling Fear
     Burden of the Brood Mother
@@ -1060,7 +1133,130 @@ Non upgrading skills list
 
 
 
-Casting Order
+Casting Order I
+...............
+
+ You could get Cornered, Debilitate, and Murderous Rake in your Double Up
+ chain, thus GIVING YOU MORE dps. And Debilitate + Murderous Rake = 2nd
+ Dispatch. Which is why i have all my debuffs in before i do DoM. 
+
+
+This is making my head hurt. Let's start over shall we? What are your three main jobs in a raid?
+
+1) Max Health Debuffs so the raid doesn't have to hit as often
+2) Defensive Debuffs so the raid can hit harder
+3) DPS to help the mob's health meter go from 100 to 0
+
+Some will argue between which one should be one and two but they are both
+things you should be doing immediately. Taking that as our guide line my first
+piece of advice is to drop Sunder unless you have more rogues than you know
+what to do with and/or your swashie really sucks. It will hurt your DPS,
+period. Get over it and pick up Change of Engagement so you can spend less time
+killing mobs and more time arguing over loot.
+
+That said your cast order should reflect those priorities. Mine looks something
+like this:
+
+Traumatic Swipe (if applicable), Rob, Thieving Essence (I took the AA to
+decrease mob's crit bonus, it's like 5 Crit Mit for the entire raid. You should
+do the same), Change of Engagement, Will to Survive, Dispatch, Murderous Rake,
+Debilitate, Sinister Strike (if applicable), Double Up, Evasive Manuevers
+
+At this point I start my DoM chain. Why wait this long? Our biggest hits are
+(outside of DoM) are also our most important regular debuffs. You want them to
+apply longer so you want to Double Up them (plus they are our hardest hitting
+arts). DoM won't take that as a trigger and you need them in and the extra
+second + or so of Dispatch if possible.
+
+Second that was a full hotbar above. Switching hotbars in the middle of a DOM
+chain is wasted time unless you're really good at going from right to left as
+well (most of us aren't, I'm fairly sure). So now that we have all the max
+health debuffs in, the mit/resist debuffs in go to town on DoM. Unless you have
+to move then you're going to have plenty of Dispatch left for not just one hit,
+but all 8 of them.
+
+So from here I hit DoM (surprise) and go down my CAs grouped by recast, lowest
+to highest. Then when Dispatch is down hit Cornered to keep debuffs up. Things
+come back up in groups. I hit them in groups. DPS until mob is dead making sure
+to reapply Max Health Debuffs, Mit/Trauma Debuffs and Traumatic Swipe (if
+applicable) as soon as they come back up.
+
+And that's a basic single target cast order to get you started until you have a
+better feel for things.
+
+
+..............
+
+TE after MaxHP Debuff after DU
+
+So there nubs
+
+Doublethrow
+Deaggro
+Snare
+(Yucky MaxHP Debuff)
+DU Chain incl Sinister
+WTS
+TE
+(Sunder)
+DOM
+Bum Rush
+Hardest Hitting CAs
+
+gz you're a dpsing brigand now 
+
+..................
+
+Hello all I was hoping for a little help. I am not a raid gear or even raid
+brig but I do Pug raids every weekend and all SS instance/old DoV raid content
+weekly. I am parsing in CD/Lyceum/DP/UD at about 75k zone wide. On SS Pug’s I
+average about 6% of raid wide dps.
+Relevant stats are: CC: 329%, CB: 214%, MA: 645%, Abilit Mod : 408 Pot: 193%
+
+My cast order is as follows:
+
+    On Pull Ruthless, Deceit, ranged auto/Double Blast/Gouge
+    Debuff Set (1 Hotbar)
+
+    Traumatic Swipe
+    Rob
+    Thieving Essence
+    Change of Engagement
+    Desperate Thrust V
+    Will to Survive
+    Dispatch III
+    Murderous Rake VI
+    Debilitate IV
+    Sinister Strike
+    Double Up
+    Evasive Maneuvers
+
+    DoM Set (# 2 Hotbar)
+        Dance of Metal
+        Battery and Assault VII
+        Bum Rush VII
+        Shank V
+        Black Jack VI
+        Back Stab VIII
+        Cornered
+        Murderous Rake VI
+        Debilitate IV
+        Sinister Strike
+        Double Up
+        Evasive Maneuvers
+
+I go from Debuff Set to DoM set then fill in with
+deft, mug, holdup, Plank, puncture, stunning blow toporous and boot dagger.
+
+Now that you have endured that wall of text…Any thoughts on where I should be DPS wise?
+Is my casting order close? What tweaks can I make that will make the biggest difference?
+Thanks so much for your help. I am at work and cannot post parses atm sorry 
+
+
+
+Casting Order II
+................
+
 My casting order is always being tweaked while I look for the best order for
 personal and raid dps. Thieves Guild is cast on the bard in the group. Once I
 have run through the order, I repeat them as they come back up, keeping an eye

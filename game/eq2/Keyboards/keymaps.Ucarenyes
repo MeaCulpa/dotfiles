@@ -6,41 +6,49 @@ keydown KEY_0 UI_HOTBAR_2_BUTTON_10 alt
 keydown KEY_0 UI_QUICKBAR_BANK_9_ALT shift alt
 keydown KEY_1 UI_HOTBAR_1_BUTTON_1 
 keydown KEY_1 UI_HOTBAR_3_BUTTON_1 shift
+keydown KEY_1 UI_HOTBAR_4_BUTTON_1 control
 keydown KEY_1 UI_QUICKBAR_BANK_0_CTRL shift control
 keydown KEY_1 UI_HOTBAR_2_BUTTON_1 alt
 keydown KEY_1 UI_QUICKBAR_BANK_0_ALT shift alt
 keydown KEY_2 UI_HOTBAR_1_BUTTON_2 
 keydown KEY_2 UI_HOTBAR_3_BUTTON_2 shift
+keydown KEY_2 UI_HOTBAR_4_BUTTON_2 control
 keydown KEY_2 UI_QUICKBAR_BANK_1_CTRL shift control
 keydown KEY_2 UI_HOTBAR_2_BUTTON_2 alt
 keydown KEY_2 UI_QUICKBAR_BANK_1_ALT shift alt
 keydown KEY_3 UI_HOTBAR_1_BUTTON_3 
 keydown KEY_3 UI_HOTBAR_3_BUTTON_3 shift
+keydown KEY_3 UI_HOTBAR_4_BUTTON_3 control
 keydown KEY_3 UI_QUICKBAR_BANK_2_CTRL shift control
 keydown KEY_3 UI_HOTBAR_2_BUTTON_3 alt
 keydown KEY_3 UI_QUICKBAR_BANK_2_ALT shift alt
 keydown KEY_4 UI_HOTBAR_1_BUTTON_4 
 keydown KEY_4 UI_HOTBAR_3_BUTTON_4 shift
+keydown KEY_4 UI_HOTBAR_4_BUTTON_4 control
 keydown KEY_4 UI_QUICKBAR_BANK_3_CTRL shift control
 keydown KEY_4 UI_HOTBAR_2_BUTTON_4 alt
 keydown KEY_4 UI_QUICKBAR_BANK_3_ALT shift alt
 keydown KEY_5 UI_HOTBAR_1_BUTTON_5 
 keydown KEY_5 UI_HOTBAR_3_BUTTON_5 shift
+keydown KEY_5 UI_HOTBAR_4_BUTTON_5 control
 keydown KEY_5 UI_QUICKBAR_BANK_4_CTRL shift control
 keydown KEY_5 UI_HOTBAR_2_BUTTON_5 alt
 keydown KEY_5 UI_QUICKBAR_BANK_4_ALT shift alt
 keydown KEY_6 UI_HOTBAR_1_BUTTON_6 
 keydown KEY_6 UI_HOTBAR_3_BUTTON_6 shift
+keydown KEY_6 UI_HOTBAR_4_BUTTON_6 control
 keydown KEY_6 UI_QUICKBAR_BANK_5_CTRL shift control
 keydown KEY_6 UI_HOTBAR_2_BUTTON_6 alt
 keydown KEY_6 UI_QUICKBAR_BANK_5_ALT shift alt
 keydown KEY_7 UI_HOTBAR_1_BUTTON_7 
 keydown KEY_7 UI_HOTBAR_3_BUTTON_7 shift
+keydown KEY_7 UI_HOTBAR_4_BUTTON_7 control
 keydown KEY_7 UI_QUICKBAR_BANK_6_CTRL shift control
 keydown KEY_7 UI_HOTBAR_2_BUTTON_7 alt
 keydown KEY_7 UI_QUICKBAR_BANK_6_ALT shift alt
 keydown KEY_8 UI_HOTBAR_1_BUTTON_8 
 keydown KEY_8 UI_HOTBAR_3_BUTTON_8 shift
+keydown KEY_8 UI_HOTBAR_4_BUTTON_8 control
 keydown KEY_8 UI_QUICKBAR_BANK_7_CTRL shift control
 keydown KEY_8 UI_HOTBAR_2_BUTTON_8 alt
 keydown KEY_8 UI_QUICKBAR_BANK_7_ALT shift alt
@@ -200,6 +208,6 @@ mouseaxis MOUSE_XAXIS AXIS_CAMERAYAW
 mouseaxis MOUSE_YAXIS AXIS_CAMERAPITCH 
 keyhold KEY_PAD_MINUS ROTATE_MOVEABLE_OBJ_CW 
 keyhold KEY_PAD_PLUS ROTATE_MOVEABLE_OBJ_CCW 
-keyhold KEY_LCONTROL STATE_PUSH_TO_TALK 
+keyhold KEY_Q STATE_PUSH_TO_TALK 
 mousehold MOUSE_RBUTTON MOUSELOOK_ON 
 mousehold MOUSE_LBUTTON MOUSELOOK_ON_2 

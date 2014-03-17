@@ -95,11 +95,11 @@ MOUSELOOK_TOGGLE false
 cl_enable_abilityqueue true
 sound_provider Miles Fast 2D Positional Audio
 speakers System Default
-master_volume 0.480000
+master_volume 0.430000
 movie_volume 0.470000
 music_volume 0.000000
 combat_music_volume 0.000000
-voice_volume 0.500000
+voice_volume 0.420000
 mute_pc_vo false
 mute_npc_ecology_vo false
 mute_npc_combat_vo false
@@ -250,7 +250,7 @@ cl_mkt_price_confirmation 10
 cl_hits_mode 0
 cl_browser_disk_cache_enabled false
 cl_browser_disk_cache_size_mb 25
-server_eLootMethod 1
+server_eLootMethod 3
 server_bAutosplitCoin true
 server_eYellMethod 1
 server_eLockMethod 0
