@@ -1,4 +1,7 @@
-load_keymaps keymaps.Ucarenyes
-load_colors colors.Ucarenyes
-loadhotkeys hotkeys.Ucarenyes
-load_uisettings ui.Ucarenyes
+load_keymaps keymaps.Ucarenya
+load_colors colors.Ucarenya
+loadhotkeys hotkeys.Ucarenya
+load_uisettings ui.Ucarenya
+show_window Custom.DrumsUI_ST_Window
+show_window Custom.TargetCasting
+combat_filter 2

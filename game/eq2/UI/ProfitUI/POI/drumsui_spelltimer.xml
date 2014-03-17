@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Page Name="POI">
+    <Page Name="DrumsUI_Ucarenya">
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Thieving Essence" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spectral Blast" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Double Up" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+        <Icon Name="ST_11" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Dance of Metal" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_11" />
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Hand of Death" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spirit Siphon" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Searing Power" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Dragon Claws" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_15" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Persistence" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_15" />
+        <Icon Name="ST_13" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Pris de Fer" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_13" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Reckless Assault" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_12" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Exacting Venom" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_12" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Eye of Drinal" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Thug&apos;s Poison" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+        <Icon Name="ST_14" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Killing Chamber" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_14" />
+    </Page>
+    <Page Name="DrumsUI_Ucarenyes">
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Thieving Essence" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spectral Blast" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Double Up" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+        <Icon Name="ST_11" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Dance of Metal" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_11" />
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Hand of Death" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spirit Siphon" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Searing Power" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Dragon Claws" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_15" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Persistence" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_15" />
+        <Icon Name="ST_13" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Pris de Fer" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_13" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Reckless Assault" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_12" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Exacting Venom" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_12" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Eye of Drinal" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+        <Icon Name="ST_14" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spell Name 14" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_14" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Thug&apos;s Poison" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+    </Page>
+    <Page Name="DrumsUI_Ghullu">
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Eidolic Ward" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+        <Icon Name="ST_14" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Ancestral Avenger V" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_14" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Runic Armor VIII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+        <Icon Name="ST_15" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Ritual of Alacrity" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_15" />
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Purulence" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Ancient Shroud VIII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spiritual Circle III" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Death Cries" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Phantasmal Barrier" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Wraithwall" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Storm Animus" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Carrion Warding VII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_11" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Ferocity of Spirits" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_11" />
+        <Icon Name="ST_12" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Warding Spirit" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_12" />
+        <Icon Name="ST_13" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Spirit Aegis" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_13" />
+    </Page>
+    <Page Name="DrumsUI_Groomer">
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Cacophony of Blades III" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Cadence of Destruction" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Rhythmic Overture" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Echoing Power" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Victorious Concerto" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Gravitas" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Eulogy of the Fallen" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Deadly Dance" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Pulse of Oblivion" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Killing Spree" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_11" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Songspinner&apos;s Defiance" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_11" />
+        <Icon Name="ST_12" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Songspinner&apos;s Cunning" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_12" />
+        <Icon Name="ST_13" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Songspinner&apos;s Intelligence" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_13" />
+        <Icon Name="ST_14" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Resonation" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_14" />
+        <Icon Name="ST_15" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Echoing Power" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_15" />
+    </Page>
+    <Page Name="DrumsUI_Epiczy">
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Divine Aura" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Blood Siphon" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+    </Page>
+    <Page Name="DrumsUI_Gentoo">
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Open Wounds" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Rampage IV" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_13" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Unyielding Will" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_13" />
+        <Icon Name="ST_15" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Wall of Rage VII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_15" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Adrenaline" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Vision of Madness" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Gut Roar" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_14" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Controlled Rage VI" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_14" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Rampager&apos;s Resilience" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+        <Icon Name="ST_11" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Saga" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_11" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Battle Frenzy" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Battle Frenzy" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Wall of Force" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_12" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Perfect Counter" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_12" />
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Dragoon&apos;s Reflexes" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+    </Page>
+    <Page Name="DrumsUI_Xephre">
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Focus Aim IV" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Killing Instinct III" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Impenetrable" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Predator&apos;s Final Trick" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Honed Reflexes" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Weakness Detected" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Makeshift Arrows VII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Repeated Salvo" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Stalk VII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Flaming Weapons" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+    </Page>
+    <Page Name="DrumsUI_Methuselar">
+        <Icon Name="ST_1" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Demonstration of Faith VII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_1" />
+        <Icon Name="ST_2" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Amend III" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_2" />
+        <Icon Name="ST_3" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Divine Favor" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_3" />
+        <Icon Name="ST_7" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Holy Ground" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_7" />
+        <Icon Name="ST_10" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Divine Justice" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_10" />
+        <Icon Name="ST_11" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Barrier of Divinity" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_11" />
+        <Icon Name="ST_9" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Prayer of Healing VIII" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_9" />
+        <Icon Name="ST_12" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Crusader&apos;s Faith" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_12" />
+        <Icon Name="ST_13" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Consecrate IV" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_13" />
+        <Icon Name="ST_15" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Divine Aura" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_15" />
+        <Icon Name="ST_14" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Stonewall" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_14" />
+        <Icon Name="ST_5" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Lay on Hands VI" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_5" />
+        <Icon Name="ST_6" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Faith" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_6" />
+        <Icon Name="ST_4" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Draconic Shout" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_4" />
+        <Icon Name="ST_8" PathFindLocation="0.00 20000.00 0.00" PoiDescription="Tormenting Assault" PoiResource="site" PoiShowAlways="true" PoiType="LOCATION" Tooltip="ST_8" />
+    </Page>
+</Page>
